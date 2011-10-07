@@ -7,49 +7,28 @@ Ext.define('UI.controller.users', {
         , 'users.edit'
     ],
 
-    stores: ['users'],
     models: ['users'],
 
     init: function () {
     
         this.control ({
         
+            'users_list': {
+                  show: loadFirstGrid
+            },
+
+            'users_list pagingtoolbar textfield': {
+                change: changeSearchFieldValue
+            },
+
             'users_list gridpanel': {
+            	  containercontextmenu: showMenuOffTableBody,
+            	  itemcontextmenu: showMenuOnTableBody,
                   itemdblclick: this.editUser
-            },
-            
-            'users_list button[action=edit]': {
-                click: this.newUser
-            },
-            
-            'users_edit button[action=save]': {
-                click: this.updateUser
             }
-            
+                                    
         });
-        
-    },
-
-    updateUser: function (button) {
-
-	submit (button.up ('window').down('form').getForm (), function (data, form) {
-	
-		var win = form.owner.up ('window');
-	
-		win.grid.store.load ();
-
-		win.close ();
-	
-	});
-	    
-    },
-    
-    newUser: function (button) {
-    
-        var win = Ext.widget ('users_edit');
-
-        win.grid = button.up ('window').down('gridpanel');
-
+                
     },
     
     editUser: function (grid, record) {

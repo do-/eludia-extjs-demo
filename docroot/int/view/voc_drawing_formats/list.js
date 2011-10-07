@@ -1,20 +1,20 @@
-Ext.define ('UI.view.users.list', {
+Ext.define ('UI.view.voc_drawing_formats.list', {
 
     extend: 'Ext.window.Window',
-    alias : 'widget.users_list',
+    alias : 'widget.voc_drawing_formats_list',
     closeAction: 'hide',
     maximizable : true,
     width: 800,
     height: 687,
     renderTo: 'center',
 
-    title : 'Список пользователей системы',
+    title : 'Список форматов чертежей',
     layout: 'fit',
     autoShow: true,
 
     initComponent: function () {
     
-	var theStore = store ({'type': 'users'});
+	var theStore = store ({'type': 'voc_drawing_formats'});
 
         this.items = [
         
@@ -25,8 +25,7 @@ Ext.define ('UI.view.users.list', {
 			store : theStore,
 
 			columns : [
-			    {header: 'ФИО',  dataIndex: 'label', flex: 1},
-			    {header: 'Login', dataIndex: 'login',  flex: 1}
+			    {header: 'Наименование',  dataIndex: 'label', flex: 1}
 			],
 			
 			viewConfig: {
@@ -51,13 +50,17 @@ Ext.define ('UI.view.users.list', {
 				items: [
 				
 					{
+						icon: '/ext/examples/desktop/images/gears.gif',
+						action: 'edit'
+					},
+					{
 						xtype: 'textfield',
 						name: 'q',
 						fieldLabel: 'Поиск',
 						labelWidth: 50
 					},
 					
-					fakeSelect (),
+					fakeSelect ()
 					
 				]
 

@@ -21,7 +21,7 @@ sub select_users {
 
 			['label LIKE %?%' => $_REQUEST {q}],
 			
-			[ LIMIT => 'start, 50'],
+			[ LIMIT => 'start, 25'],
 		
 		],
 					

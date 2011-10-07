@@ -2,5 +2,7 @@
 /docroot/dbm
 /docroot/ext
 /docroot/i/_skins
+/docroot/i/_mbox
 /docroot/session_access_logs
 /logs
+run.cmd
