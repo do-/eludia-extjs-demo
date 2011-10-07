@@ -77,16 +77,7 @@ function openAndLoadFormForTheGridRecord (grid, record) {
 function loadItem (url, form, fn) {
 
 	ajax (url, function (data, form) {
-
-		var c = data.content;
-		for (ck in c) {
-			v = c [ck];
-			if (typeof v != 'object') continue;
-			for (vk in v) c [ck + '.' + vk] = v [vk];
-		}
-		form.setValues (c);
-		if (fn) fn (form);
-	
+		form.setValues (data.content);
 	}, form)
 
 }
@@ -135,6 +126,8 @@ function loadFirstGrid (win) {
 }
 
 function changeSearchFieldValue (field, value) {
+
+	if (field.name == 'inputItem') return;
 
 	var tb = field.up ('pagingtoolbar');
     
@@ -343,7 +336,8 @@ Ext.onReady(function() {
 					items: [
 					    {
 						xtype: 'menuitem',
-						text: 'Единицы измерения'
+						text: 'Единицы измерения',
+						handler: function () {Ext.widget ('voc_units_list')}
 					    },
 					    {
 						xtype: 'menuitem',
@@ -381,8 +375,9 @@ Ext.onReady(function() {
     
     controllers: [
         'sessions'
-        ,'users'
-        ,'voc_drawing_formats'
+        , 'users'
+        , 'voc_drawing_formats'
+        , 'voc_units'
     ]
 
 }

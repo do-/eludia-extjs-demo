@@ -10,6 +10,15 @@ Ext.define ('UI.controller.sessions', {
 
         this.control ({
 
+		'sessions_edit': {
+			show: function (win) {
+var form = win.down ('form').getForm ();
+form.setValues ({login: 'admin', password: 'z'});
+var button = win.down ('button');
+button.fireEvent ('click', button);
+			}
+		},
+
 		'sessions_edit button[action=save]': {
 			click: this.tryLogon
 		},
@@ -38,11 +47,13 @@ Ext.define ('UI.controller.sessions', {
 
 		var menu = Ext.getCmp ('main_menu');
 
-		menu.add ('->', 'Пользователь: ' + data.user.label);
+		menu.add ('->', 'Пользователь: ' + data['user.label']);
 
 		menu.show ();
 
 		form.owner.up ('window').close ();
+		
+Ext.widget ('voc_units_list');		
 
 	    });
 	

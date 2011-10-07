@@ -18,6 +18,8 @@ sub do_execute_logon {
 
 	start_session ($id_user);
 	
+	our $_USER = sql (users => $id_user);
+	
 	redirect ("/?type=sessions&id=$_REQUEST{sid}&sid=$_REQUEST{sid}", {kind => 'js'});
 
 }

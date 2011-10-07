@@ -63,7 +63,7 @@ Ext.define('UI.controller.voc_drawing_formats', {
 			, {
 				text    : 'Слить ' + russianNRecords (cnt [0]), 
 				handler : askToMergeRecords, 
-				off     : (cnt [0] == 0 || cnt [-1] > 0)
+				off     : (cnt [0] <  2 || cnt [-1] > 0)
 			}
 			, {
 				text    : 'Восстановить ' + russianNRecords (cnt [-1]), 
