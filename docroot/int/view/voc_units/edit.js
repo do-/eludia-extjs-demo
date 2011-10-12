@@ -60,7 +60,7 @@ Ext.define ('UI.view.voc_units.edit', {
                         fieldLabel: 'Код по ОКЕИ',
                         maskRe: /[0-9]/,
                         regex: /^[0-9]{3}$/,
-                        regexText: 'Код ОКЕИ должен состять ровно из 3 арабских цифр',
+                        regexText: 'Код ОКЕИ должен состять ровно из 3 арабских цифр'
                     },
 		    
                     {
@@ -140,7 +140,7 @@ Ext.define ('UI.view.voc_units.edit', {
                         dataIndex: 'voc_unit_coeff.coeff',
                         text: 'сколько',
 			    editor: {
-				xtype:'numberfield',
+				xtype:'numberfield'
 			    }                        
                     },
                     {

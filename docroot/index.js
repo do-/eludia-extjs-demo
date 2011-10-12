@@ -300,6 +300,37 @@ Ext.onReady(function() {
     launch: function() {
     
     	document.body.innerHTML = '';
+    	
+    	
+    	
+    	
+    	
+    	
+    	
+    	
+    var store = Ext.create('Ext.data.TreeStore', {
+        proxy: {
+            type: 'ajax',
+		url: '/handler',
+		extraParams: {type: 'voc_groups'},
+		reader: {
+		    type: 'json',
+		    root: 'content'
+		}		
+        },
+        
+	defaultRootId : 0
+
+    });
+    	
+    	
+    	
+    	
+    	
+    	
+    	
+    	
+    	
 
 	Ext.create ('Ext.container.Viewport', {
 
@@ -307,15 +338,27 @@ Ext.onReady(function() {
 
 		items: [
             
-//			{
-//				xtype:  'toolbar',
-//				region: 'north',
-//				id:     'main_menu',
-//				height: 30,
-//				items:  ['Аутентификация'],
-//				hidden: true
-//			},
-			
+
+
+
+{
+	xtype: 'treepanel',
+	region: 'west',
+            width: 200,
+		id:     'left_menu',
+		hidden: true,
+            collapsible: true,   
+		split: true,  
+	title: 'Номенклатура',
+	rootVisible : false,
+    store: store
+},
+
+
+
+
+
+
 
 			{
 			    xtype: 'toolbar',
@@ -324,10 +367,6 @@ Ext.onReady(function() {
 				height: 30,
 				hidden: true,
 			    items: [
-				{
-				    xtype: 'button',
-				    text: 'Номенклатура'
-				},
 				{
 				    xtype: 'button',
 				    text: 'Справочники',

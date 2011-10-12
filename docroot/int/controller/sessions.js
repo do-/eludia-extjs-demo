@@ -50,10 +50,13 @@ button.fireEvent ('click', button);
 		menu.add ('->', 'Пользователь: ' + data['user.label']);
 
 		menu.show ();
+		
+		Ext.getCmp ('left_menu').show ();
+		Ext.getCmp ('left_menu').store.load ();
 
 		form.owner.up ('window').close ();
 		
-Ext.widget ('voc_units_list');		
+//Ext.widget ('voc_units_list');		
 
 	    });
 	
