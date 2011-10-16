@@ -1,3 +1,19 @@
+function noOff (a) {
+
+	var b = [];
+	
+	for (var i = 0; i < a.length; i ++) {
+	
+		var x = a [i];
+		if (x.off) continue;
+		b.push (x);
+		
+	}
+	
+	return b;
+
+}
+
 function ajax (url, handler, form) {
 
 	if (/type=_boot/.test (url)) return alert ('Session expired');
@@ -47,9 +63,40 @@ function closeContainingWindow (button) {
 	
 }
 
+function storeOf (grid) {
+
+	var className = Ext.getClassName (grid);
+
+	var r =
+		className == 'Ext.tree.View' ? grid.getTreeStore () : 
+		className == 'Ext.grid.View' ? grid.getStore () : 
+		grid.store;
+
+	return r;	
+
+}
+
 function refreshParentGridAndCloseThisWindow (page, form) {
+
 	var win = form.owner.up ('window');
-	win.grid.store.load ();
+	
+	var store = storeOf (win.grid);
+
+	if (Ext.getClassName (win.grid) == 'Ext.tree.View') {
+	
+		var id = page.content.parent;
+
+		var node = store.getNodeById (id);
+
+		store.load ({node: node});
+	
+	}
+	else {
+	
+		store.load ();
+	
+	}
+	
 	win.close ();
 }
 
@@ -222,12 +269,8 @@ function createPopupMenu (grid) {
 }
 
 function typeBehindTheGrid (grid) {
-
-	var store = grid.store;
 	
-	if (!store) store = grid.getStore ();
-	
-	return store.getProxy ().extraParams.type;
+	return storeOf (grid).getProxy ().extraParams.type;
 	
 }
 
@@ -306,28 +349,7 @@ Ext.onReady(function() {
     	
     	
     	
-    	
-    	
-    var store = Ext.create('Ext.data.TreeStore', {
-        proxy: {
-            type: 'ajax',
-		url: '/handler',
-		extraParams: {type: 'voc_groups'},
-		reader: {
-		    type: 'json',
-		    root: 'content'
-		}		
-        },
-        
-	defaultRootId : 0
-
-    });
-    	
-    	
-    	
-    	
-    	
-    	
+     	
     	
     	
     	
@@ -337,24 +359,9 @@ Ext.onReady(function() {
 		layout: 'border',
 
 		items: [
-            
-
-
-
-{
-	xtype: 'treepanel',
-	region: 'west',
-            width: 200,
-		id:     'left_menu',
-		hidden: true,
-            collapsible: true,   
-		split: true,  
-	title: 'Номенклатура',
-	rootVisible : false,
-    store: store
-},
-
-
+		
+			Ext.widget ('voc_groups_list'),
+          
 
 
 
@@ -417,6 +424,7 @@ Ext.onReady(function() {
         , 'users'
         , 'voc_drawing_formats'
         , 'voc_units'
+        , 'voc_groups'
     ]
 
 }

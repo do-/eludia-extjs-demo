@@ -52,12 +52,10 @@ button.fireEvent ('click', button);
 		menu.show ();
 		
 		Ext.getCmp ('left_menu').show ();
-		Ext.getCmp ('left_menu').store.load ();
+		Ext.getCmp ('left_menu').load ();
 
 		form.owner.up ('window').close ();
 		
-//Ext.widget ('voc_units_list');		
-
 	    });
 	
     }
