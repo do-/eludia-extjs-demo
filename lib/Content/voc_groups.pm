@@ -24,7 +24,7 @@ sub do_delete_voc_groups {
 
 sub get_item_of_voc_groups {
 
-	my $data = sql (voc_groups => $_REQUEST {id}, 'log(dt)', 'users(label)');
+	my $data = sql (voc_groups => $_REQUEST {id}, 'log(dt)', 'users(label)', 'voc_groups AS rights_holder ON voc_groups.id_rights_holder');
 
 	return $data;
 

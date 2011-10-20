@@ -39,7 +39,19 @@ Ext.define ('UI.view.voc_groups.list', {
 			xtype: 'treepanel',
 			rootVisible : false,
 			store: store,
+
+
+
 			
+			viewConfig: {
+			    plugins: {
+				ptype: 'treeviewdragdrop',
+				enableDrop : false
+			    }
+			},
+			
+
+
 			listeners: {
 
 				itemcontextmenu: {

@@ -34,6 +34,11 @@ Ext.define ('UI.view.voc_groups.edit', {
                         name  : 'id',
                         hidden: true,
                     },
+                    {
+                        xtype : 'hiddenfield',
+                        name  : 'id_rights_holder',
+                        hidden: true,
+                    },
                     
                     {
                         xtype: 'textfield',
@@ -82,6 +87,16 @@ Ext.define ('UI.view.voc_groups.edit', {
                         msgTarget : 'side',
                         fieldLabel: 'Примечание',
                     },	
+                    {
+                        xtype: 'textfield',
+                        tabIndex: 0,
+                        size: 23,
+                        readOnly : true,
+                        name : 'rights_holder.label',
+                        itemId: 'note',
+                        msgTarget : 'side',
+                        fieldLabel: 'Источник права',
+                    },	
 		    
                     {
                         xtype: 'fieldset',
@@ -104,13 +119,12 @@ Ext.define ('UI.view.voc_groups.edit', {
                                 name: 'user.label',
                                 fieldLabel: 'Автор'
                             }
-                        ]
+                        ],
+                        
                     }		    
-		    		    
-
 
                 ],
-                
+                                
         	buttons: [
         	
         		{                
@@ -123,7 +137,45 @@ Ext.define ('UI.view.voc_groups.edit', {
                 		action: 'close'
             		}
             
-        	]
+        	],
+        	
+        	
+        	
+                listeners : {
+                
+                	afterlayout: {
+                	
+                		fn: function (cont, lay, o) {
+				
+				    var formPanelDropTarget = Ext.create('Ext.dd.DropTarget', cont.body.dom, {
+
+					ddGroup: 'TreeDD',
+
+					notifyEnter: function(ddSource, e, data) {
+					    cont.body.stopAnimation();
+					    cont.body.highlight();
+					},
+
+					notifyDrop  : function(ddSource, e, data){
+
+					    var selectedRecord = ddSource.dragData.records [0];
+
+					    cont.down ("hiddenfield[name='id_rights_holder']" ).setValue (selectedRecord.get ('id'));
+					    cont.down ("textfield[name='rights_holder.label']").setValue (selectedRecord.get ('text'));
+
+					    return true;
+
+					}
+				    });
+
+                		}
+                	
+                	}
+                
+                }
+        	
+        	
+        	
         
             }
             
@@ -131,6 +183,8 @@ Ext.define ('UI.view.voc_groups.edit', {
 
         this.callParent(arguments);
         
+//alert (this.items.getAt(0).body.dom);
+
     }
     
 });
