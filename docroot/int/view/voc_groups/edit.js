@@ -17,27 +17,27 @@ Ext.define ('UI.view.voc_groups.edit', {
         
             {
                 xtype: 'form',            
-		layout: 'fit',
+        layout: 'fit',
                 bodyPadding: 10,
-//		bodyStyle: 'padding:5px; border:0px; _border-bottom:1px;',
-		waitMsgTarget: true,
-		
-		baseParams: {
-			type: 'voc_groups',
-			action: 'update'
-		},
-		
+//      bodyStyle: 'padding:5px; border:0px; _border-bottom:1px;',
+        waitMsgTarget: true,
+        
+        baseParams: {
+            type: 'voc_groups',
+            action: 'update'
+        },
+        
                 items: [
     
                     {
                         xtype : 'hiddenfield',
                         name  : 'id',
-                        hidden: true,
+                        hidden: true
                     },
                     {
                         xtype : 'hiddenfield',
                         name  : 'id_rights_holder',
-                        hidden: true,
+                        hidden: true
                     },
                     
                     {
@@ -46,11 +46,11 @@ Ext.define ('UI.view.voc_groups.edit', {
                         size: 23,
                         name : 'label',
                         itemId: 'label',
-			allowBlank : false,
+            allowBlank : false,
                         msgTarget : 'side',
                         fieldLabel: 'Наименование',
-	                blankText: 'Вы забыли ввести наименование'
-                    },		    
+                    blankText: 'Вы забыли ввести наименование'
+                    },          
                     {
                         xtype: 'textfield',
                         tabIndex: 0,
@@ -58,8 +58,8 @@ Ext.define ('UI.view.voc_groups.edit', {
                         name : 'vkg_okp',
                         itemId: 'vkg_okp',
                         msgTarget : 'side',
-                        fieldLabel: 'ОКП',
-                    },		    
+                        fieldLabel: 'ОКП'
+                    },          
                     {
                         xtype: 'textfield',
                         tabIndex: 0,
@@ -67,8 +67,8 @@ Ext.define ('UI.view.voc_groups.edit', {
                         name : 'no_1c',
                         itemId: 'no_1c',
                         msgTarget : 'side',
-                        fieldLabel: '1С',
-                    },		    
+                        fieldLabel: '1С'
+                    },          
                     {
                         xtype: 'textfield',
                         tabIndex: 0,
@@ -76,8 +76,8 @@ Ext.define ('UI.view.voc_groups.edit', {
                         name : 'code_SKMTR',
                         itemId: 'code_SKMTR',
                         msgTarget : 'side',
-                        fieldLabel: 'СКМТР',
-                    },	
+                        fieldLabel: 'СКМТР'
+                    },  
                     {
                         xtype: 'textfield',
                         tabIndex: 0,
@@ -85,8 +85,8 @@ Ext.define ('UI.view.voc_groups.edit', {
                         name : 'note',
                         itemId: 'note',
                         msgTarget : 'side',
-                        fieldLabel: 'Примечание',
-                    },	
+                        fieldLabel: 'Примечание'
+                    },  
                     {
                         xtype: 'textfield',
                         tabIndex: 0,
@@ -95,9 +95,9 @@ Ext.define ('UI.view.voc_groups.edit', {
                         name : 'rights_holder.label',
                         itemId: 'note',
                         msgTarget : 'side',
-                        fieldLabel: 'Источник права',
-                    },	
-		    
+                        fieldLabel: 'Источник права'
+                    },  
+            
                     {
                         xtype: 'fieldset',
                         autoRender: true,
@@ -119,63 +119,63 @@ Ext.define ('UI.view.voc_groups.edit', {
                                 name: 'user.label',
                                 fieldLabel: 'Автор'
                             }
-                        ],
+                        ]
                         
-                    }		    
+                    }           
 
                 ],
                                 
-        	buttons: [
-        	
-        		{                
-				text: 'Сохранить',
-				action: 'save'
-			},
-
-            		{
-                		text: 'Закрыть',
-                		action: 'close'
-            		}
+            buttons: [
             
-        	],
-        	
-        	
-        	
+                {                
+                text: 'Сохранить',
+                action: 'save'
+            },
+
+                    {
+                        text: 'Закрыть',
+                        action: 'close'
+                    }
+            
+            ],
+            
+            
+            
                 listeners : {
                 
-                	afterlayout: {
-                	
-                		fn: function (cont, lay, o) {
-				
-				    var formPanelDropTarget = Ext.create('Ext.dd.DropTarget', cont.body.dom, {
+                    afterlayout: {
+                    
+                        fn: function (cont, lay, o) {
+                
+                    var formPanelDropTarget = Ext.create('Ext.dd.DropTarget', cont.body.dom, {
 
-					ddGroup: 'TreeDD',
+                    ddGroup: 'TreeDD',
 
-					notifyEnter: function(ddSource, e, data) {
-					    cont.body.stopAnimation();
-					    cont.body.highlight();
-					},
+                    notifyEnter: function(ddSource, e, data) {
+                        cont.body.stopAnimation();
+                        cont.body.highlight();
+                    },
 
-					notifyDrop  : function(ddSource, e, data){
+                    notifyDrop  : function(ddSource, e, data){
 
-					    var selectedRecord = ddSource.dragData.records [0];
+                        var selectedRecord = ddSource.dragData.records [0];
 
-					    cont.down ("hiddenfield[name='id_rights_holder']" ).setValue (selectedRecord.get ('id'));
-					    cont.down ("textfield[name='rights_holder.label']").setValue (selectedRecord.get ('text'));
+                        cont.down ("hiddenfield[name='id_rights_holder']" ).setValue (selectedRecord.get ('id'));
+                        cont.down ("textfield[name='rights_holder.label']").setValue (selectedRecord.get ('text'));
 
-					    return true;
+                        return true;
 
-					}
-				    });
+                    }
+                    });
 
-                		}
-                	
-                	}
+                        }
+                    
+                    }
                 
                 }
-        	
-        	
-        	
+            
+            
+            
         
             }
             

@@ -11,17 +11,17 @@ Ext.define('UI.controller.voc_groups', {
     
         this.control ({
         
- 		'voc_groups_edit button[action=save]': {
-			click: saveRefreshParentGridAndCloseThisWindow
-		},
-		
- 		'voc_groups_edit button[action=close]': {
-			click: closeContainingWindow
-		}
-		
+        'voc_groups_edit button[action=save]': {
+            click: saveRefreshParentGridAndCloseThisWindow
+        },
+        
+        'voc_groups_edit button[action=close]': {
+            click: closeContainingWindow
+        }
+        
         
         });
                 
-    },
+    }
         
 });

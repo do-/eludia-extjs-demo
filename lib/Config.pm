@@ -20,7 +20,7 @@ our $conf = {
 	core_hide_row_buttons => 2,
 	core_recycle_ids => 0,
 	core_unlimit_xls => 1,
-	core_sql_flat => 1,
+#	core_sql_flat => 1,
 	
 	kb_options_menu    => {alt => 1},
 	kb_options_buttons => {ctrl => 1},
