@@ -12,23 +12,23 @@ Ext.define ('UI.view.voc_groups.edit', {
     defaultFocus : 'label',
 
     initComponent: function() {
-    
+
         this.items = [
-        
+
             {
-                xtype: 'form',            
+                xtype: 'form',
         layout: 'fit',
                 bodyPadding: 10,
 //      bodyStyle: 'padding:5px; border:0px; _border-bottom:1px;',
         waitMsgTarget: true,
-        
+
         baseParams: {
             type: 'voc_groups',
             action: 'update'
         },
-        
+
                 items: [
-    
+
                     {
                         xtype : 'hiddenfield',
                         name  : 'id',
@@ -39,7 +39,7 @@ Ext.define ('UI.view.voc_groups.edit', {
                         name  : 'id_rights_holder',
                         hidden: true
                     },
-                    
+
                     {
                         xtype: 'textfield',
                         tabIndex: 0,
@@ -50,7 +50,7 @@ Ext.define ('UI.view.voc_groups.edit', {
                         msgTarget : 'side',
                         fieldLabel: 'Наименование',
                     blankText: 'Вы забыли ввести наименование'
-                    },          
+                    },
                     {
                         xtype: 'textfield',
                         tabIndex: 0,
@@ -59,7 +59,7 @@ Ext.define ('UI.view.voc_groups.edit', {
                         itemId: 'vkg_okp',
                         msgTarget : 'side',
                         fieldLabel: 'ОКП'
-                    },          
+                    },
                     {
                         xtype: 'textfield',
                         tabIndex: 0,
@@ -68,7 +68,7 @@ Ext.define ('UI.view.voc_groups.edit', {
                         itemId: 'no_1c',
                         msgTarget : 'side',
                         fieldLabel: '1С'
-                    },          
+                    },
                     {
                         xtype: 'textfield',
                         tabIndex: 0,
@@ -77,7 +77,7 @@ Ext.define ('UI.view.voc_groups.edit', {
                         itemId: 'code_SKMTR',
                         msgTarget : 'side',
                         fieldLabel: 'СКМТР'
-                    },  
+                    },
                     {
                         xtype: 'textfield',
                         tabIndex: 0,
@@ -86,7 +86,7 @@ Ext.define ('UI.view.voc_groups.edit', {
                         itemId: 'note',
                         msgTarget : 'side',
                         fieldLabel: 'Примечание'
-                    },  
+                    },
                     {
                         xtype: 'textfield',
                         tabIndex: 0,
@@ -96,8 +96,8 @@ Ext.define ('UI.view.voc_groups.edit', {
                         itemId: 'note',
                         msgTarget : 'side',
                         fieldLabel: 'Источник права'
-                    },  
-            
+                    },
+
                     {
                         xtype: 'fieldset',
                         autoRender: true,
@@ -120,33 +120,31 @@ Ext.define ('UI.view.voc_groups.edit', {
                                 fieldLabel: 'Автор'
                             }
                         ]
-                        
-                    }           
+
+                    }
 
                 ],
-                                
-            buttons: [
-            
-                {                
-                text: 'Сохранить',
-                action: 'save'
-            },
+
+                buttons: [
+
+                    {
+                        text: 'Сохранить',
+                        listeners: {click: {fn: saveRefreshParentGridAndCloseThisWindow}}
+                    },
 
                     {
                         text: 'Закрыть',
-                        action: 'close'
+                        listeners: {click: {fn: closeContainingWindow}}
                     }
-            
-            ],
-            
-            
-            
+
+                ],
+
                 listeners : {
-                
+
                     afterlayout: {
-                    
+
                         fn: function (cont, lay, o) {
-                
+
                     var formPanelDropTarget = Ext.create('Ext.dd.DropTarget', cont.body.dom, {
 
                     ddGroup: 'TreeDD',
@@ -169,22 +167,22 @@ Ext.define ('UI.view.voc_groups.edit', {
                     });
 
                         }
-                    
+
                     }
-                
+
                 }
-            
-            
-            
-        
+
+
+
+
             }
-            
+
         ];
 
         this.callParent(arguments);
-        
+
 //alert (this.items.getAt(0).body.dom);
 
     }
-    
+
 });

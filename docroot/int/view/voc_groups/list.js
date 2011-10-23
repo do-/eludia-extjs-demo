@@ -6,19 +6,19 @@ Ext.define ('UI.view.voc_groups.list', {
     title : 'Номенклатура',
     layout: 'fit',
     autoShow: true,
-    region: 'west', 
+    region: 'west',
     width: 200,
-    collapsible: true,   
+    collapsible: true,
     id:     'left_menu',
     hidden: true,
     split: true,
 
     initComponent: function () {
-    
+
     var store = Ext.create('Ext.data.TreeStore', {
-    
+
         autoLoad: true,
-    
+
         proxy: {
             type: 'ajax',
             url: '/handler',
@@ -26,120 +26,116 @@ Ext.define ('UI.view.voc_groups.list', {
             reader: {
                 type: 'json',
                 root: 'content'
-            }       
+            }
         },
 
         defaultRootId : 0
 
         });
-    
+
         this.items = [
-        
-        {            
+
+        {
             xtype: 'treepanel',
             rootVisible : false,
             store: store,
 
 
 
-            
+
             viewConfig: {
                 plugins: {
                 ptype: 'treeviewdragdrop',
                 enableDrop : false
                 }
             },
-            
+
 
 
             listeners: {
-            
-                itemdblclick: {
-                
-                    fn: function (me, record, item, index, event, options) {
-                    
-                        new UI.view.products.list ({voc_group: record});
 
-//                        Ext.widget ('products_list');
-                    
-//                        alert (record.get ('id'));
-                        
+                itemdblclick: {
+
+                    fn: function (me, record, item, index, event, options) {
+
+                        Ext.create ('UI.view.products.list', {voc_group: record});
+
                     }
-                    
+
                 },
 
                 itemcontextmenu: {
 
                     fn: function (grid, record, item, index, event, options) {
-                    
+
                         event.stopEvent ();
 
                         new Ext.menu.Menu ({
-                        
+
                             floating: true,
-                            
+
                             items: noOff ([
-                            
+
                                 {
                                     text: 'Свойства...',
-                                                                
+
                                     handler: function () {
 
                                     openAndLoadFormForTheGridRecord (grid, record);
-                                    
+
                                     }
-                                    
+
                                 },
                                 {
                                     xtype: 'menuseparator'
                                 },
-                                
+
                                 {
                                     text: 'Создать подрубрику...',
 
                                     handler: function () {
-                                    
+
                                         ajax ('/?type=voc_groups&action=create&_parent=' + record.get ('id'), function (data, grid) {
-                                                                                                                        
-                                        openAndLoadFormForTheGridRecord (grid, {get: function () {return data.content.id}});                                        
-                                        
-                                        }, grid);                                   
+
+                                        openAndLoadFormForTheGridRecord (grid, {get: function () {return data.content.id}});
+
+                                        }, grid);
 
                                     }
 
                                 },
-                                
+
                                 {
                                     text: 'Удалить',
-                                
+
                                     off: !record.get ('leaf'),
-                                
+
                                     handler: function () {
-                                    
+
                                         if (!confirm ('Вы уверены, что хотите удалить группу "' + record.get ('text') + '"?')) return;
-                                    
+
                                         var id = record.get ('id');
-                                        
+
                                         ajax ('/?type=voc_groups&action=delete&id=' + id, function (data, store) {
-                                        
+
                                             store.getNodeById (id).remove ()
-                                        
+
                                         }, store);
-                                    
+
                                     }
-                                    
+
                                 }
-                                
-                            ])                       
-                            
-                        }).showAt (event.xy); 
+
+                            ])
+
+                        }).showAt (event.xy);
 
                     }
 
                 }
 
             }
-            
+
         }
 
     ];
@@ -147,14 +143,14 @@ Ext.define ('UI.view.voc_groups.list', {
     this.load = function () {
         store.load ();
     };
-        
+
         this.callParent (arguments);
-        
+
     }
 
 
 
 
 
-    
+
 });

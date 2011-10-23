@@ -25,9 +25,9 @@ sub do_update_voc_drawing_formats {
 
 sub get_item_of_voc_drawing_formats {
 
-	my $data = sql (voc_drawing_formats => $_REQUEST {id}, 'log(dt)', 'users(label)');
+	local $conf -> {core_sql_flat} = 1;
 
-#	_get_log ($data);
+	my $data = sql (voc_drawing_formats => $_REQUEST {id}, 'log(dt)', 'users(label)');
 
 	return $data;
 

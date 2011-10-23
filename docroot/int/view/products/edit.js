@@ -4,7 +4,7 @@ Ext.define ('UI.view.products.edit', {
     alias : 'widget.products_edit',
     closeAction: 'hide',
 
-    title : 'Формат чертежей',
+    title : 'Номенклатурная единица',
     layout: 'fit',
     autoShow: true,
     width: 300,
@@ -12,21 +12,21 @@ Ext.define ('UI.view.products.edit', {
     defaultFocus : 'label',
 
     initComponent: function() {
-    
+
         this.items = [
-        
+
             {
-                xtype: 'form',            
+                xtype: 'form',
         layout: 'fit',
                 bodyPadding: 10,
 //      bodyStyle: 'padding:5px; border:0px; _border-bottom:1px;',
         waitMsgTarget: true,
-        
+
         baseParams: {
             type: 'products',
             action: 'update'
         },
-        
+
                 items: [
                     {
                         xtype : 'hiddenfield',
@@ -53,10 +53,10 @@ Ext.define ('UI.view.products.edit', {
             inputValue: '1',
             uncheckedValue: '1'
             },
-            
 
 
-            
+
+
                     {
                         xtype: 'fieldset',
                         autoRender: true,
@@ -79,32 +79,33 @@ Ext.define ('UI.view.products.edit', {
                                 fieldLabel: 'Автор'
                             }
                         ]
-                    }           
-                        
+                    }
+
 
 
                 ],
-                
-            buttons: [
-            
-                {                
-                text: 'Сохранить',
-                action: 'save'
-            },
 
-                    {
-                        text: 'Закрыть',
-                        action: 'close'
-                    }
-            
+
+            buttons: [
+
+                {
+                    text: 'Сохранить',
+                    listeners: {click: {fn: saveRefreshParentGridAndCloseThisWindow}}
+                },
+
+                {
+                    text: 'Закрыть',
+                    listeners: {click: {fn: closeContainingWindow}}
+                }
+
             ]
-        
+
             }
-            
+
         ];
 
         this.callParent(arguments);
-        
+
     }
-    
+
 });

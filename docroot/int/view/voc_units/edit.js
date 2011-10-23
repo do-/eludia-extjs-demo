@@ -12,23 +12,22 @@ Ext.define ('UI.view.voc_units.edit', {
     defaultFocus : 'label',
 
     initComponent: function() {
-    
+
         this.items = [
-        
+
             {
-                xtype: 'form',            
+                xtype: 'form',
                 region: 'north',
-		layout: 'fit',
-		    height: 220,
+                layout: 'fit',
+                height: 220,
                 bodyPadding: 10,
-//		bodyStyle: 'padding:5px; border:0px; _border-bottom:1px;',
-		waitMsgTarget: true,
-		
-		baseParams: {
-			type: 'voc_units',
-			action: 'update'
-		},
-		
+                waitMsgTarget: true,
+
+                baseParams: {
+                    type: 'voc_units',
+                    action: 'update'
+                },
+
                 items: [
                     {
                         xtype : 'hiddenfield',
@@ -42,10 +41,10 @@ Ext.define ('UI.view.voc_units.edit', {
                         width: 320,
                         name : 'label',
                         itemId: 'label',
-			allowBlank : false,
+                        allowBlank : false,
                         msgTarget : 'side',
                         fieldLabel: 'Наименование',
-	                blankText: 'Вы забыли ввести наименование'
+                        blankText: 'Вы забыли ввести наименование'
                     },
                     {
                         xtype: 'textfield',
@@ -62,15 +61,13 @@ Ext.define ('UI.view.voc_units.edit', {
                         regex: /^[0-9]{3}$/,
                         regexText: 'Код ОКЕИ должен состять ровно из 3 арабских цифр'
                     },
-		    
+
                     {
                         xtype: 'fieldset',
                         autoRender: true,
                         layout: {
                             type: 'anchor'
                         },
-//                        collapsed: true,
-//                        collapsible: true,
                         title: 'Последнее изменение',
                         weight: 1,
                         items: [
@@ -85,52 +82,60 @@ Ext.define ('UI.view.voc_units.edit', {
                                 fieldLabel: 'Автор'
                             }
                         ]
-                    }		    
-		    		    
-
+                    }
 
                 ],
-                
-        	buttons: [
-        	
-        		{                
-				text: 'Сохранить',
-				action: 'save'
-			},
 
-            		{
-                		text: 'Закрыть',
-                		action: 'close'
-            		}
-            
-        	]
-        
-            }
-            
-           
-            
-            
-            
-            ,{
+                buttons: [
+
+                    {
+                        text: 'Сохранить',
+                        listeners: {click: {fn: function (button) {
+
+                            var win = button.up ('window');
+
+                            var form  = win.down ('form').getForm ();
+                            var store = win.down ('gridpanel').store;
+
+                            for (var i = 0; i < store.getCount (); i ++) {
+                                var r = store.getAt (i);
+                                var v = r.get ('voc_unit_coeff.coeff');
+                                form.baseParams ['unit_' + r.get ('id')] = v > 0 ? v : '';
+                            }
+
+                            submit (form, function (page, form) {
+                                var win = form.owner.up ('window');
+                                win.grid.store.load ();
+                                win.close ();
+                            });
+
+                        }}}
+
+                    },
+
+                    {
+                        text: 'Закрыть',
+                        listeners: {click: {fn: closeContainingWindow}}
+                    }
+
+                ]
+
+            },
+
+            {
                 xtype: 'gridpanel',
                 title: 'Эквиваленты в других единицах',
-                
+
                 store: new Ext.data.Store ({
 
-			data: [],
-                
-		    model: 'UI.model.voc_unit_coeffs',
-//			remoteSort : true,
-			proxy: {
-			type: 'memory',
-			reader: {
-			    type: 'json'
-//			    root: 'content.voc_unit_coeffs',
-			}
-		    }
-	    
-	}),
-                
+                    data: [],
+                    model: 'UI.model.voc_unit_coeffs',
+                    proxy: {
+                        type: 'memory',
+                        reader: {type: 'json'}
+                    }
+                }),
+
                 forceFit: true,
                 hideHeaders: true,
                 region: 'center',
@@ -139,9 +144,9 @@ Ext.define ('UI.view.voc_units.edit', {
                         xtype: 'numbercolumn',
                         dataIndex: 'voc_unit_coeff.coeff',
                         text: 'сколько',
-			    editor: {
-				xtype:'numberfield'
-			    }                        
+                        editor: {
+                            xtype:'numberfield'
+                        }
                     },
                     {
                         xtype: 'gridcolumn',
@@ -149,12 +154,11 @@ Ext.define ('UI.view.voc_units.edit', {
                         text: 'чего'
                     }
                 ],
-                plugins: [
-                    Ext.create('Ext.grid.plugin.CellEditing', {
 
-                    })
-                ],
+                plugins: [Ext.create('Ext.grid.plugin.CellEditing', {})],
+
                 dockedItems: [
+
                     {
                         xtype: 'toolbar',
                         dock: 'bottom',
@@ -173,32 +177,11 @@ Ext.define ('UI.view.voc_units.edit', {
                     }
                 ]
             }
-                        
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
+
         ];
 
         this.callParent(arguments);
-        
+
     }
-    
+
 });

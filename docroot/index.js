@@ -168,6 +168,7 @@ function fakeSelect () {
                         allowBlank: false,
                         editable: false,
                         typeAhead: false,
+                        listeners: {change: {fn: changeSearchFieldValue}},
                         store: Ext.create ('Ext.data.ArrayStore', {
                             autoDestroy: true,
                             idIndex: 0,
@@ -262,35 +263,14 @@ function showMenuOffTableBody (grid, event) {
 
 function createPopupMenu (grid) {
 
-        var selected = grid.getSelectionModel ().selected;
+    var selected = grid.getSelectionModel ().selected;
+    var cnt = {'0': 0, '-1': 0};
+    for (var i = 0; i < selected.getCount (); i ++) cnt ['' + selected.getAt (i).get ('fake')] ++;
 
-        var cnt = {'0': 0, '-1': 0};
-        for (var i = 0; i < selected.getCount (); i ++) cnt ['' + selected.getAt (i).get ('fake')] ++;
-
-/*
-    var a = [['Создать', showNewObjectEditForm]];
-    if (cnt [0] >  0 && cnt [-1] == 0) a.push (['Удалить '      + russianNRecords (cnt [ 0]), askToKillRecords]);
-    if (cnt [0] >  0 && cnt [-1] == 0) a.push (['Слить '        + russianNRecords (cnt [ 0]), askToMergeRecords]);
-    if (cnt [0] == 0 && cnt [-1] >  0) a.push (['Восстановить ' + russianNRecords (cnt [-1]), askToUnKillRecords]);
-*/
-
-    var a = theApplication.getController (typeBehindTheGrid (grid)).getPopupMenuItems (cnt);
-
-    items = [];
-//  for (var i = 0; i < a.length; i ++) items.push ({text: a[i][0]});
-    for (var i = 0; i < a.length; i ++) {
-        if (a[i].off) continue;
-        items.push (a[i]);
-    }
-
-    popupMenu = new Ext.menu.Menu ({
+    return new Ext.menu.Menu ({
         floating: true,
-        items: items
+        items: noOff (grid.getPopupMenuItems (cnt))
     });
-
-//  for (var i = 0; i < a.length; i ++) popupMenu.items.getAt(i).on ('click', a[i][1], grid);
-
-    return popupMenu;
 
 }
 
@@ -333,13 +313,13 @@ function askToMergeRecords () {
 function performBatchOperation (grid, action) {
 
     var type     = typeBehindTheGrid (grid);
-        var href     = '?type=' + type + '&action=' + action;
+    var href     = '?type=' + type + '&action=' + action;
     var selected = grid.getSelectionModel ().selected;
     var cnt      = selected.getCount ();
 
-        for (var i = 0; i < cnt; i ++) href += '&_' + type + '_' + selected.getAt (i).get ('id') + '=1';
+    for (var i = 0; i < cnt; i ++) href += '&_' + type + '_' + selected.getAt (i).get ('id') + '=1';
 
-        ajax (href, function (data, grid) {grid.store.load ()}, grid);
+    ajax (href, function (data, grid) {grid.store.load ()}, grid);
 
 }
 
@@ -351,7 +331,13 @@ function performBatchOperation (grid, action) {
 
 var theApplication;
 
-Ext.require('Ext.app.Application');
+Ext.require ('Ext.app.Application');
+
+Ext.Loader.setPath ('Ext.ux.ludi', '/int/lib/ux/ludi');
+Ext.require ('Ext.ux.ludi.PagedCheckedGridPanel');
+Ext.require ('Ext.ux.ludi.SearchSelectField');
+Ext.require ('Ext.ux.ludi.SearchSelectFieldFake');
+Ext.require ('Ext.ux.ludi.SearchTextField');
 
 Ext.onReady(function() {
 
@@ -386,12 +372,7 @@ Ext.onReady(function() {
 
         items: [
 
-            Ext.widget ('voc_groups_list'),
-
-
-
-
-
+            Ext.create ('UI.view.voc_groups.list', {}),
 
             {
                 xtype: 'toolbar',
@@ -400,30 +381,25 @@ Ext.onReady(function() {
                 height: 30,
                 hidden: true,
                 items: [
-                {
-                    xtype: 'button',
-                    text: 'Справочники',
-                    menu: {
-                    xtype: 'menu',
-                    items: [
-                        {
-                        xtype: 'menuitem',
-                        text: 'Единицы измерения',
-                        handler: function () {Ext.widget ('voc_units_list')}
-                        },
-                        {
-                        xtype: 'menuitem',
-                        text: 'Форматы чертежей',
-                        handler: function () {Ext.widget ('voc_drawing_formats_list')}
+                    {
+                        xtype: 'button',
+                        text: 'Справочники',
+                        menu: {
+                            xtype: 'menu',
+                            items: [
+                                {
+                                    xtype: 'menuitem',
+                                    text: 'Единицы измерения',
+                                    handler: function () {Ext.create ('UI.view.voc_units.list', {})}
+                                },
+                                {
+                                    xtype: 'menuitem',
+                                    text: 'Форматы чертежей',
+                                    handler: function () {Ext.create ('UI.view.voc_drawing_formats.list', {})}
+                                }
+                            ]
                         }
-                    ]
                     }
-                }
-//              ,{
-//                  xtype: 'button',
-//                  text: 'Пользователи',
-//                  handler: function () {Ext.widget ('users_list')},
-//              }
                 ]
             },
 
@@ -447,11 +423,6 @@ Ext.onReady(function() {
 
     controllers: [
         'sessions'
-        , 'users'
-        , 'voc_drawing_formats'
-        , 'voc_units'
-        , 'voc_groups'
-        , 'products'
     ]
 
 }
@@ -461,69 +432,22 @@ Ext.onReady(function() {
     );
 });
 
+function def (o, d) {
 
+    for (i in d) {
 
+        if (o [i]) {
 
+            if (Ext.isObject (d [i]) && !Ext.isArray (d [i])) def (o [i], d [i])
 
-Ext.define ('Ext.ux.ludi.PagedCheckedGridPanel', {
-
-    extend: 'Ext.grid.Panel',
-    alias : 'widget.pagedcheckedgridpanel',
-
-    initComponent: function () {
-
-        var columns = this.columns = noOff (this.columns);
-
-        var type = this.parameters.type;
-
-        if (!Ext.ModelManager.isRegistered (type)) {
-            var fields  = ['id', 'fake'];
-            for (var i = 0; i < columns.length; i ++) fields.push (columns [i].dataIndex);
-            Ext.define (type, {fields: fields, extend: 'Ext.data.Model'});
         }
+        else {
 
-        this.store = store (this.parameters);
+            o [i] = d [i];
 
-        if (!this.viewConfig) this.viewConfig = {
-            forceFit: true,
-            getRowClass: standardGetRowClass,
-            multiSelect: true
-        };
-
-        if (!this.selModel) this.selModel = Ext.create('Ext.selection.CheckboxModel', {
-            allowDeselect: true,
-            checkOnly: true,
-            mode: 'MULTI'
-        });
-
-        this.dockedItems = [{
-
-            xtype: 'pagingtoolbar',
-            store : this.store,
-            dock: 'bottom',
-            displayInfo: true,
-
-            items: [
-
-                {
-                    icon: '/ext/examples/desktop/images/gears.gif',
-                    action: 'edit'
-                },
-                {
-                    xtype: 'textfield',
-                    name: 'q',
-                    fieldLabel: 'Поиск',
-                    labelWidth: 50
-                },
-
-                fakeSelect ()
-
-            ]
-
-        }];
-
-        this.callParent (arguments);
+        }
 
     }
 
-});
+}
+

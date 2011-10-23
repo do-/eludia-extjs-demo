@@ -6,7 +6,6 @@ Ext.define ('UI.view.products.list', {
     maximizable : true,
     width: 800,
     height: 687,
-    renderTo: 'center',
     layout: 'fit',
     autoShow: true,
 
@@ -29,7 +28,7 @@ Ext.define ('UI.view.products.list', {
                     , {header: 'ЕИ',            dataIndex: 'voc_unit.label',           flex: 1}
                     , {header: 'Группа',        dataIndex: 'voc_group.label',          flex: 1}
                     , {header: 'Статус',        dataIndex: 'voc_product_status.label', flex: 1}
-                ],
+                ]
 
             }
 

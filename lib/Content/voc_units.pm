@@ -31,12 +31,13 @@ sub do_update_voc_units {
 		push @a, {
 			id_unit_to   => $1,
 			coeff        => $v,	
-			id_log       => $_REQUEST {id_log},
+			id_log       => $_REQUEST {_id_log},
+			fake         => 0,
 		};		
 	
 	}
 	
-	wish (table_data => \@a, {
+	wish (table_data => darn \@a, {
 	
 		table => 'voc_unit_coeffs',
 		root  => {
@@ -55,22 +56,23 @@ sub do_update_voc_units {
 
 sub get_item_of_voc_units {
 
+	local $conf -> {core_sql_flat} = 1;
+
 	my $data = sql (voc_units => $_REQUEST {id}, 'log(dt)', 'users(label)');
 
-	sql ($data, 'voc_units(id,label)' => [],
+	local $conf -> {core_sql_flat} = 1;
+
+	sql ($data, 'voc_units(id,label)' => [['id <>' => $data -> {id}]],
 
 		['voc_unit_coeffs(coeff) ON voc_unit_coeffs.id_unit_to = voc_units.id' => [
 			[id_unit_from    => $data -> {id}],
-			['id_unit_to <>' => $data -> {id}],
 			[fake            => 0],
 			['id_product...' => 0],
 		]],
 	
 	);
 
-#	_get_log ($data);
-
-	return $data;
+	return darn $data;
 
 }
 
