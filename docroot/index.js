@@ -465,4 +465,65 @@ Ext.onReady(function() {
 
 
 
+Ext.define ('Ext.ux.ludi.PagedCheckedGridPanel', {
 
+    extend: 'Ext.grid.Panel',
+    alias : 'widget.pagedcheckedgridpanel',
+
+    initComponent: function () {
+
+        var columns = this.columns = noOff (this.columns);
+
+        var type = this.parameters.type;
+
+        if (!Ext.ModelManager.isRegistered (type)) {
+            var fields  = ['id', 'fake'];
+            for (var i = 0; i < columns.length; i ++) fields.push (columns [i].dataIndex);
+            Ext.define (type, {fields: fields, extend: 'Ext.data.Model'});
+        }
+
+        this.store = store (this.parameters);
+
+        if (!this.viewConfig) this.viewConfig = {
+            forceFit: true,
+            getRowClass: standardGetRowClass,
+            multiSelect: true
+        };
+
+        if (!this.selModel) this.selModel = Ext.create('Ext.selection.CheckboxModel', {
+            allowDeselect: true,
+            checkOnly: true,
+            mode: 'MULTI'
+        });
+
+        this.dockedItems = [{
+
+            xtype: 'pagingtoolbar',
+            store : this.store,
+            dock: 'bottom',
+            displayInfo: true,
+
+            items: [
+
+                {
+                    icon: '/ext/examples/desktop/images/gears.gif',
+                    action: 'edit'
+                },
+                {
+                    xtype: 'textfield',
+                    name: 'q',
+                    fieldLabel: 'Поиск',
+                    labelWidth: 50
+                },
+
+                fakeSelect ()
+
+            ]
+
+        }];
+
+        this.callParent (arguments);
+
+    }
+
+});
