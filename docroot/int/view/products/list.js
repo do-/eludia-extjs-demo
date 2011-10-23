@@ -16,7 +16,16 @@ Ext.define ('UI.view.products.list', {
 
         this.title = this.voc_group.get ('text');
     
-        var theStore = store ({type: 'products', id_voc_group: this.voc_group.get ('id')});
+        var theStore = store ({type: 'products', id_voc_group: this.voc_group.get ('id')}, {fields: [        
+            'id',
+            , 'fake'
+            , 'label'
+            , 'name'
+            , 'voc_product_type.label'
+            , 'voc_unit.label'
+            , 'voc_group.label'
+            , 'voc_product_status.label'
+        ]});
 
         this.items = [
         

@@ -7,12 +7,10 @@ Ext.define('UI.controller.products', {
         , 'products.edit'
     ],
 
-    models: ['products'],
-
     init: function () {
-    
+
         this.control ({
-        
+
             'products_list': {
                   show: loadFirstGrid
             },
@@ -26,29 +24,29 @@ Ext.define('UI.controller.products', {
                   itemcontextmenu: showMenuOnTableBody,
                   itemdblclick: openAndLoadFormForTheGridRecord
             },
-            
+
         'products_list button[action=edit]': {
             click: showMenuOnToolbarButton
         },
-        
+
         'products_edit button[action=save]': {
             click: saveRefreshParentGridAndCloseThisWindow
         },
-        
+
         'products_edit button[action=close]': {
             click: closeContainingWindow
         }
-                                   
+
         });
-                
+
     },
 
 
     getPopupMenuItems: function (cnt) {
-    
+
         return [
             {
-                text    : 'Создать...', 
+                text    : 'Создать...',
                 handler : showNewObjectEditForm
             }
             , {
@@ -56,23 +54,23 @@ Ext.define('UI.controller.products', {
                 off     : (cnt [0] == 0 && cnt [-1] == 0)
             }
             , {
-                text    : 'Удалить ' + russianNRecords (cnt [0]), 
-                handler : askToKillRecords, 
+                text    : 'Удалить ' + russianNRecords (cnt [0]),
+                handler : askToKillRecords,
                 off     : (cnt [0] == 0 || cnt [-1] > 0)
             }
             , {
-                text    : 'Слить ' + russianNRecords (cnt [0]), 
-                handler : askToMergeRecords, 
+                text    : 'Слить ' + russianNRecords (cnt [0]),
+                handler : askToMergeRecords,
                 off     : (cnt [0] <  2 || cnt [-1] > 0)
             }
             , {
-                text    : 'Восстановить ' + russianNRecords (cnt [-1]), 
-                handler : askToMergeRecords, 
+                text    : 'Восстановить ' + russianNRecords (cnt [-1]),
+                handler : askToMergeRecords,
                 off     : (cnt [0] > 0 || cnt [-1] == 0)
             }
-            
+
         ];
-    
+
     }
-    
+
 });
