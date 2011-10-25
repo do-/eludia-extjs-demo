@@ -356,74 +356,46 @@ Ext.onReady(function() {
 
         document.body.innerHTML = '';
 
+        Ext.create ('Ext.container.Viewport', {
 
+            layout: 'border',
 
+            items: [
 
+                {
+                    xtype:       'panel',
+                    region:      'west',
+                    title :      'Меню',
+                    margins:     '5 0 5 5',
+                    split:       true,
+                    width:       210,
+                    layout:      'accordion',
+                    collapsible: true,
+                    hidden:      true,
+                    id:          'left_menu',
+                    items: [
+                        Ext.create ('UI.view.voc_groups.list', {}),
+                        Ext.create ('UI.view.vocs.list',       {}),
+                    ]
+                },
+                {
+                    xtype:  'panel',
+                    region: 'center',
+                    id:     'center',
+                    html:  '<table width="100%" height="100%" cellpadding="0" cellspacing="0" _background="/i/background.jpg"><tr><td>&nbsp;</td></tr></table>'
+                }
 
+            ]
 
+            });
 
+            Ext.widget ('sessions_edit');
 
+        },
 
-
-
-    Ext.create ('Ext.container.Viewport', {
-
-        layout: 'border',
-
-        items: [
-
-            Ext.create ('UI.view.voc_groups.list', {}),
-
-            {
-                xtype: 'toolbar',
-                region: 'north',
-                id:     'main_menu',
-                height: 30,
-                hidden: true,
-                items: [
-                    {
-                        xtype: 'button',
-                        text: 'Справочники',
-                        menu: {
-                            xtype: 'menu',
-                            items: [
-                                {
-                                    xtype: 'menuitem',
-                                    text: 'Единицы измерения',
-                                    handler: function () {Ext.create ('UI.view.voc_units.list', {})}
-                                },
-                                {
-                                    xtype: 'menuitem',
-                                    text: 'Форматы чертежей',
-                                    handler: function () {Ext.create ('UI.view.voc_drawing_formats.list', {})}
-                                }
-                            ]
-                        }
-                    }
-                ]
-            },
-
-
-
-
-            {
-                xtype:  'panel',
-                region: 'center',
-                id:     'center',
-                html:  '<table width="100%" height="100%" cellpadding="0" cellspacing="0" _background="/i/background.jpg"><tr><td>&nbsp;</td></tr></table>'
-            }
-
+        controllers: [
+            'sessions'
         ]
-
-        });
-
-        Ext.widget ('sessions_edit');
-
-    },
-
-    controllers: [
-        'sessions'
-    ]
 
 }
 
