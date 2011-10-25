@@ -2,8 +2,6 @@
 
 sub do_update_voc_groups {
 
-darn \%_REQUEST;
-
 	$_REQUEST {"_$_"} ||= $_REQUEST {$_} foreach keys %_REQUEST;
 
 	$_REQUEST {label} or die '#label#:Некорректное наименование';
@@ -16,7 +14,11 @@ darn \%_REQUEST;
 
 sub do_delete_voc_groups {
 
+	my $data = sql (voc_groups => $_REQUEST {id});
+
 	sql_do ('UPDATE voc_groups SET fake = -1 WHERE id = ?', $_REQUEST {id});
+	
+	redirect ("/handler?type=voc_groups&id=$data->{parent}&sid=$_REQUEST{sid}");
 
 }
 

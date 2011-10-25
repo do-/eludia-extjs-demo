@@ -1,16 +1,22 @@
 Ext.define ('UI.view.voc_groups.list', {
 
-    extend: 'Ext.panel.Panel',
+    extend: 'Ext.tree.Panel',
 
     title : 'Номенклатура',
-    layout: 'fit',
     id: 'voc_groups',
+    rootVisible : false,
+    viewConfig: {
+        plugins: {
+            ptype: 'treeviewdragdrop',
+            enableDrop : false
+        }
+    },
 
     initComponent: function () {
 
-        var store = Ext.create('Ext.data.TreeStore', {
+        var me = this;
 
-            autoLoad: true,
+        me.store = Ext.create('Ext.data.TreeStore', {
 
             proxy: {
                 type: 'ajax',
@@ -26,92 +32,74 @@ Ext.define ('UI.view.voc_groups.list', {
 
         });
 
-        this.items = [
+        me.openEditForm = function (params) {
+            var url  = '?type=voc_groups&' + params;
+            var win  = Ext.create ('UI.view.voc_groups.edit');
+            win.grid = me;
+            ajax (url, me.setFormData, win.down ('form').getForm ());
+        };
 
-            {
-                xtype: 'treepanel',
-                rootVisible : false,
-                store: store,
-                viewConfig: {
-                    plugins: {
-                        ptype: 'treeviewdragdrop',
-                        enableDrop : false
-                    }
+        me.setFormData = function (data, form) {form.setValues (data.content)};
+
+        me.getPopupMenuItems = function (record) {
+
+            var id = record.get ('id');
+
+            return noOff ([
+
+                {
+                    text: 'Свойства...',
+                    handler: function () {me.openEditForm ('id=' + id)}
                 },
 
-                listeners: {
+                {
+                    xtype: 'menuseparator'
+                },
 
-                    itemdblclick: {
-                        fn: function (me, record, item, index, event, options) {
-                            Ext.create ('UI.view.products.list', {voc_group: record});
-                        }
-                    },
+                {
+                    text: 'Создать подрубрику...',
+                    handler: function () {me.openEditForm ('action=create&_parent=' + id)}
+                },
 
-                    itemcontextmenu: {
-
-                        fn: function (grid, record, item, index, event, options) {
-
-                            event.stopEvent ();
-
-                            new Ext.menu.Menu ({
-
-                                floating: true,
-
-                                items: noOff ([
-
-                                    {
-                                        text: 'Свойства...',
-                                        handler: function () {
-                                            openAndLoadFormForTheGridRecord (grid, record);
-                                        }
-                                    },
-
-                                    {
-                                        xtype: 'menuseparator'
-                                    },
-
-                                    {
-                                        text: 'Создать подрубрику...',
-                                        handler: function () {
-                                            ajax ('/?type=voc_groups&action=create&_parent=' + record.get ('id'), function (data, grid) {
-                                                openAndLoadFormForTheGridRecord (grid, {get: function () {return data.content.id}});
-                                            }, grid);
-                                        }
-
-                                    },
-
-                                    {
-                                        text: 'Удалить',
-                                        off: !record.get ('leaf'),
-                                        handler: function () {
-                                            if (!confirm ('Вы уверены, что хотите удалить группу "' + record.get ('text') + '"?')) return;
-                                            var id = record.get ('id');
-                                            ajax ('/?type=voc_groups&action=delete&id=' + id, function (data, store) {
-                                                store.getNodeById (id).remove ()
-                                            }, store);
-                                        }
-
-                                    }
-
-                                ])
-
-                            }).showAt (event.xy);
-
-                        }
-
+                {
+                    text: 'Удалить',
+                    off: !record.get ('leaf'),
+                    handler: function () {
+                        if (!confirm ('Вы уверены, что хотите удалить группу "' + record.get ('text') + '"?')) return;
+                        ajax ('/?type=voc_groups&action=delete&id=' + id, function (data, form) {
+                            me.store.load ({
+                                node: me.store.getNodeById (data.content.parent),
+                                callback: function () {
+                                    var v = me.getView ();
+                                    var n = me.store.getNodeById (data.content.id);
+                                    v.expand (n, false, function () {v.select ([n])});
+                                }
+                            });
+                        });
                     }
 
                 }
 
-            }
+            ])
 
-        ];
-
-        this.load = function () {
-            store.load ();
         };
 
-        this.callParent (arguments);
+        me.listeners = {
+
+            itemdblclick: {
+                fn: function (grid, record, item, index, event, options) {Ext.create ('UI.view.products.list', {voc_group: record})}
+            },
+
+            itemcontextmenu: {
+                fn: function (grid, record, item, index, event, options) {
+                    event.stopEvent ();
+                    new Ext.menu.Menu ({floating: true, items: me.getPopupMenuItems (record)}).showAt (event.xy)
+                }
+            }
+
+        };
+
+        me.callParent (arguments);
 
     }
 

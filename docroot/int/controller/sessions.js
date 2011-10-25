@@ -46,7 +46,7 @@ button.fireEvent ('click', button);
         Ext.Ajax.extraParams = {sid: sid = data.id};
 
         Ext.getCmp ('left_menu').show ();
-        Ext.getCmp ('voc_groups').load ();
+        Ext.getCmp ('voc_groups').store.load ();
 
         form.owner.up ('window').close ();
 

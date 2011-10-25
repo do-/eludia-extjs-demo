@@ -8,24 +8,24 @@ Ext.define ('UI.view.voc_groups.edit', {
     layout: 'fit',
     autoShow: true,
     width: 300,
-//    height: 210,
     defaultFocus : 'label',
 
-    initComponent: function() {
+    initComponent: function () {
 
-        this.items = [
+        var me = this;
+
+        me.items = [
 
             {
                 xtype: 'form',
-        layout: 'fit',
+                layout: 'fit',
                 bodyPadding: 10,
-//      bodyStyle: 'padding:5px; border:0px; _border-bottom:1px;',
-        waitMsgTarget: true,
+                waitMsgTarget: true,
 
-        baseParams: {
-            type: 'voc_groups',
-            action: 'update'
-        },
+                baseParams: {
+                    type: 'voc_groups',
+                    action: 'update'
+                },
 
                 items: [
 
@@ -46,10 +46,10 @@ Ext.define ('UI.view.voc_groups.edit', {
                         size: 23,
                         name : 'label',
                         itemId: 'label',
-            allowBlank : false,
+                        allowBlank : false,
                         msgTarget : 'side',
                         fieldLabel: 'Наименование',
-                    blankText: 'Вы забыли ввести наименование'
+                        blankText: 'Вы забыли ввести наименование'
                     },
                     {
                         xtype: 'textfield',
@@ -104,8 +104,6 @@ Ext.define ('UI.view.voc_groups.edit', {
                         layout: {
                             type: 'anchor'
                         },
-//                        collapsed: true,
-//                        collapsible: true,
                         title: 'Последнее изменение',
                         weight: 1,
                         items: [
@@ -128,8 +126,64 @@ Ext.define ('UI.view.voc_groups.edit', {
                 buttons: [
 
                     {
+
                         text: 'Сохранить',
-                        listeners: {click: {fn: saveRefreshParentGridAndCloseThisWindow}}
+                        listeners: {click: {fn:
+
+                            function (button) {
+
+                                submit (button.up ('window').down ('form').getForm (), function (page, form) {
+
+                                    var store      = me.grid.store;
+                                    var id         = page.content.id;
+                                    var parent     = page.content.parent;
+                                    var parentNode = store.getNodeById (parent);
+
+                                    if (parentNode.get ('leaf')) {
+
+                                        ajax ('?type=voc_groups&id=' + parent, function (data, form) {
+
+                                            store.load ({
+
+                                                node: store.getNodeById (data.content.parent),
+                                                callback: function () {
+
+                                                    store.load ({
+
+                                                        node: parentNode,
+                                                        callback: function () {
+
+                                                            var v = me.grid.getView ();
+
+                                                            v.expand (store.getNodeById (parent), false, function () {
+
+                                                                v.select ([store.getNodeById (id)]);
+
+                                                            });
+
+                                                        }
+                                                    });
+
+                                                }
+                                            });
+
+                                        })
+
+                                    }
+                                    else {
+
+                                        store.load ({node: parentNode});
+
+                                    }
+
+                                    me.close ();
+
+                                });
+
+                            }
+
+                        }}
+
                     },
 
                     {
@@ -145,26 +199,29 @@ Ext.define ('UI.view.voc_groups.edit', {
 
                         fn: function (cont, lay, o) {
 
-                    var formPanelDropTarget = Ext.create('Ext.dd.DropTarget', cont.body.dom, {
+                            var formPanelDropTarget = Ext.create ('Ext.dd.DropTarget', cont.body.dom, {
 
-                    ddGroup: 'TreeDD',
+                                ddGroup: 'TreeDD',
 
-                    notifyEnter: function(ddSource, e, data) {
-                        cont.body.stopAnimation();
-                        cont.body.highlight();
-                    },
+                                notifyEnter: function(ddSource, e, data) {
 
-                    notifyDrop  : function(ddSource, e, data){
+                                    cont.body.stopAnimation ();
+                                    cont.body.highlight ();
 
-                        var selectedRecord = ddSource.dragData.records [0];
+                                },
 
-                        cont.down ("hiddenfield[name='id_rights_holder']" ).setValue (selectedRecord.get ('id'));
-                        cont.down ("textfield[name='rights_holder.label']").setValue (selectedRecord.get ('text'));
+                                notifyDrop  : function(ddSource, e, data) {
 
-                        return true;
+                                    var selectedRecord = ddSource.dragData.records [0];
 
-                    }
-                    });
+                                    cont.down ("hiddenfield[name='id_rights_holder']" ).setValue (selectedRecord.get ('id'));
+                                    cont.down ("textfield[name='rights_holder.label']").setValue (selectedRecord.get ('text'));
+
+                                    return true;
+
+                                }
+
+                            });
 
                         }
 
@@ -172,16 +229,11 @@ Ext.define ('UI.view.voc_groups.edit', {
 
                 }
 
-
-
-
             }
 
         ];
 
-        this.callParent(arguments);
-
-//alert (this.items.getAt(0).body.dom);
+        this.callParent (arguments);
 
     }
 
