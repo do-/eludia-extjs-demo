@@ -323,83 +323,6 @@ function performBatchOperation (grid, action) {
 
 }
 
-
-
-
-
-
-
-var theApplication;
-
-Ext.require ('Ext.app.Application');
-
-Ext.Loader.setPath ('Ext.ux.ludi', '/int/lib/ux/ludi');
-Ext.require ('Ext.ux.ludi.PagedCheckedGridPanel');
-Ext.require ('Ext.ux.ludi.SearchSelectField');
-Ext.require ('Ext.ux.ludi.SearchSelectFieldFake');
-Ext.require ('Ext.ux.ludi.SearchTextField');
-
-Ext.onReady(function() {
-
-    theApplication = Ext.create('Ext.app.Application',
-
-
-
-
-
-{
-
-    name: 'UI',
-    appFolder: 'int',
-
-    launch: function() {
-
-        document.body.innerHTML = '';
-
-        Ext.create ('Ext.container.Viewport', {
-
-            layout: 'border',
-
-            items: [
-
-                {
-                    xtype:       'panel',
-                    region:      'west',
-                    title :      'Меню',
-                    margins:     '5 0 5 5',
-                    split:       true,
-                    width:       210,
-                    layout:      'accordion',
-                    collapsible: true,
-                    hidden:      true,
-                    id:          'left_menu',
-                    items: [
-                        Ext.create ('UI.view.voc_groups.list', {}),
-                        Ext.create ('UI.view.vocs.list',       {}),
-                    ]
-                },
-                {
-                    xtype:  'panel',
-                    region: 'center',
-                    id:     'center',
-                    html:  '<table width="100%" height="100%" cellpadding="0" cellspacing="0" _background="/i/background.jpg"><tr><td>&nbsp;</td></tr></table>'
-                }
-
-            ]
-
-            });
-
-            Ext.create ('UI.view.sessions.edit');
-
-        },
-
-}
-
-
-
-    );
-});
-
 function def (o, d) {
 
     for (i in d) {
@@ -419,3 +342,30 @@ function def (o, d) {
 
 }
 
+Ext.require ('Ext.app.Application');
+
+Ext.Loader.setPath ('Ext.ux.ludi', '/int/lib/ux/ludi');
+Ext.require ('Ext.ux.ludi.PagedCheckedGridPanel');
+Ext.require ('Ext.ux.ludi.SearchSelectField');
+Ext.require ('Ext.ux.ludi.SearchSelectFieldFake');
+Ext.require ('Ext.ux.ludi.SearchTextField');
+
+Ext.onReady (function () {
+
+    Ext.application ({
+
+        name: 'UI',
+        appFolder: 'int',
+
+        launch: function () {
+
+            document.body.innerHTML = '';
+
+            Ext.create ('UI.view.main.list');
+            Ext.create ('UI.view.sessions.edit');
+
+        },
+
+    });
+
+});
