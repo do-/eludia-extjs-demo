@@ -1,6 +1,5 @@
 Ext.define ('UI.view.vocs.list', {
 
-
     extend: 'Ext.tree.Panel',
 
     title: 'Справочники',
@@ -15,6 +14,7 @@ Ext.define ('UI.view.vocs.list', {
             ]
         }
     }),
+
     listeners: {
         itemdblclick: {
             fn: function (me, record, item, index, event, options) {
@@ -23,38 +23,4 @@ Ext.define ('UI.view.vocs.list', {
         }
     }
 
-
-/*
-    extend: 'Ext.panel.Panel',
-    title : 'Справочники',
-    layout: {
-        type: 'vbox',
-        align: 'stretch'
-    },
-
-    initComponent: function () {
-
-        this.items = [
-
-
-
-                {
-                    xtype: 'button',
-                    cls: 'x-btn-flat',
-                    text: 'Единицы измерения',
-                    handler: function () {Ext.create ('UI.view.voc_units.list', {})}
-                },
-                {
-                    xtype: 'button',
-                    cls: 'x-btn-flat',
-                    text: 'Форматы чертежей',
-                    handler: function () {Ext.create ('UI.view.voc_drawing_formats.list', {})}
-                }
-
-        ];
-
-        this.callParent (arguments);
-
-    }
-*/
 });
