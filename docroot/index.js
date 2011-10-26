@@ -389,13 +389,9 @@ Ext.onReady(function() {
 
             });
 
-            Ext.widget ('sessions_edit');
+            Ext.create ('UI.view.sessions.edit');
 
         },
-
-        controllers: [
-            'sessions'
-        ]
 
 }
 

@@ -1,7 +1,6 @@
 Ext.define ('UI.view.sessions.edit', {
 
     extend: 'Ext.window.Window',
-    alias : 'widget.sessions_edit',
     closeAction: 'hide',
 
     title : 'Вход в систему',
@@ -12,54 +11,73 @@ Ext.define ('UI.view.sessions.edit', {
     defaultFocus : 'login',
     width: 278,
 
-    initComponent: function() {
-  
-  	this.items = [
-        
+    initComponent: function () {
+
+        var me = this;
+
+        this.items = [
+
             {
-                xtype: 'form',                
-		bodyStyle: 'padding:5px; border:0px; _border-bottom:1px;',
-		waitMsgTarget: true,
-		
-		baseParams: {
-			type: 'logon',
-			action: 'execute'
-		},
-		
+                xtype: 'form',
+                bodyStyle: 'padding:5px; border:0px; _border-bottom:1px;',
+                waitMsgTarget: true,
+
+                baseParams: {
+                    type: 'logon',
+                    action: 'execute'
+                },
+
                 items: [
                     {
+value: 'admin',
                         xtype: 'textfield',
                         name : 'login',
                         itemId: 'login',
                         fieldLabel: 'Логин',
-			allowBlank : false,
+                        allowBlank : false,
                         msgTarget : 'side'
-		    },
+                    },
                     {
+value: 'z',
                         xtype: 'textfield',
                         name : 'password',
                         inputType: 'password',
                         fieldLabel: 'Пароль',
-			allowBlank : false,
+                        allowBlank : false,
                         msgTarget : 'side'
                     }
                 ],
-                
-        	buttons: [
-        	
-        		{                
-				text: 'Вход',
-				action: 'save'
-			}
-			
-        	]
-        	        
+
+                buttons: [
+
+                    {
+listeners: {afterrender: {fn: function (b) {b.handler ()}}},
+                        text: 'Вход',
+                        handler: function (button) {
+
+                            submit (me.down ('form').getForm (), function (page, form) {
+
+                                Ext.Ajax.extraParams = {sid: sid = page.content.id};
+
+                                Ext.getCmp ('left_menu').show ();
+                                Ext.getCmp ('voc_groups').store.load ();
+
+                                me.close ();
+
+                            });
+
+                        }
+
+                    }
+
+                ]
+
             }
-            
+
         ];
 
         this.callParent (arguments);
-        
+
     }
-    
+
 });
