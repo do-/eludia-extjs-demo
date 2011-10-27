@@ -364,7 +364,7 @@ Ext.onReady (function () {
             Ext.create ('UI.view.main.list');
             Ext.create ('UI.view.sessions.edit');
 
-        },
+        }
 
     });
 

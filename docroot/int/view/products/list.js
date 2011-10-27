@@ -109,7 +109,7 @@ Ext.define ('UI.view.products.list', {
                                 fieldLabel: 'Код группы',
                                 name: 'company',
                                 anchor:'96%'
-                            },
+                            }
                         ]
                     },
                     {
@@ -131,8 +131,7 @@ Ext.define ('UI.view.products.list', {
                     }]
                 }]
 
-
-            },
+            }
 
         ];
 
