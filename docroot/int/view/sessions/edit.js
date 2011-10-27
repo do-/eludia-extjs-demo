@@ -60,7 +60,12 @@ listeners: {afterrender: {fn: function (b) {b.handler ()}}},
                                 Ext.Ajax.extraParams = {sid: sid = page.content.id};
 
                                 Ext.getCmp ('left_menu').show ();
-                                Ext.getCmp ('voc_groups').store.load ();
+
+                                Ext.getCmp ('voc_groups').store.load ({
+callback: function () {
+    Ext.create ('UI.view.products.list', {voc_group: {get: function (){return 101}}});
+}
+                                });
 
                                 me.close ();
 

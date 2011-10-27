@@ -340,6 +340,8 @@ function def (o, d) {
 
     }
 
+    return o;
+
 }
 
 Ext.require ('Ext.app.Application');

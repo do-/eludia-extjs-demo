@@ -15,11 +15,7 @@ Ext.define ('UI.view.products.list', {
 
         me.title = me.voc_group.get ('text');
 
-        me.items = [
-
-            {
-
-                xtype: 'pagedcheckedgridpanel',
+        me.grid = Ext.widget ('pagedcheckedgridpanel', {
 
                 region: 'center',
 
@@ -34,7 +30,21 @@ Ext.define ('UI.view.products.list', {
                     , {header: 'Статус',        dataIndex: 'voc_product_status.label', flex: 1}
                 ]
 
-            },
+        });
+
+        var tb    = me.grid.down ('pagingtoolbar');
+        var store = me.grid.store;
+
+        var changeSearchFieldValue = function (field, value) {
+            store.proxy.extraParams [field.name] = value;
+            tb.moveFirst ();
+        }
+
+        var listeners = {change: {fn: changeSearchFieldValue}};
+
+        me.items = [
+
+            me.grid,
 
             {
 
@@ -48,8 +58,7 @@ Ext.define ('UI.view.products.list', {
                 bodyStyle:'padding:5px 5px 0',
 
                 fieldDefaults: {
-                    labelAlign: 'top',
-                    msgTarget: 'side'
+                    labelAlign: 'top'
                 },
 
                 items: [{
@@ -63,52 +72,39 @@ Ext.define ('UI.view.products.list', {
                         layout: 'anchor',
                         items: [
                             {
-                                xtype:'textfield',
-                                fieldLabel: 'Номенклатурный номер',
-                                name: 'first',
-                                anchor:'96%'
-                            },
-                            {
-                                xtype:'textfield',
+                                xtype:      'textfield',
                                 fieldLabel: 'Наименование',
-                                name: 'company',
-                                anchor:'96%'
+                                name:       'name',
+                                listeners:  listeners,
+                                anchor:     '96%'
                             },
                             {
-                                xtype:'textfield',
+                                xtype:      'textfield',
                                 fieldLabel: 'Обозначение чертежа, марка',
-                                name: 'company',
-                                anchor:'96%'
+                                name:       'short_label',
+                                listeners:  listeners,
+                                anchor:     '96%'
                             },
                             {
-                                xtype:'textfield',
+                                xtype:      'textfield',
                                 fieldLabel: 'ГОСТ, ОСТ, ТУ',
-                                name: 'company',
-                                anchor:'96%'
+                                name:       'gost_ost_tu',
+                                listeners:  listeners,
+                                anchor:     '96%'
                             },
                             {
-                                xtype:'textfield',
+                                xtype:      'textfield',
                                 fieldLabel: 'Сорт, размер',
-                                name: 'company',
-                                anchor:'96%'
+                                name:       'part_size',
+                                listeners:  listeners,
+                                anchor:     '96%'
                             },
                             {
-                                xtype:'textfield',
+                                xtype:      'textfield',
                                 fieldLabel: 'Первичное применение',
-                                name: 'company',
-                                anchor:'96%'
-                            },
-                            {
-                                xtype:'textfield',
-                                fieldLabel: 'Входит в ограничительный перечень:',
-                                name: 'company',
-                                anchor:'96%'
-                            },
-                            {
-                                xtype:'textfield',
-                                fieldLabel: 'Код группы',
-                                name: 'company',
-                                anchor:'96%'
+                                name:       'primary_application',
+                                listeners:  listeners,
+                                anchor:     '96%'
                             }
                         ]
                     },
@@ -116,20 +112,67 @@ Ext.define ('UI.view.products.list', {
                         xtype: 'container',
                         columnWidth:.5,
                         layout: 'anchor',
-                        items: [{
-                            xtype:'textfield',
-                            fieldLabel: 'Last Name',
-                            name: 'last',
-                            anchor:'100%'
-                        },{
-                            xtype:'textfield',
-                            fieldLabel: 'Email',
-                            name: 'email',
-                            vtype:'email',
-                            anchor:'100%'
-                        }]
+                        items: [
+                            {
+                                xtype:'textfield',
+                                fieldLabel: 'Статус',
+                                name: 'last',
+                                anchor:'100%'
+                            },
+                            {
+                                xtype:'textfield',
+                                fieldLabel: 'Тип номенклатуры',
+                                name: 'email',
+                                vtype:'email',
+                                anchor:'100%'
+                            },
+                            {
+                                xtype:'textfield',
+                                fieldLabel: 'ЕИ',
+                                name: 'email',
+                                vtype:'email',
+                                anchor:'100%'
+                            },
+                            {
+                                xtype:'textfield',
+                                fieldLabel: 'Масса',
+                                name: 'email',
+                                vtype:'email',
+                                anchor:'100%'
+                            },
+                            {
+                                xtype:'textfield',
+                                fieldLabel: 'Изделие',
+                                name: 'email',
+                                vtype:'email',
+                                anchor:'100%'
+                            }
+                        ]
                     }]
-                }]
+                },
+
+
+
+                            {
+                                xtype:'textfield',
+                                fieldLabel: 'Входит в ограничительный перечень:',
+                                name: 'company',
+                                anchor:'100%'
+                            },
+                            {
+                                xtype:'textfield',
+                                fieldLabel: 'Код группы',
+                                name: 'company',
+                                anchor:'100%'
+                            },
+
+
+
+
+
+
+
+                ]
 
             }
 
