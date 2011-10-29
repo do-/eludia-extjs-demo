@@ -1,54 +1,51 @@
 sub get_skin_name {'ExtJsProxy'}
 
 our $conf = {
-
-	page_title => '“иповое Eludia-приложение',
 	
-	portion => 15,
+	portion => 25,
 	session_timeout => 30,
+		
+#	number_format => {
+#		-thousands_sep   => ' ',
+#		-decimal_point   => ',',
+#	},
 	
-	max_len => 50,
-	
-	number_format => {
-		-thousands_sep   => ' ',
-		-decimal_point   => ',',
-	},
-	
-	core_auto_esc   => 2,
-	core_auto_edit  => 1,
-	core_show_icons => 1,
-	core_hide_row_buttons => 2,
 	core_recycle_ids => 0,
 	core_unlimit_xls => 1,
 #	core_sql_flat => 1,
-	
-	kb_options_menu    => {alt => 1},
-	kb_options_buttons => {ctrl => 1},
-		
-	i18n => {
-	
-		RUS => {
-		
-			edit   => 'редактировать (F4)',
-			cancel => 'вернутьс€ (Esc)',
-			ok     => 'применить (Ctrl-Enter)',
-			delete => 'удалить (Ctrl-Del)',
-		
-		}
-	
-	}
-
+			
 };
-
-our @month_names = ('€нвар€', 'феврал€', 'марта', 'апрел€', 'ма€', 'июн€', 'июл€', 'августа', 'сент€бр€', 'окт€бр€', 'но€бр€', 'декабр€');
 
 our $DB_MODEL = {
 
 	default_columns => {
-		id   => {TYPE_NAME  => 'int', _EXTRA => 'auto_increment', _PK    => 1},
+		id   => {TYPE_NAME  => 'int', _EXTRA => 'auto_increment', _PK => 1},
 		fake => {TYPE_NAME  => 'bigint'},
 	},
 
 };
+
+sub print_file {
+	my ($fn, $s) = @_;
+	open (F, ">$fn") or die "Can't write to $fn: $!\n";
+	flock (F, LOCK_EX);	
+	eval {print F $s};
+	flock (F, LOCK_UN);
+	close (F);
+	die $@ if $@;
+}
+
+sub voc_static {
+
+	$ENV {DOCUMENT_ROOT} or return;
+	setup_json ();
+	my $root = $ENV {DOCUMENT_ROOT} . '/voc/';
+	-d $root or mkdir ($root);	
+	my $data = add_vocabularies ({}, @_);	
+	while (my ($k, $v) = each %$data) {
+		print_file ("${root}${k}.json" => $_JSON -> encode ({success => \1, content => $v}));
+	}
 		
+}
+
 1;

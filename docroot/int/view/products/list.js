@@ -114,23 +114,27 @@ Ext.define ('UI.view.products.list', {
                         layout: 'anchor',
                         items: [
                             {
-                                xtype:'textfield',
+                                xtype:'staticvocfield',
                                 fieldLabel: 'Статус',
-                                name: 'last',
+                                name: 'id_voc_product_status',
+                                type: 'voc_product_status',
+                                listeners: listeners,
                                 anchor:'100%'
                             },
                             {
-                                xtype:'textfield',
+                                xtype:'staticvocfield',
                                 fieldLabel: 'Тип номенклатуры',
-                                name: 'email',
-                                vtype:'email',
+                                name: 'id_voc_product_type',
+                                type: 'voc_product_types',
+                                listeners: listeners,
                                 anchor:'100%'
                             },
                             {
-                                xtype:'textfield',
+                                xtype:'dynamicvocfield',
                                 fieldLabel: 'ЕИ',
-                                name: 'email',
-                                vtype:'email',
+                                name: 'id_voc_unit',
+                                type: 'voc_units',
+                                listeners: listeners,
                                 anchor:'100%'
                             },
                             {

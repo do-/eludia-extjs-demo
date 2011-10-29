@@ -63,7 +63,7 @@ listeners: {afterrender: {fn: function (b) {b.handler ()}}},
 
                                 Ext.getCmp ('voc_groups').store.load ({
 callback: function () {
-    Ext.create ('UI.view.products.list', {voc_group: {get: function (){return 101}}});
+    Ext.create ('UI.view.products.list', {voc_group: {get: function (){return 102}}});
 }
                                 });
 
