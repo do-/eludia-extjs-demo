@@ -4,11 +4,13 @@ Ext.define ('Ext.ux.ludi.DisplayDateTimeField', {
     alias: 'widget.displaydatetimefield',
     
     valueToRaw: function (value) {
-        return ('' + value).replace (/^(\d\d\d\d)\-(\d\d)\-(\d\d)(.*)/, "$3.$2.$1$4");
+        if (Ext.isEmpty (value)) value = '';
+        return value.replace (/^(\d\d\d\d)\-(\d\d)\-(\d\d)(.*)/, "$3.$2.$1$4");
     },
 
     rawToValue: function (value) {
-        return ('' + value).replace (/^(\d\d)\.(\d\d)\.(\d\d\d\d)(.*)/, "$3-$2-$1$4");
+        if (Ext.isEmpty (value)) value = '';
+        return value.replace (/^(\d\d)\.(\d\d)\.(\d\d\d\d)(.*)/, "$3-$2-$1$4");
     }    
 
 });
