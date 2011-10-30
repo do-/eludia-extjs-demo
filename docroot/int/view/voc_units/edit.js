@@ -63,25 +63,7 @@ Ext.define ('UI.view.voc_units.edit', {
                     },
 
                     {
-                        xtype: 'fieldset',
-                        autoRender: true,
-                        layout: {
-                            type: 'anchor'
-                        },
-                        title: 'Последнее изменение',
-                        weight: 1,
-                        items: [
-                            {
-                                xtype: 'displayfield',
-                                name: 'log.dt',
-                                fieldLabel: 'Дата'
-                            },
-                            {
-                                xtype: 'displayfield',
-                                name: 'user.label',
-                                fieldLabel: 'Автор'
-                            }
-                        ]
+                        xtype: 'lastmodifiedfieldset'
                     }
 
                 ],

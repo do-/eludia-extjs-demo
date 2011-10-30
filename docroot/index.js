@@ -320,6 +320,7 @@ Ext.require ('Ext.ux.ludi.SearchTextField');
 Ext.require ('Ext.ux.ludi.StaticVocField');
 Ext.require ('Ext.ux.ludi.DynamicVocField');
 Ext.require ('Ext.ux.ludi.DisplayDateTimeField');
+Ext.require ('Ext.ux.ludi.LastModifiedFieldSet');
 
 Ext.define ('voc', {
     extend: 'Ext.data.Model',

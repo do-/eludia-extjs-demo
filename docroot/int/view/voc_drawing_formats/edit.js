@@ -54,27 +54,7 @@ Ext.define ('UI.view.voc_drawing_formats.edit', {
                         uncheckedValue: '1'
                     },
                     {
-                        xtype: 'fieldset',
-                        autoRender: true,
-                        layout: {
-                            type: 'anchor'
-                        },
-//                        collapsed: true,
-//                        collapsible: true,
-                        title: 'Последнее изменение',
-                        weight: 1,
-                        items: [
-                            {
-                                xtype: 'displaydatetimefield',
-                                name: 'log.dt',
-                                fieldLabel: 'Дата'
-                            },
-                            {
-                                xtype: 'displayfield',
-                                name: 'user.label',
-                                fieldLabel: 'Автор'
-                            }
-                        ]
+                        xtype: 'lastmodifiedfieldset'
                     }
 
                 ],
