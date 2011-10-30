@@ -17,15 +17,15 @@ Ext.define ('UI.view.voc_drawing_formats.edit', {
 
             {
                 xtype: 'form',
-        layout: 'fit',
+                layout: 'fit',
                 bodyPadding: 10,
-//      bodyStyle: 'padding:5px; border:0px; _border-bottom:1px;',
-        waitMsgTarget: true,
+//              bodyStyle: 'padding:5px; border:0px; _border-bottom:1px;',
+                waitMsgTarget: true,
 
-        baseParams: {
-            type: 'voc_drawing_formats',
-            action: 'update'
-        },
+                baseParams: {
+                    type: 'voc_drawing_formats',
+                    action: 'update'
+                },
 
                 items: [
                     {
@@ -40,23 +40,19 @@ Ext.define ('UI.view.voc_drawing_formats.edit', {
                         size: 23,
                         name : 'label',
                         itemId: 'label',
-            allowBlank : false,
+                        allowBlank : false,
                         msgTarget : 'side',
                         fieldLabel: 'Наименование',
-                    blankText: 'Вы забыли ввести наименование'
+                        blankText: 'Вы забыли ввести наименование'
                     },
                     {
                         xtype: 'checkboxfield',
                         name: 'is_multiple_pages',
                         fieldLabel: 'Много листов',
                         boxLabel: '',
-            inputValue: '1',
-            uncheckedValue: '1'
-            },
-
-
-
-
+                        inputValue: '1',
+                        uncheckedValue: '1'
+                    },
                     {
                         xtype: 'fieldset',
                         autoRender: true,
@@ -69,7 +65,7 @@ Ext.define ('UI.view.voc_drawing_formats.edit', {
                         weight: 1,
                         items: [
                             {
-                                xtype: 'displayfield',
+                                xtype: 'displaydatetimefield',
                                 name: 'log.dt',
                                 fieldLabel: 'Дата'
                             },
@@ -80,8 +76,6 @@ Ext.define ('UI.view.voc_drawing_formats.edit', {
                             }
                         ]
                     }
-
-
 
                 ],
 
