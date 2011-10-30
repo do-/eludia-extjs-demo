@@ -86,19 +86,14 @@ Ext.define ('UI.view.products.edit', {
                 ],
 
 
-            buttons: [
-
-                {
-                    text: 'Сохранить',
-                    listeners: {click: {fn: saveRefreshParentGridAndCloseThisWindow}}
-                },
-
-                {
-                    text: 'Закрыть',
-                    listeners: {click: {fn: closeContainingWindow}}
-                }
-
-            ]
+                buttons: [
+                    {
+                        xtype: 'savebutton'
+                    },
+                    {
+                        xtype: 'cancelbutton'
+                    }
+                ]
 
             }
 

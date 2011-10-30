@@ -21,6 +21,7 @@ Ext.define ('UI.view.voc_groups.edit', {
                 layout: 'fit',
                 bodyPadding: 10,
                 waitMsgTarget: true,
+                trackResetOnLoad: true,
 
                 baseParams: {
                     type: 'voc_groups',
@@ -168,8 +169,7 @@ Ext.define ('UI.view.voc_groups.edit', {
                     },
 
                     {
-                        text: 'Закрыть',
-                        listeners: {click: {fn: closeContainingWindow}}
+                        xtype: 'cancelbutton'
                     }
 
                 ],

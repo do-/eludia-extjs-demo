@@ -85,7 +85,26 @@ function ajax (url, handler, form) {
 
 function closeContainingWindow (button) {
 
-    button.up ('window').close ();
+    var win = button.up ('window');
+    
+    var fp = win.down ('form');
+    
+    if (fp && fp.getForm ().isDirty ()) {
+
+        Ext.Msg.show ({
+             title:'Предупреждение',
+             msg: 'Значения некоторых полей изменены. Вы действительно хотите закрыть форму без сохранения данных?',
+             buttons: Ext.Msg.YESNO,
+             scope: win,
+             fn: function (choice) {if (choice == 'yes') win.close ()}
+        });
+
+    }
+    else {
+
+        win.close ();
+
+    }
 
 }
 
@@ -321,6 +340,8 @@ Ext.require ('Ext.ux.ludi.StaticVocField');
 Ext.require ('Ext.ux.ludi.DynamicVocField');
 Ext.require ('Ext.ux.ludi.DisplayDateTimeField');
 Ext.require ('Ext.ux.ludi.LastModifiedFieldSet');
+Ext.require ('Ext.ux.ludi.CancelButton');
+Ext.require ('Ext.ux.ludi.SaveButton');
 
 Ext.define ('voc', {
     extend: 'Ext.data.Model',

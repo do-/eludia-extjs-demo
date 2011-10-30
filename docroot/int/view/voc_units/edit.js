@@ -22,6 +22,7 @@ Ext.define ('UI.view.voc_units.edit', {
                 height: 220,
                 bodyPadding: 10,
                 waitMsgTarget: true,
+                trackResetOnLoad: true,
 
                 baseParams: {
                     type: 'voc_units',
@@ -96,8 +97,7 @@ Ext.define ('UI.view.voc_units.edit', {
                     },
 
                     {
-                        text: 'Закрыть',
-                        listeners: {click: {fn: closeContainingWindow}}
+                        xtype: 'cancelbutton'
                     }
 
                 ]

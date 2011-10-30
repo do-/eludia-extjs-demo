@@ -20,7 +20,8 @@ Ext.define ('UI.view.voc_drawing_formats.edit', {
                 layout: 'fit',
                 bodyPadding: 10,
 //              bodyStyle: 'padding:5px; border:0px; _border-bottom:1px;',
-                waitMsgTarget: true,
+                waitMsgTarget: true,                
+                trackResetOnLoad: true,
 
                 baseParams: {
                     type: 'voc_drawing_formats',
@@ -60,17 +61,12 @@ Ext.define ('UI.view.voc_drawing_formats.edit', {
                 ],
 
                 buttons: [
-
                     {
-                        text: 'Сохранить',
-                        listeners: {click: {fn: saveRefreshParentGridAndCloseThisWindow}}
+                        xtype: 'savebutton'
                     },
-
                     {
-                        text: 'Закрыть',
-                        listeners: {click: {fn: closeContainingWindow}}
+                        xtype: 'cancelbutton'
                     }
-
                 ]
 
             }
