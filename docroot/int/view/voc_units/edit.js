@@ -127,9 +127,8 @@ Ext.define ('UI.view.voc_units.edit', {
                 title: 'Эквиваленты в других единицах',
 
                 store: new Ext.data.Store ({
-
                     data: [],
-                    model: 'UI.model.voc_unit_coeffs',
+                    fields: ['id', 'label', 'voc_unit_coeff.coeff'],
                     proxy: {
                         type: 'memory',
                         reader: {type: 'json'}
