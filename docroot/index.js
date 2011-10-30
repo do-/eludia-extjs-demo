@@ -308,6 +308,8 @@ function performBatchOperation (grid, action) {
 
 }
 
+function clickButton (b) { b.handler (b) }
+
 function def (o, d) {
 
     for (i in d) {
@@ -342,6 +344,7 @@ Ext.require ('Ext.ux.ludi.DisplayDateTimeField');
 Ext.require ('Ext.ux.ludi.LastModifiedFieldSet');
 Ext.require ('Ext.ux.ludi.CancelButton');
 Ext.require ('Ext.ux.ludi.SaveButton');
+Ext.require ('Ext.ux.ludi.FormWindow');
 
 Ext.define ('voc', {
     extend: 'Ext.data.Model',

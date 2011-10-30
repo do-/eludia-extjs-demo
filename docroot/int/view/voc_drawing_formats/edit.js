@@ -1,6 +1,6 @@
 Ext.define ('UI.view.voc_drawing_formats.edit', {
 
-    extend: 'Ext.window.Window',
+    extend: 'Ext.ux.ludi.FormWindow',
     alias : 'widget.voc_drawing_formats_edit',
     closeAction: 'hide',
 

@@ -1,6 +1,6 @@
 Ext.define ('UI.view.voc_groups.edit', {
 
-    extend: 'Ext.window.Window',
+    extend: 'Ext.ux.ludi.FormWindow',
     alias : 'widget.voc_groups_edit',
     closeAction: 'hide',
 
@@ -110,7 +110,7 @@ Ext.define ('UI.view.voc_groups.edit', {
                     {
 
                         text: 'Сохранить',
-                        listeners: {click: {fn:
+                        handler:
 
                             function (button) {
 
@@ -163,8 +163,6 @@ Ext.define ('UI.view.voc_groups.edit', {
                                 });
 
                             }
-
-                        }}
 
                     },
 

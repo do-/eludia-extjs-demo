@@ -1,6 +1,6 @@
 Ext.define ('UI.view.voc_units.edit', {
 
-    extend: 'Ext.window.Window',
+    extend: 'Ext.ux.ludi.FormWindow',
     alias : 'widget.voc_units_edit',
     closeAction: 'hide',
 
@@ -73,7 +73,7 @@ Ext.define ('UI.view.voc_units.edit', {
 
                     {
                         text: 'Сохранить',
-                        listeners: {click: {fn: function (button) {
+                        handler: function (button) {
 
                             var win = button.up ('window');
 
@@ -92,7 +92,7 @@ Ext.define ('UI.view.voc_units.edit', {
                                 win.close ();
                             });
 
-                        }}}
+                        }
 
                     },
 
