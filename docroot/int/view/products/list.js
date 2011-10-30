@@ -130,7 +130,7 @@ Ext.define ('UI.view.products.list', {
                                 anchor:'100%'
                             },
                             {
-                                xtype:'dynamicvocfield',
+                                xtype:'staticvocfield',
                                 fieldLabel: 'ЕИ',
                                 name: 'id_voc_unit',
                                 type: 'voc_units',

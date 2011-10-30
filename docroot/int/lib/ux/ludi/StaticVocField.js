@@ -15,8 +15,8 @@ Ext.define ('Ext.ux.ludi.StaticVocField', {
                 type: 'ajax',
                 url: '/voc/' + me.type + '.json',
                 reader: {
-                    type: 'json',
-                    root: 'content',
+                    type: 'array',
+                    root: 'content'
                 }
             }
         });
