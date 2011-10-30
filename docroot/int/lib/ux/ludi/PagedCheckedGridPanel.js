@@ -49,12 +49,11 @@ Ext.define ('Ext.ux.ludi.PagedCheckedGridPanel', {
                     xtype: 'searchtextfield'
                 },
 
-                fakeSelect ()
-/*
+//                fakeSelect ()
                 {
-                    xtype: 'searchselectfieldfake',
-                },
-*/
+                    xtype: 'searchselectfieldfake'
+                }
+
             ]
 
         }];

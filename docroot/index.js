@@ -155,38 +155,6 @@ function loadItem (url, form, fn) {
 
 }
 
-function fakeSelect () {
-
-    return Ext.create('Ext.form.ComboBox', {
-                        name: 'fake',
-                        width: 90,
-                        displayField: 'label',
-                        valueField: 'id',
-                        forceSelection: true,
-                        value: '0',
-                        queryMode: 'local',
-                        allowBlank: false,
-                        editable: false,
-                        typeAhead: false,
-                        listeners: {change: {fn: changeSearchFieldValue}},
-                        store: Ext.create ('Ext.data.ArrayStore', {
-                            autoDestroy: true,
-                            idIndex: 0,
-                            fields: ['id','label'],
-                            data: [
-                                ['0', 'Активные'],
-                                ['-1', 'Удалённые'],
-                                ['0,-1', 'Все']
-                            ]
-            })
-
-        });
-
-
-
-
-}
-
 function standardGetRowClass (record, rowIndex, rp, ds) {
 
     return record.get ('fake') == -1 ? 'deleted-record' : '';
@@ -203,11 +171,9 @@ function changeSearchFieldValue (field, value) {
 
     if (field.name == 'inputItem') return;
 
-    var tb = field.up ('pagingtoolbar');
+    var tb = field.up ('window').down ('pagingtoolbar');
 
-        var store = tb.store;
-
-        store.proxy.extraParams [field.name] = value;
+    tb.store.proxy.extraParams [field.name] = value;
 
     tb.moveFirst ();
 

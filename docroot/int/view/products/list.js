@@ -32,16 +32,6 @@ Ext.define ('UI.view.products.list', {
 
         });
 
-        var tb    = me.grid.down ('pagingtoolbar');
-        var store = me.grid.store;
-
-        var changeSearchFieldValue = function (field, value) {
-            store.proxy.extraParams [field.name] = value;
-            tb.moveFirst ();
-        }
-
-        var listeners = {change: {fn: changeSearchFieldValue}};
-
         me.items = [
 
             me.grid,
@@ -72,38 +62,33 @@ Ext.define ('UI.view.products.list', {
                         layout: 'anchor',
                         items: [
                             {
-                                xtype:      'textfield',
+                                xtype:      'searchtextfield',
                                 fieldLabel: 'Наименование',
                                 name:       'name',
-                                listeners:  listeners,
                                 anchor:     '96%'
                             },
                             {
-                                xtype:      'textfield',
+                                xtype:      'searchtextfield',
                                 fieldLabel: 'Обозначение чертежа, марка',
                                 name:       'short_label',
-                                listeners:  listeners,
                                 anchor:     '96%'
                             },
                             {
-                                xtype:      'textfield',
+                                xtype:      'searchtextfield',
                                 fieldLabel: 'ГОСТ, ОСТ, ТУ',
                                 name:       'gost_ost_tu',
-                                listeners:  listeners,
                                 anchor:     '96%'
                             },
                             {
-                                xtype:      'textfield',
+                                xtype:      'searchtextfield',
                                 fieldLabel: 'Сорт, размер',
                                 name:       'part_size',
-                                listeners:  listeners,
                                 anchor:     '96%'
                             },
                             {
-                                xtype:      'textfield',
+                                xtype:      'searchtextfield',
                                 fieldLabel: 'Первичное применение',
                                 name:       'primary_application',
-                                listeners:  listeners,
                                 anchor:     '96%'
                             }
                         ]
@@ -118,7 +103,6 @@ Ext.define ('UI.view.products.list', {
                                 fieldLabel: 'Статус',
                                 name: 'id_voc_product_status',
                                 type: 'voc_product_status',
-                                listeners: listeners,
                                 anchor:'100%'
                             },
                             {
@@ -126,7 +110,6 @@ Ext.define ('UI.view.products.list', {
                                 fieldLabel: 'Тип номенклатуры',
                                 name: 'id_voc_product_type',
                                 type: 'voc_product_types',
-                                listeners: listeners,
                                 anchor:'100%'
                             },
                             {
@@ -134,7 +117,6 @@ Ext.define ('UI.view.products.list', {
                                 fieldLabel: 'ЕИ',
                                 name: 'id_voc_unit',
                                 type: 'voc_units',
-                                listeners: listeners,
                                 anchor:'100%'
                             },
                             {

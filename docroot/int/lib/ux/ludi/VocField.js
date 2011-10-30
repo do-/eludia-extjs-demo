@@ -8,6 +8,9 @@ Ext.define ('Ext.ux.ludi.VocField', {
         
         me.displayField = 'label';
         me.valueField   = 'id';
+        
+        if (!me.listeners) me.listeners = {};
+        me.listeners.change = {fn: changeSearchFieldValue};
 
         def (me, {
             forceSelection: false,

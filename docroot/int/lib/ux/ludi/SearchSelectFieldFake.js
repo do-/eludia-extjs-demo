@@ -4,8 +4,10 @@ Ext.define ('Ext.ux.ludi.SearchSelectFieldFake', {
     alias : 'widget.searchselectfieldfake',
 
     initComponent: function () {
+    
+        var me = this;
 
-        def (this, {
+        def (me, {
 
             name: 'fake',
             store: Ext.create ('Ext.data.ArrayStore', {
@@ -21,9 +23,12 @@ Ext.define ('Ext.ux.ludi.SearchSelectFieldFake', {
 
         });
 
-        this.store.load ();
+        me.displayField = 'label';
+        me.valueField   = 'id';
 
-        this.callParent (arguments);
+        me.store.load ();
+
+        me.callParent (arguments);
 
     }
 
