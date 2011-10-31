@@ -13,9 +13,11 @@ sub get_item_of_products {
 
 sub select_products {
 
-	sql ({},
+	darn sql ({},
 	
 		products => [
+		
+			'in_list',
 	
 			['id_voc_group IN' => $_REQUEST {id_voc_group}],
 			['label LIKE %?%'  => $_REQUEST {q}],			
@@ -29,10 +31,13 @@ sub select_products {
 			['gost_ost_tu          LIKE %?%' => $_REQUEST {gost_ost_tu}],
 			['part_size            LIKE %?%' => $_REQUEST {part_size}],
 			['primary_application  LIKE %?%' => $_REQUEST {primary_application}],
+			['product              LIKE %?%' => $_REQUEST {product}],
+
+			['weight BETWEEN ? AND ?' => [$_REQUEST {weight_from}, $_REQUEST {weight_to}]],
 						
 			[ LIMIT => 'start, 25'],
 		
-		], 'voc_product_types', 'voc_units', 'voc_groups', 'voc_product_status'
+		], [-voc_groups => ['ord_src']], 'voc_product_types', 'voc_units', 'voc_product_status'
 		
 	);
 

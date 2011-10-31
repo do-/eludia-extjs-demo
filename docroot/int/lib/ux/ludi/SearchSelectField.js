@@ -4,17 +4,16 @@ Ext.define ('Ext.ux.ludi.SearchSelectField', {
     alias : 'widget.searchselectfield',
 
     initComponent: function () {
+    
+        this.displayField = 'label';
+        this.editable = false;
 
         def (this, {
-            width: 90,
-            displayField: 'label',
+            width: 90,          
             valueField: 'id',
             forceSelection: true,
-            value: '0',
             queryMode: 'local',
             allowBlank: false,
-            editable: false,
-            typeAhead: false,
             listeners: {change: {fn: changeSearchFieldValue}}
         });
 

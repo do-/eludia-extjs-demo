@@ -8,7 +8,7 @@ Ext.define ('Ext.ux.ludi.SearchTextField', {
         def (this, {
             name: 'q',
             fieldLabel: 'Поиск',
-            labelWidth: 50,
+//            labelWidth: 50,
             listeners: {change: {fn: changeSearchFieldValue}}
         });
 

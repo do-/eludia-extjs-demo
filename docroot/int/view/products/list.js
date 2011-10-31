@@ -5,7 +5,7 @@ Ext.define ('UI.view.products.list', {
     closeAction: 'hide',
     maximizable : true,
     width: 800,
-    height: 687,
+    height: 700,
     layout: 'border',
     autoShow: true,
 
@@ -39,7 +39,7 @@ Ext.define ('UI.view.products.list', {
             {
 
                 xtype: 'form',
-                height:400,
+                height:323,
 //                split:       true,
                 collapsible: true,
                 collapsed: true,
@@ -90,7 +90,13 @@ Ext.define ('UI.view.products.list', {
                                 fieldLabel: 'Первичное применение',
                                 name:       'primary_application',
                                 anchor:     '96%'
-                            }
+                            },
+                            {
+                                xtype:      'searchtextfield',
+                                fieldLabel: 'Код группы',
+                                name:       'ord_src',
+                                anchor:     '96%'
+                            },
                         ]
                     },
                     {
@@ -120,11 +126,20 @@ Ext.define ('UI.view.products.list', {
                                 anchor:'100%'
                             },
                             {
-                                xtype:'textfield',
-                                fieldLabel: 'Масса',
-                                name: 'email',
-                                vtype:'email',
-                                anchor:'100%'
+                                xtype:'searchselectfield',
+                                fieldLabel: 'Входит в ограничительный перечень',
+                                name: 'in_list',
+                                anchor:'100%',
+                                store: Ext.create ('Ext.data.ArrayStore', {
+                                    autoDestroy: true,
+                                    idIndex: 0,
+                                    fields: ['id','label'],
+                                    data: [
+                                        ['',  'Не важно'],
+                                        ['1', 'Входит'],
+                                        ['0', 'Не входит']
+                                    ]
+                                })                                                               
                             },
                             {
                                 xtype:'textfield',
@@ -132,25 +147,37 @@ Ext.define ('UI.view.products.list', {
                                 name: 'email',
                                 vtype:'email',
                                 anchor:'100%'
+                            },
+                            {
+                                xtype: 'fieldcontainer',
+                                fieldLabel: 'Масса',
+                                anchor:'100%',
+                                layout: 'column',
+                                items: [
+                                    {
+                                        xtype:      'searchtextfield',
+                                        fieldLabel: 'от',
+                                        name:       'weight_from',
+                                        labelWidth: 20,
+                                        columnWidth:.5,
+                                    },
+                                    {
+                                        xtype:      'searchtextfield',
+                                        fieldLabel: '&nbsp;до',
+                                        name:       'weight_to',
+                                        labelWidth: 20,
+                                        columnWidth:.5,
+                                    }
+                                ],
+                                
                             }
+
                         ]
                     }]
                 },
 
 
 
-                            {
-                                xtype:'textfield',
-                                fieldLabel: 'Входит в ограничительный перечень:',
-                                name: 'company',
-                                anchor:'100%'
-                            },
-                            {
-                                xtype:'textfield',
-                                fieldLabel: 'Код группы',
-                                name: 'company',
-                                anchor:'100%'
-                            },
 
 
 
