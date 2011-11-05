@@ -4,8 +4,10 @@ Ext.define ('UI.view.main.list', {
     layout: 'border',
 
     initComponent: function () {
+    
+        var me = this;
 
-        this.items = [
+        me.items = [
 
             {
                 xtype:       'panel',
@@ -31,6 +33,12 @@ Ext.define ('UI.view.main.list', {
             }
 
         ];
+        
+        me.listeners = {afterrender: {fn: function () {
+        
+            me.getEl().on ('contextmenu', showWindowListMenu);
+        
+        }}};
 
         this.callParent (arguments);
 

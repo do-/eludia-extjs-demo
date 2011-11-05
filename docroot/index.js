@@ -238,6 +238,40 @@ function russianNRecords (n) {
 
 }
 
+function bringThisWindowToFront () {
+    Ext.WindowManager.bringToFront (this)
+}
+
+function showWindowListMenu (event) {
+
+        event.stopEvent ();
+        
+        var items = [];
+        var yet   = {};
+        
+        Ext.WindowManager.each (function (i) {
+            
+            if (i.isHidden ()) return;
+            if (!i.isVisible ()) return;
+            if (i.title == null) return;
+            title = new String (i.title);
+            if (!title.match (/\S/)) return;
+            if (yet [title]) return;
+                        
+            items.push ({
+                text: title,
+                handler: bringThisWindowToFront,
+                scope: i
+            });
+            
+            yet [title] = true;
+            
+        });
+        
+        new Ext.menu.Menu ({items: items}).showAt (event.getXY ());
+
+}
+
 function showMenuOffTableBody (grid, event) {
 
         event.stopEvent ();
