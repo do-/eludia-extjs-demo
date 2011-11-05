@@ -191,6 +191,8 @@ function changeSearchFieldValue (field, value) {
     if (field.name == 'inputItem') return;
 
     var tb = field.up ('window').down ('pagingtoolbar');
+    
+    if (Ext.isBoolean (value)) value = value ? 1 : 0;
 
     tb.store.proxy.extraParams [field.name] = value;
 
@@ -372,6 +374,7 @@ Ext.require ('Ext.ux.ludi.PagedCheckedGridPanel');
 Ext.require ('Ext.ux.ludi.SearchSelectField');
 Ext.require ('Ext.ux.ludi.SearchSelectFieldFake');
 Ext.require ('Ext.ux.ludi.SearchTextField');
+Ext.require ('Ext.ux.ludi.SearchCheckboxField');
 Ext.require ('Ext.ux.ludi.StaticVocField');
 Ext.require ('Ext.ux.ludi.DynamicVocField');
 Ext.require ('Ext.ux.ludi.DisplayDateTimeField');

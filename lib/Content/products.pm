@@ -13,13 +13,13 @@ sub get_item_of_products {
 
 sub select_products {
 
-	darn sql ({},
+	sql ({},
 	
 		products => [
 		
 			'in_list',
 	
-			['id_voc_group IN' => $_REQUEST {id_voc_group}],
+			['id_voc_group IN' => $_REQUEST {tree} ? [sql_select_subtree (voc_groups => $_REQUEST {id_voc_group})] : $_REQUEST {id_voc_group}],
 			['label LIKE %?%'  => $_REQUEST {q}],			
 			['name  LIKE %?%'  => $_REQUEST {name}],
 			

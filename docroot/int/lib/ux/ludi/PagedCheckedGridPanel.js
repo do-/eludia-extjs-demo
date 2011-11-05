@@ -30,6 +30,25 @@ Ext.define ('Ext.ux.ludi.PagedCheckedGridPanel', {
             checkOnly: true,
             mode: 'MULTI'
         });
+        
+        var search = [
+            {
+                icon: '/ext/examples/desktop/images/gears.gif',
+                action: 'edit',
+                listeners: {click: {fn: showMenuOnToolbarButton}}
+            },
+            {
+                xtype: 'searchtextfield'
+            },
+        ];
+        
+        if (this.search) search = search.concat (this.search);
+
+        search.push ([
+            {
+                xtype: 'searchselectfieldfake'
+            }
+        ]);
 
         this.dockedItems = [{
 
@@ -37,25 +56,7 @@ Ext.define ('Ext.ux.ludi.PagedCheckedGridPanel', {
             store : this.store,
             dock: 'bottom',
             displayInfo: true,
-
-            items: [
-
-                {
-                    icon: '/ext/examples/desktop/images/gears.gif',
-                    action: 'edit',
-                    listeners: {click: {fn: showMenuOnToolbarButton}}
-                },
-                {
-                    xtype: 'searchtextfield'
-                },
-
-//                fakeSelect ()
-                {
-                    xtype: 'searchselectfieldfake'
-                }
-
-            ]
-
+            items: search
         }];
 
         if (!this.listeners) this.listeners = {};

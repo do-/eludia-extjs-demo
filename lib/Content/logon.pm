@@ -6,7 +6,7 @@ sub do_execute_logon {
 
 	my $id_user = sql ('users(id)' => ['login', [LIMIT => 1]]) or die "#login#:Такого пользователя в БД не обнаружено";
 
-	$id_user = sql ('users(id)' => [
+	my $user = sql ('users(id)' => [
 	
 		'login',		
 		
@@ -14,9 +14,11 @@ sub do_execute_logon {
 		
 		[LIMIT => 1]
 		
-	]) or die "#password#:Вероятно, Вы ошиблись при вводе пароля";
+	], 'sessions ON sessions.id_user = users.id')
+	
+	or die "#password#:Вероятно, Вы ошиблись при вводе пароля";
 
-	start_session ($id_user);
+	$_REQUEST {sid} = $user -> {session} -> {id} or start_session ($id_user);
 	
 	our $_USER = sql (users => $id_user);
 	

@@ -20,6 +20,14 @@ Ext.define ('UI.view.products.list', {
                 region: 'center',
 
                 parameters: {type: 'products', id_voc_group: this.voc_group.get ('id')},
+                
+                search: [
+                    {
+                        xtype: 'searchcheckfield',
+                        fieldLabel: 'С подрубриками',
+                        name: 'tree'
+                    },
+                ],
 
                 columns : [
                       {header: 'Номер',         dataIndex: 'label',                    flex: 1}
