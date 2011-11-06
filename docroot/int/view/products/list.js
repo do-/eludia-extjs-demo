@@ -30,10 +30,10 @@ Ext.define ('UI.view.products.list', {
                 ],
 
                 columns : [
-                      {header: 'Номер',         dataIndex: 'label',                    flex: 1}
+                      {header: 'Номер',         dataIndex: 'label',                    width: 50}
                     , {header: 'Наименование',  dataIndex: 'name',                     flex: 1}
                     , {header: 'Тип',           dataIndex: 'voc_product_type.label',   flex: 1}
-                    , {header: 'ЕИ',            dataIndex: 'voc_unit.label',           flex: 1}
+                    , {header: 'ЕИ',            dataIndex: 'voc_unit.label',           width: 60}
                     , {header: 'Группа',        dataIndex: 'voc_group.label',          flex: 1}
                     , {header: 'Статус',        dataIndex: 'voc_product_status.label', flex: 1}
                 ]
@@ -48,7 +48,6 @@ Ext.define ('UI.view.products.list', {
 
                 xtype: 'form',
                 height:323,
-//                split:       true,
                 collapsible: true,
                 collapsed: true,
                 region: 'south',
