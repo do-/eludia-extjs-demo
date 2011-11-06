@@ -56,7 +56,7 @@ Ext.define ('Ext.ux.ludi.PagedCheckedGridPanel', {
             store : this.store,
             dock: 'bottom',
             displayInfo: true,
-            items: search
+            items: noOff (search)
         }];
 
         if (!this.listeners) this.listeners = {};

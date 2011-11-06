@@ -25,7 +25,8 @@ Ext.define ('UI.view.products.list', {
                     {
                         xtype: 'searchcheckfield',
                         fieldLabel: 'С подрубриками',
-                        name: 'tree'
+                        name: 'tree',
+                        off: me.voc_group.get ('leaf')
                     },
                 ],
 
