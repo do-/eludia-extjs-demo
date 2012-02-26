@@ -1,6 +1,6 @@
 Ext.define ('UI.view.voc_units.edit', {
 
-    extend: 'Ext.ux.ludi.FormWindow',
+    extend: 'Ext.ux.ludi.form.FormWindow',
     alias : 'widget.voc_units_edit',
     closeAction: 'hide',
 
