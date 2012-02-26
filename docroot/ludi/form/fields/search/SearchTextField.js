@@ -1,4 +1,4 @@
-Ext.define ('Ext.ux.ludi.SearchTextField', {
+Ext.define ('Ext.ux.ludi.form.fields.search.SearchTextField', {
 
     extend: 'Ext.form.field.Text',
     alias : 'widget.searchtextfield',
