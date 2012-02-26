@@ -1,4 +1,4 @@
-Ext.define ('Ext.ux.ludi.VocField', {
+Ext.define ('Ext.ux.ludi.form.fields.VocField', {
 
     extend: 'Ext.form.ComboBox',
 

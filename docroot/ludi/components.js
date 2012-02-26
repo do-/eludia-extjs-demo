@@ -1,8 +1,8 @@
 Ext.require ('Ext.ux.ludi.grid.PagedCheckedGridPanel');
 Ext.require ('Ext.ux.ludi.SearchSelectField');
 Ext.require ('Ext.ux.ludi.SearchSelectFieldFake');
-Ext.require ('Ext.ux.ludi.StaticVocField');
-Ext.require ('Ext.ux.ludi.DynamicVocField');
+//Ext.require ('Ext.ux.ludi.StaticVocField');
+//Ext.require ('Ext.ux.ludi.DynamicVocField');
 
 Ext.require ('Ext.ux.ludi.form.FormWindow');
 Ext.require ('Ext.ux.ludi.form.buttons.CancelButton');
