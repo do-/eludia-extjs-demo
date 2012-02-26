@@ -24,6 +24,7 @@ function store (options, modelOptions) {
     });
 
 }
+
 function noOff (a) {
 
     var b = [];
@@ -31,6 +32,7 @@ function noOff (a) {
     for (var i = 0; i < a.length; i ++) {
 
         var x = a [i];
+        if (Ext.isEmpty (x)) continue;
         if (x.off) continue;
         b.push (x);
 
@@ -357,7 +359,7 @@ function def (o, d) {
         }
         else {
 
-            o [i] = d [i];
+            if (Ext.isEmpty (o [i])) o [i] = d [i];
 
         }
 
@@ -382,6 +384,7 @@ Ext.require ('Ext.ux.ludi.LastModifiedFieldSet');
 Ext.require ('Ext.ux.ludi.CancelButton');
 Ext.require ('Ext.ux.ludi.SaveButton');
 Ext.require ('Ext.ux.ludi.FormWindow');
+Ext.require ('Ext.ux.ludi.BooleanBoxField');
 
 Ext.define ('voc', {
     extend: 'Ext.data.Model',

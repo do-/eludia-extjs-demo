@@ -47,12 +47,9 @@ Ext.define ('UI.view.voc_drawing_formats.edit', {
                         blankText: 'Вы забыли ввести наименование'
                     },
                     {
-                        xtype: 'checkboxfield',
+                        xtype: 'booleanbox',
                         name: 'is_multiple_pages',
                         fieldLabel: 'Много листов',
-                        boxLabel: '',
-                        inputValue: '1',
-                        uncheckedValue: '1'
                     },
                     {
                         xtype: 'lastmodifiedfieldset'
