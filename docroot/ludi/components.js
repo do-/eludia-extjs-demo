@@ -9,7 +9,7 @@ Ext.require ('Ext.ux.ludi.DisplayDateTimeField');
 Ext.require ('Ext.ux.ludi.form.buttons.CancelButton');
 Ext.require ('Ext.ux.ludi.form.buttons.SaveButton');
 Ext.require ('Ext.ux.ludi.form.FormWindow');
-Ext.require ('Ext.ux.ludi.BooleanBoxField');
+Ext.require ('Ext.ux.ludi.form.fields.edit.BooleanBoxField');
 
 Ext.define ('voc', {
     extend: 'Ext.data.Model',

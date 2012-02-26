@@ -1,4 +1,4 @@
-Ext.define ('Ext.ux.ludi.BooleanBoxField', {
+Ext.define ('Ext.ux.ludi.form.fields.edit.BooleanBoxField', {
 
     extend: 'Ext.form.Checkbox',
     alias : 'widget.booleanbox',
