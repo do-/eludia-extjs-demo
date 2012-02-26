@@ -1,4 +1,4 @@
-Ext.define ('Ext.ux.ludi.FormWindow', {
+Ext.define ('Ext.ux.ludi.form.FormWindow', {
     extend: 'Ext.window.Window',
     alias: 'widget.formwindow',
     onEsc: Ext.emptyFn,

@@ -8,7 +8,7 @@ Ext.require ('Ext.ux.ludi.DynamicVocField');
 Ext.require ('Ext.ux.ludi.DisplayDateTimeField');
 Ext.require ('Ext.ux.ludi.CancelButton');
 Ext.require ('Ext.ux.ludi.SaveButton');
-Ext.require ('Ext.ux.ludi.FormWindow');
+Ext.require ('Ext.ux.ludi.form.FormWindow');
 Ext.require ('Ext.ux.ludi.BooleanBoxField');
 
 Ext.define ('voc', {
