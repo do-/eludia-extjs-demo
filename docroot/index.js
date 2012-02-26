@@ -374,7 +374,7 @@ Ext.require ('Ext.app.Application');
 Ext.Loader.setPath ('Ext.ux.daom', '/int/lib/ux/daom');
 Ext.require ('Ext.ux.daom.LastModifiedFieldSet');
 
-Ext.Loader.setPath ('Ext.ux.ludi', '/int/lib/ux/ludi');
+Ext.Loader.setPath ('Ext.ux.ludi', '/ludi');
 Ext.require ('Ext.ux.ludi.PagedCheckedGridPanel');
 Ext.require ('Ext.ux.ludi.SearchSelectField');
 Ext.require ('Ext.ux.ludi.SearchSelectFieldFake');
