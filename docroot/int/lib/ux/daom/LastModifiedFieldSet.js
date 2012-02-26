@@ -1,4 +1,4 @@
-Ext.define ('Ext.ux.ludi.LastModifiedFieldSet', {
+Ext.define ('Ext.ux.daom.LastModifiedFieldSet', {
 
     extend: 'Ext.form.FieldSet',
     alias: 'widget.lastmodifiedfieldset',    

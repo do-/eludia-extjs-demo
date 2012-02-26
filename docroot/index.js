@@ -371,6 +371,9 @@ function def (o, d) {
 
 Ext.require ('Ext.app.Application');
 
+Ext.Loader.setPath ('Ext.ux.daom', '/int/lib/ux/daom');
+Ext.require ('Ext.ux.daom.LastModifiedFieldSet');
+
 Ext.Loader.setPath ('Ext.ux.ludi', '/int/lib/ux/ludi');
 Ext.require ('Ext.ux.ludi.PagedCheckedGridPanel');
 Ext.require ('Ext.ux.ludi.SearchSelectField');
@@ -380,7 +383,6 @@ Ext.require ('Ext.ux.ludi.SearchCheckboxField');
 Ext.require ('Ext.ux.ludi.StaticVocField');
 Ext.require ('Ext.ux.ludi.DynamicVocField');
 Ext.require ('Ext.ux.ludi.DisplayDateTimeField');
-Ext.require ('Ext.ux.ludi.LastModifiedFieldSet');
 Ext.require ('Ext.ux.ludi.CancelButton');
 Ext.require ('Ext.ux.ludi.SaveButton');
 Ext.require ('Ext.ux.ludi.FormWindow');
