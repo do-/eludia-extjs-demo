@@ -1,4 +1,4 @@
-Ext.define ('Ext.ux.ludi.SearchCheckboxField', {
+Ext.define ('Ext.ux.ludi.form.fields.search.SearchCheckboxField', {
 
     extend: 'Ext.form.field.Checkbox',
     alias : 'widget.searchcheckfield',
