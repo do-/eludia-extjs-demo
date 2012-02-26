@@ -7,3 +7,4 @@
 /docroot/session_access_logs
 /logs
 run.cmd
+fcgi.pl
