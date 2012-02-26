@@ -1,4 +1,4 @@
-Ext.require ('Ext.ux.ludi.PagedCheckedGridPanel');
+Ext.require ('Ext.ux.ludi.grid.PagedCheckedGridPanel');
 Ext.require ('Ext.ux.ludi.SearchSelectField');
 Ext.require ('Ext.ux.ludi.SearchSelectFieldFake');
 Ext.require ('Ext.ux.ludi.SearchTextField');

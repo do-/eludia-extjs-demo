@@ -1,4 +1,4 @@
-Ext.define ('Ext.ux.ludi.PagedCheckedGridPanel', {
+Ext.define ('Ext.ux.ludi.grid.PagedCheckedGridPanel', {
 
     extend: 'Ext.grid.Panel',
     alias : 'widget.pagedcheckedgridpanel',
