@@ -1,4 +1,4 @@
-Ext.define ('Ext.ux.ludi.DisplayDateTimeField', {
+Ext.define ('Ext.ux.ludi.form.fields.show.DisplayDateTimeField', {
 
     extend: 'Ext.form.field.Display',
     alias: 'widget.displaydatetimefield',

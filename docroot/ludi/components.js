@@ -5,7 +5,7 @@ Ext.require ('Ext.ux.ludi.SearchTextField');
 Ext.require ('Ext.ux.ludi.SearchCheckboxField');
 Ext.require ('Ext.ux.ludi.StaticVocField');
 Ext.require ('Ext.ux.ludi.DynamicVocField');
-Ext.require ('Ext.ux.ludi.DisplayDateTimeField');
+Ext.require ('Ext.ux.ludi.form.fields.show.DisplayDateTimeField');
 Ext.require ('Ext.ux.ludi.form.buttons.CancelButton');
 Ext.require ('Ext.ux.ludi.form.buttons.SaveButton');
 Ext.require ('Ext.ux.ludi.form.FormWindow');
