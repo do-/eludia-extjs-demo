@@ -57,7 +57,7 @@ Ext.define ('UI.view.products.search', {
                     fieldLabel: 'Код группы',
                     name:       'ord_src',
                     anchor:     '96%'
-                },
+                }
             ]
         },
         {
@@ -120,19 +120,17 @@ Ext.define ('UI.view.products.search', {
                             fieldLabel: 'от',
                             name:       'weight_from',
                             labelWidth: 20,
-                            columnWidth:.5,
+                            columnWidth:.5
                         },
                         {
                             xtype:      'searchtextfield',
                             fieldLabel: '&nbsp;до',
                             name:       'weight_to',
                             labelWidth: 20,
-                            columnWidth:.5,
+                            columnWidth:.5
                         }
-                    ],
-                    
+                    ]                    
                 }
-
             ]
         }]
     }]
