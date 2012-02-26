@@ -1,8 +1,8 @@
-Ext.require ('Ext.ux.ludi.VocField');
+Ext.require ('Ext.ux.ludi.form.fields.VocField');
 
 Ext.define ('Ext.ux.ludi.DynamicVocField', {
 
-    extend: 'Ext.ux.ludi.VocField',
+    extend: 'Ext.ux.ludi.form.fields.VocField',
     alias : 'widget.dynamicvocfield',
 
     initComponent: function () {

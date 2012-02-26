@@ -1,6 +1,7 @@
-Ext.define ('Ext.ux.ludi.form.fields.search.VocSearchField', {
+Ext.define ('Ext.ux.ludi.form.fields.search.SearchVocField', {
 
     extend: 'Ext.ux.ludi.form.fields.VocField',
+    alias : 'widget.searchselectfield',
 
     initComponent: function () {
     
