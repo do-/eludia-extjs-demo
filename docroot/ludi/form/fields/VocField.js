@@ -22,6 +22,24 @@ Ext.define ('Ext.ux.ludi.form.fields.VocField', {
         
         }
         
+        if (me.table && !me.store) {
+
+            me.store = new Ext.data.Store ({
+                model: 'voc',
+                proxy: {
+                    type: 'ajax',
+                    url: '/voc/' + me.table + '.json',
+                    reader: {
+                        type: 'array',
+                        root: 'content'
+                    }
+                }
+            });        
+        
+            me.store.load ();
+        
+        }
+
         this.callParent (arguments);
 
     }

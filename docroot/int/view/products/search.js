@@ -66,41 +66,36 @@ Ext.define ('UI.view.products.search', {
             layout: 'anchor',
             items: [
                 {
-                    xtype:'staticvocfield',
+                    xtype:'searchvocfield',
                     fieldLabel: 'Статус',
                     name: 'id_voc_product_status',
-                    type: 'voc_product_status',
+                    table: 'voc_product_status',
                     anchor:'100%'
                 },
                 {
-                    xtype:'staticvocfield',
+                    xtype:'searchvocfield',
                     fieldLabel: 'Тип номенклатуры',
                     name: 'id_voc_product_type',
-                    type: 'voc_product_types',
+                    table: 'voc_product_types',
                     anchor:'100%'
                 },
                 {
-                    xtype:'staticvocfield',
+                    xtype:'searchvocfield',
                     fieldLabel: 'ЕИ',
                     name: 'id_voc_unit',
-                    type: 'voc_units',
+                    table: 'voc_units',
                     anchor:'100%'
                 },
                 {
-                    xtype:'searchselectfield',
+                    xtype:'searchvocfield',
                     fieldLabel: 'Входит в ограничительный перечень',
                     name: 'in_list',
                     anchor:'100%',
-                    store: Ext.create ('Ext.data.ArrayStore', {
-                        autoDestroy: true,
-                        idIndex: 0,
-                        fields: ['id','label'],
-                        data: [
-                            ['',  'Не важно'],
-                            ['1', 'Входит'],
-                            ['0', 'Не входит']
-                        ]
-                    })                                                               
+                    data: [
+                        ['',  'Не важно'],
+                        ['1', 'Входит'],
+                        ['0', 'Не входит']
+                    ]
                 },
                 {
                     xtype:'textfield',
