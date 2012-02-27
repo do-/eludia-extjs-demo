@@ -83,7 +83,7 @@ Ext.define ('UI.view.products.search', {
                     xtype:'searchvocfield',
                     fieldLabel: 'ЕИ',
                     name: 'id_voc_unit',
-                    table: 'voc_units',
+                    type: 'voc_units',
                     anchor:'100%'
                 },
                 {
