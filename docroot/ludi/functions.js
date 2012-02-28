@@ -348,6 +348,14 @@ function performBatchOperation (grid, action) {
 
 function clickButton (b) { b.handler (b) }
 
+function suggest (me, d) {
+
+    var ini = me.initialConfig;
+
+    for (i in d) if (Ext.isEmpty (ini [i])) me [i] = d [i];
+
+}
+
 function def (o, d) {
 
     for (i in d) {

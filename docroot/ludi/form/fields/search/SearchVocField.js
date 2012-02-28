@@ -10,15 +10,16 @@ Ext.define ('Ext.ux.ludi.form.fields.search.SearchVocField', {
         if (!me.listeners) me.listeners = {};
         me.listeners.change = {fn: changeSearchFieldValue};
 
-        def (me, {
+        suggest (me, {
+            queryMode: 'local',
             forceSelection: false,
             allowBlank: true,
             editable: false,
             typeAhead: false,
             multiSelect: true
         });
-        
-        this.callParent (arguments);
+
+        me.callParent (arguments);
 
     }
 
