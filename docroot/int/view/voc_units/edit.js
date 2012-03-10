@@ -33,14 +33,13 @@ Ext.define ('UI.view.voc_units.edit', {
                     {
                         xtype : 'hiddenfield',
                         name  : 'id',
-                        hidden: true,
-                        value : ':NEW'
+                        hidden: true
                     },
                     {
                         xtype: 'textfield',
                         tabIndex: 0,
                         width: 320,
-                        name : 'label',
+                        name : '_label',
                         itemId: 'label',
                         allowBlank : false,
                         msgTarget : 'side',
@@ -50,13 +49,13 @@ Ext.define ('UI.view.voc_units.edit', {
                     {
                         xtype: 'textfield',
                         width: 320,
-                        name: 'note',
+                        name: '_note',
                         fieldLabel: 'Примечание'
                     },
                     {
                         xtype: 'textfield',
                         width: 150,
-                        name: 'code_okei',
+                        name: '_code_okei',
                         fieldLabel: 'Код по ОКЕИ',
                         maskRe: /[0-9]/,
                         regex: /^[0-9]{3}$/,
@@ -83,7 +82,7 @@ Ext.define ('UI.view.voc_units.edit', {
                             for (var i = 0; i < store.getCount (); i ++) {
                                 var r = store.getAt (i);
                                 var v = r.get ('voc_unit_coeff.coeff');
-                                form.baseParams ['unit_' + r.get ('id')] = v > 0 ? v : '';
+                                form.baseParams ['_unit_' + r.get ('id')] = v > 0 ? v : '';
                             }
 
                             submit (form, function (page, form) {
@@ -113,7 +112,7 @@ Ext.define ('UI.view.voc_units.edit', {
                     fields: ['id', 'label', 'voc_unit_coeff.coeff'],
                     proxy: {
                         type: 'memory',
-                        reader: {type: 'json'}
+                        reader: {useSimpleAccessors: false, type: 'json'}
                     }
                 }),
 

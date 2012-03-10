@@ -28,7 +28,7 @@ Ext.define ('UI.view.voc_units.list', {
                 ],
 
                 setFormData: function (data, form) {
-                    form.setValues (data.content);
+                    setFormData (data, form);
                     form.owner.up ('window').down ('gridpanel').store.add (data.content.voc_units);
                 }
 

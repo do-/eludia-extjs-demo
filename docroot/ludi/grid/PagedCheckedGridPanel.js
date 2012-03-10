@@ -101,7 +101,7 @@ Ext.define ('Ext.ux.ludi.grid.PagedCheckedGridPanel', {
             ajax (url, me.setFormData, win.down ('form').getForm ());
         };
 
-        if (!me.setFormData) me.setFormData = function (data, form) {form.setValues (data.content)};
+        if (!me.setFormData) me.setFormData = setFormData;
 
         def (this.listeners, {
             afterlayout:          {fn: me.doLoad},

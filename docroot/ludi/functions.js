@@ -182,6 +182,37 @@ function standardGetRowClass (record, rowIndex, rp, ds) {
 
 }
 
+function setFormData (data, form, prefix) {
+
+    if (!prefix) { 
+        prefix = '';
+        data = data.content;
+    }
+    
+    for (var k in data) {
+    
+        var v = data [k];
+        
+        var name = prefix ? prefix + '.' + k : k;
+
+        if (Ext.isObject (v)) {
+        
+            setFormData (v, form, name);
+                    
+        }
+        else {
+            
+            var field = form.findField ('_' + name) || form.findField (name);        
+            if (!field) continue;            
+            field.setValue (v);
+            field.resetOriginalValue ();
+        
+        }
+    
+    }
+
+}
+
 function loadFirstGrid (win) {
 
     win.down ('gridpanel').store.load ();

@@ -32,14 +32,13 @@ Ext.define ('UI.view.voc_drawing_formats.edit', {
                     {
                         xtype : 'hiddenfield',
                         name  : 'id',
-                        hidden: true,
-                        value : ':NEW'
+                        hidden: true
                     },
                     {
                         xtype: 'textfield',
                         tabIndex: 0,
                         size: 23,
-                        name : 'label',
+                        name : '_label',
                         itemId: 'label',
                         allowBlank : false,
                         msgTarget : 'side',
@@ -48,8 +47,8 @@ Ext.define ('UI.view.voc_drawing_formats.edit', {
                     },
                     {
                         xtype: 'booleanbox',
-                        name: 'is_multiple_pages',
-                        fieldLabel: 'Много листов',
+                        name: '_is_multiple_pages',
+                        fieldLabel: 'Много листов'
                     },
                     {
                         xtype: 'lastmodifiedfieldset'
