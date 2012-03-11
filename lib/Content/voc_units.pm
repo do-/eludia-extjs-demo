@@ -47,8 +47,6 @@ sub get_item_of_voc_units {
 
 	my $data = sql (voc_units => $_REQUEST {id}, 'log(dt)', 'users(label)');
 	
-	local $conf -> {core_sql_flat} = 1;
-
 	sql ($data, 'voc_units(id,label)' => [['id <>' => $data -> {id}]],
 
 		['voc_unit_coeffs(coeff) ON voc_unit_coeffs.id_unit_to = voc_units.id' => [

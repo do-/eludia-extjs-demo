@@ -29,7 +29,7 @@ Ext.define ('UI.view.voc_units.list', {
 
                 setFormData: function (data, form) {
                     setFormData (data, form);
-                    form.owner.up ('window').down ('gridpanel').store.add (data.content.voc_units);
+                    var store = form.owner.up ('window').down ('gridpanel').getStore ().loadRawData (data.content.voc_units);
                 }
 
             }

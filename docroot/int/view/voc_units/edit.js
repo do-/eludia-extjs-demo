@@ -112,7 +112,7 @@ Ext.define ('UI.view.voc_units.edit', {
                     fields: ['id', 'label', 'voc_unit_coeff.coeff'],
                     proxy: {
                         type: 'memory',
-                        reader: {useSimpleAccessors: false, type: 'json'}
+                        reader: 'json'
                     }
                 }),
 
