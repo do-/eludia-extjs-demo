@@ -6,6 +6,7 @@ Ext.define ('UI.view.voc_drawing_formats.edit', {
 
     title : 'Формат чертежей',
     layout: 'fit',
+    constrainHeader: true,
     autoShow: true,
     width: 300,
     height: 210,

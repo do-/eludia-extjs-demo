@@ -8,6 +8,7 @@ Ext.define ('UI.view.voc_drawing_formats.list', {
 
     title : 'Список форматов чертежей',
     layout: 'fit',
+    constrainHeader: true,
     autoShow: true,
 
     initComponent: function () {

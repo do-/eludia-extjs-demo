@@ -1,27 +1,28 @@
 Ext.define ('Ext.ux.ludi.form.fields.VocField', {
 
     extend: 'Ext.form.ComboBox',
+    alias : 'widget.combovocfield',
 
     initComponent: function () {
-    
+
         var me = this;
-        
+
         me.displayField = 'label';
         me.valueField   = 'id';
 
         if (me.data && !me.store) {
-        
+
             me.store = Ext.create ('Ext.data.ArrayStore', {
                 autoDestroy: true,
                 idIndex: 0,
                 fields: ['id','label'],
                 data: me.data
             });
-            
+
             me.store.load ();
-        
+
         }
-        
+
         if (me.table && !me.store) {
 
             me.store = new Ext.data.Store ({
@@ -34,12 +35,12 @@ Ext.define ('Ext.ux.ludi.form.fields.VocField', {
                         root: 'content'
                     }
                 }
-            });        
-        
+            });
+
             me.store.load ();
-        
+
         }
-        
+
         if (me.type && !me.store) {
 
             if (!me.params) me.params = {type: me.type};

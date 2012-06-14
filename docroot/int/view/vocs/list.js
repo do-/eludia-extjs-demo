@@ -3,7 +3,6 @@ Ext.define ('UI.view.vocs.list', {
     extend: 'Ext.tree.Panel',
 
     title: 'Справочники',
-    store: store,
     rootVisible: false,
     store: Ext.create ('Ext.data.TreeStore', {
         root: {

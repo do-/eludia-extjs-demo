@@ -1,379 +1,390 @@
 function store (options, modelOptions) {
 
-    var modelName = options.type;
+	var modelName = options.type;
 
-    if (modelOptions && !Ext.ModelManager.isRegistered (modelName)) {
-        modelOptions.extend = 'Ext.data.Model';
-        Ext.define (modelName, modelOptions);
-    }
+	if (modelOptions && !Ext.ModelManager.isRegistered (modelName)) {
+		modelOptions.extend = 'Ext.data.Model';
+		Ext.define (modelName, modelOptions);
+	}
 
-    return new Ext.data.Store ({
-        model: modelName,
-        remoteSort : true,
-        proxy: {
-        type: 'ajax',
-        url: '/handler',
-        extraParams: options,
-        reader: {
-            type: 'json',
-            useSimpleAccessors: false,
-            root: 'content.' + options.type,
-            totalProperty: 'content.cnt'
-        }
-        }
-    });
+	return new Ext.data.Store ({
+		model: modelName,
+		remoteSort : true,
+		proxy: {
+		type: 'ajax',
+		url: '/handler',
+		extraParams: options,
+		reader: {
+			type: 'json',
+			useSimpleAccessors: false,
+			root: 'content.' + options.type,
+			totalProperty: 'content.cnt'
+		}
+		}
+	});
 
 }
 
+function getFieldsFromColumns (fields, columns) {
+	for (var i = 0; i < columns.length; i ++) {
+		if (columns [i].dataIndex)
+			fields.push (columns [i].dataIndex);
+		if (columns [i].columns) {
+			getFieldsFromColumns (fields, columns [i].columns);
+		}
+	}
+}
+
+
 function noOff (a) {
 
-    var b = [];
+	var b = [];
 
-    for (var i = 0; i < a.length; i ++) {
+	for (var i = 0; i < a.length; i ++) {
 
-        var x = a [i];
-        if (Ext.isEmpty (x)) continue;
-        if (x.off) continue;
-        b.push (x);
+		var x = a [i];
+		if (Ext.isEmpty (x)) continue;
+		if (x.off) continue;
+		b.push (x);
 
-    }
+	}
 
-    return b;
+	return b;
 
 }
 
 function ajax (url, handler, form) {
 
-    if (/type=_boot/.test (url)) return alert ('Session expired');
+	if (/type=_boot/.test (url)) return alert ('Session expired');
 
-    if (url.charAt (0) === '/') url = url.substr (1);
+	if (url.charAt (0) === '/') url = url.substr (1);
 
-    if (sid && !/\bsid=[0-9]/.test (url)) url += ('&sid=' + sid);
+	if (sid && !/\bsid=[0-9]/.test (url)) url += ('&sid=' + sid);
 
-    Ext.Ajax.request ({
+	Ext.Ajax.request ({
 
-        url: '/handler' + url,
+		url: '/handler' + url,
 
-        method: 'GET',
+		method: 'GET',
 
-        scope: {handler: handler, form: form},
+		scope: {handler: handler, form: form},
 
-        callback: function (options, success, response) {
+		callback: function (options, success, response) {
 
-            if (!success) return ajax_failure (response, options);
+			if (!success) return ajax_failure (response, options);
 
-            try {
+			try {
 
-                var data = Ext.decode (response.responseText, true);
+				var data = Ext.decode (response.responseText, true);
 
-                if (data.success === 'redirect') return ajax (data.url, this.handler, this.form);
+				if (data.success === 'redirect') return ajax (data.url, this.handler, this.form);
 
-                if (!data.success) return ajax_failure (response, options);
+				if (!data.success) return ajax_failure (response, options);
 
-            }
-            catch (e) {
+			}
+			catch (e) {
 
-                return ajax_failure (response, options);
+				return ajax_failure (response, options);
 
-            }
+			}
 
-            return this.handler (data, form);
+			return this.handler (data, form);
 
-        }
+		}
 
-    });
+	});
 
 }
 
 function closeContainingWindow (button) {
 
-    var win = button.up ('window');
-    
-    var fp = win.down ('form');
-    
-    if (fp && fp.getForm ().isDirty ()) {
+	var win = button.up ('window');
+	
+	var fp = win.down ('form');
+	
+	if (fp && fp.getForm ().isDirty ()) {
 
-        Ext.Msg.show ({
-             title:'Предупреждение',
-             msg: 'Значения некоторых полей изменены. Вы действительно хотите закрыть форму без сохранения данных?',
-             buttons: Ext.Msg.YESNO,
-             scope: win,
-             fn: function (choice) {if (choice == 'yes') win.close ()}
-        });
+		Ext.Msg.show ({
+			 title:'Предупреждение',
+			 msg: 'Значения некоторых полей изменены. Вы действительно хотите закрыть форму без сохранения данных?',
+			 buttons: Ext.Msg.YESNO,
+			 scope: win,
+			 fn: function (choice) {if (choice == 'yes') win.close ()}
+		});
 
-    }
-    else {
+	}
+	else {
 
-        win.close ();
+		win.close ();
 
-    }
+	}
 
 }
 
 function storeOf (grid) {
 
-    var className = Ext.getClassName (grid);
+	var className = Ext.getClassName (grid);
 
-    var r =
-        className == 'Ext.tree.View' ? grid.getTreeStore () :
-        className == 'Ext.grid.View' ? grid.getStore () :
-        grid.store;
+	var r =
+		className == 'Ext.tree.View' ? grid.getTreeStore () :
+		className == 'Ext.grid.View' ? grid.getStore () :
+		grid.store;
 
-    return r;
+	return r;
 
 }
 
 function refreshParentGridAndCloseThisWindow (page, form) {
 
-    var win = form.owner.up ('window');
+	var win = form.owner.up ('window');
 
-    var store = storeOf (win.grid);
+	var store = storeOf (win.grid);
 
-    if (Ext.getClassName (win.grid) == 'Ext.tree.View') {
+	if (Ext.getClassName (win.grid) == 'Ext.tree.View') {
 
-        var id = page.content.parent;
+		var id = page.content.parent;
 
-        var node = store.getNodeById (id);
+		var node = store.getNodeById (id);
 
-        store.load ({node: node});
+		store.load ({node: node});
 
-    }
-    else {
+	}
+	else {
 
-        store.load ();
+		store.load ();
 
-    }
+	}
 
-    win.close ();
+	win.close ();
 }
 
 function saveRefreshParentGridAndCloseThisWindow (button) {
 
-    submit (button.up ('window').down ('form').getForm (), refreshParentGridAndCloseThisWindow);
+	submit (button.up ('window').down ('form').getForm (), refreshParentGridAndCloseThisWindow);
 
 }
 
 function openAndLoadFormForTheGridRecord (grid, record) {
 
-    var type = typeBehindTheGrid (grid);
+	var type = typeBehindTheGrid (grid);
 
-        var win = Ext.widget (type + '_edit');
+		var win = Ext.widget (type + '_edit');
 
-        win.grid = grid;
+		win.grid = grid;
 
-        var form = win.down ('form').getForm ();
+		var form = win.down ('form').getForm ();
 
-        loadItem ('?type=' + type + '&id=' + record.get ('id'), form);
+		loadItem ('?type=' + type + '&id=' + record.get ('id'), form);
 
 }
 
 
 function loadItem (url, form, fn) {
 
-    ajax (url, function (data, form) {
-        form.setValues (data.content);
-    }, form)
+	ajax (url, function (data, form) {
+		form.setValues (data.content);
+	}, form)
 
 }
 
 function standardGetRowClass (record, rowIndex, rp, ds) {
 
-    return record.get ('fake') == -1 ? 'deleted-record' : '';
+	return record.get ('fake') == -1 ? 'deleted-record' : '';
 
 }
 
 function setFormData (data, form, prefix) {
 
-    if (!prefix) { 
-        prefix = '';
-        data = data.content;
-    }
-    
-    for (var k in data) {
-    
-        var v = data [k];
-        
-        var name = prefix ? prefix + '.' + k : k;
+	if (!prefix) { 
+		prefix = '';
+		data = data.content;
+	}
+	
+	for (var k in data) {
+	
+		var v = data [k];
+		
+		var name = prefix ? prefix + '.' + k : k;
 
-        if (Ext.isObject (v)) {
-        
-            setFormData (v, form, name);
-                    
-        }
-        else {
-            
-            var field = form.findField ('_' + name) || form.findField (name);        
-            if (!field) continue;            
-            field.setValue (v);
-            field.resetOriginalValue ();
-        
-        }
-    
-    }
+		if (Ext.isObject (v)) {
+		
+			setFormData (v, form, name);
+					
+		}
+		else {
+			
+			var field = form.findField ('_' + name) || form.findField (name);        
+			if (!field) continue;            
+			field.setValue (v);
+			field.resetOriginalValue ();
+		
+		}
+	
+	}
 
 }
 
 function loadFirstGrid (win) {
 
-    win.down ('gridpanel').store.load ();
+	win.down ('gridpanel').store.load ();
 
 }
 
 function changeSearchFieldValue (field, value) {
 
-    if (field.name == 'inputItem') return;
+	if (field.name == 'inputItem') return;
 
-    var tb = field.up ('window').down ('pagingtoolbar');
-    
-    if (Ext.isBoolean (value)) value = value ? 1 : 0;
+	var tb = field.up ('window').down ('pagingtoolbar');
+	
+	if (Ext.isBoolean (value)) value = value ? 1 : 0;
 
-    tb.store.proxy.extraParams [field.name] = value;
+	tb.store.proxy.extraParams [field.name] = value;
 
-    tb.moveFirst ();
+	tb.moveFirst ();
 
 }
 
 function showNewObjectEditForm () {
 
-        var win = Ext.widget (typeBehindTheGrid (this) + '_edit');
+		var win = Ext.widget (typeBehindTheGrid (this) + '_edit');
 
-        win.grid = this;
+		win.grid = this;
 
 }
 
 function showMenuOnTableBody (grid, record, item, index, event, options) {
 
-    showMenuOffTableBody (grid, event)
+	showMenuOffTableBody (grid, event)
 
 }
 
 function showMenuOnToolbarButton (button, event) {
 
-    button.menu = createPopupMenu (button.up ('window').down ('gridpanel'));
+	button.menu = createPopupMenu (button.up ('window').down ('gridpanel'));
 
-    button.showMenu ();
+	button.showMenu ();
 
-    button.menu = undefined;
+	button.menu = undefined;
 
 }
 
 function russianNRecords (n) {
 
-    var s = n + ' запис';
+	var s = n + ' запис';
 
-    if ((n > 4 && n < 21)) return s + 'ей';
+	if ((n > 4 && n < 21)) return s + 'ей';
 
-    var r = n % 10;
+	var r = n % 10;
 
-    if (r == 0) return s + 'ей';
-    if (r == 1) return s + 'ь';
-    if (r <  5) return s + 'и';
+	if (r == 0) return s + 'ей';
+	if (r == 1) return s + 'ь';
+	if (r <  5) return s + 'и';
 
-    return s + 'ей';
+	return s + 'ей';
 
 }
 
 function bringThisWindowToFront () {
-    Ext.WindowManager.bringToFront (this)
+	Ext.WindowManager.bringToFront (this)
 }
 
 function showWindowListMenu (event) {
 
-        event.stopEvent ();
-        
-        var items = [];
-        var yet   = {};
-        
-        Ext.WindowManager.each (function (i) {
-            
-            if (i.isHidden ()) return;
-            if (!i.isVisible ()) return;
-            if (i.title == null) return;
-            title = new String (i.title);
-            if (!title.match (/\S/)) return;
-            if (yet [title]) return;
-                        
-            items.push ({
-                text: title,
-                handler: bringThisWindowToFront,
-                scope: i
-            });
-            
-            yet [title] = true;
-            
-        });
-        
-        new Ext.menu.Menu ({items: items}).showAt (event.getXY ());
+		event.stopEvent ();
+		
+		var items = [];
+		var yet   = {};
+		
+		Ext.WindowManager.each (function (i) {
+			
+			if (i.isHidden ()) return;
+			if (!i.isVisible ()) return;
+			if (i.title == null) return;
+			title = new String (i.title);
+			if (!title.match (/\S/)) return;
+			if (yet [title]) return;
+						
+			items.push ({
+				text: title,
+				handler: bringThisWindowToFront,
+				scope: i
+			});
+			
+			yet [title] = true;
+			
+		});
+		
+		new Ext.menu.Menu ({items: items}).showAt (event.getXY ());
 
 }
 
 function showMenuOffTableBody (grid, event) {
 
-        event.stopEvent ();
+		event.stopEvent ();
 
-        createPopupMenu (grid).showAt (event.xy);
+		createPopupMenu (grid).showAt (event.xy);
 
 }
 
 function createPopupMenu (grid) {
 
-    var selected = grid.getSelectionModel ().selected;
-    var cnt = {'0': 0, '-1': 0};
-    for (var i = 0; i < selected.getCount (); i ++) cnt ['' + selected.getAt (i).get ('fake')] ++;
+	var selected = grid.getSelectionModel ().selected;
+	var cnt = {'0': 0, '-1': 0};
+	for (var i = 0; i < selected.getCount (); i ++) cnt ['' + selected.getAt (i).get ('fake')] ++;
 
-    return new Ext.menu.Menu ({
-        floating: true,
-        items: noOff (grid.getPopupMenuItems (cnt))
-    });
+	return new Ext.menu.Menu ({
+		floating: true,
+		items: noOff (grid.getPopupMenuItems (cnt))
+	});
 
 }
 
 function typeBehindTheGrid (grid) {
 
-    return storeOf (grid).getProxy ().extraParams.type;
+	return storeOf (grid).getProxy ().extraParams.type;
 
 }
 
 function askToUnKillRecords () {
 
-    performBatchOperation (this, 'unkill');
+	performBatchOperation (this, 'unkill');
 
 }
 
 function askToKillRecords () {
 
-    Ext.Msg.show ({
-         title:'Предупреждение',
-         msg: 'Вы действительно хотите удалить ' + russianNRecords (this.getSelectionModel ().selected.getCount ()) + '?',
-         buttons: Ext.Msg.YESNO,
-         scope: this,
-         fn: function (choice) {if (choice == 'yes') performBatchOperation (this, 'kill')}
-    });
+	Ext.Msg.show ({
+		 title:'Предупреждение',
+		 msg: 'Вы действительно хотите удалить ' + russianNRecords (this.getSelectionModel ().selected.getCount ()) + '?',
+		 buttons: Ext.Msg.YESNO,
+		 scope: this,
+		 fn: function (choice) {if (choice == 'yes') performBatchOperation (this, 'kill')}
+	});
 
 }
 
 function askToMergeRecords () {
 
-    Ext.Msg.show ({
-         title:'Предупреждение',
-         msg: 'Вы действительно хотите слить ' + russianNRecords (this.getSelectionModel ().selected.getCount ()) + '? Вы уверены что они все описывают один и тот же объект?',
-         buttons: Ext.Msg.YESNO,
-         scope: this,
-         fn: function (choice) {if (choice == 'yes') performBatchOperation (this, 'merge')}
-    });
+	Ext.Msg.show ({
+		 title:'Предупреждение',
+		 msg: 'Вы действительно хотите слить ' + russianNRecords (this.getSelectionModel ().selected.getCount ()) + '? Вы уверены что они все описывают один и тот же объект?',
+		 buttons: Ext.Msg.YESNO,
+		 scope: this,
+		 fn: function (choice) {if (choice == 'yes') performBatchOperation (this, 'merge')}
+	});
 
 }
 
 function performBatchOperation (grid, action) {
 
-    var type     = typeBehindTheGrid (grid);
-    var href     = '?type=' + type + '&action=' + action;
-    var selected = grid.getSelectionModel ().selected;
-    var cnt      = selected.getCount ();
+	var type     = typeBehindTheGrid (grid);
+	var href     = '?type=' + type + '&action=' + action;
+	var selected = grid.getSelectionModel ().selected;
+	var cnt      = selected.getCount ();
 
-    for (var i = 0; i < cnt; i ++) href += '&_' + type + '_' + selected.getAt (i).get ('id') + '=1';
+	for (var i = 0; i < cnt; i ++) href += '&_' + type + '_' + selected.getAt (i).get ('id') + '=1';
 
-    ajax (href, function (data, grid) {grid.store.load ()}, grid);
+	ajax (href, function (data, grid) {grid.store.load ()}, grid);
 
 }
 
@@ -381,29 +392,29 @@ function clickButton (b) { b.handler (b) }
 
 function suggest (me, d) {
 
-    var ini = me.initialConfig;
+	var ini = me.initialConfig;
 
-    for (i in d) if (Ext.isEmpty (ini [i])) me [i] = d [i];
+	for (i in d) if (Ext.isEmpty (ini [i])) me [i] = d [i];
 
 }
 
 function def (o, d) {
 
-    for (i in d) {
+	for (i in d) {
 
-        if (o [i]) {
+		if (o [i]) {
 
-            if (Ext.isObject (d [i]) && !Ext.isArray (d [i])) def (o [i], d [i])
+			if (Ext.isObject (d [i]) && !Ext.isArray (d [i])) def (o [i], d [i])
 
-        }
-        else {
+		}
+		else {
 
-            if (Ext.isEmpty (o [i])) o [i] = d [i];
+			if (Ext.isEmpty (o [i])) o [i] = d [i];
 
-        }
+		}
 
-    }
+	}
 
-    return o;
+	return o;
 
 }

@@ -1,7 +1,7 @@
 Ext.define ('UI.view.products.search', {
 
     extend: 'Ext.form.Panel',
-    height:323,
+    height:400,
     collapsible: true,
     collapsed: true,
     region: 'south',
@@ -124,12 +124,12 @@ Ext.define ('UI.view.products.search', {
                             labelWidth: 20,
                             columnWidth:.5
                         }
-                    ]                    
+                    ]
                 }
             ]
         }]
     }]
-    
+
 /*
     initComponent: function() {
 
@@ -140,6 +140,6 @@ Ext.define ('UI.view.products.search', {
         this.callParent(arguments);
 
     }
-*/    
+*/
 
 });

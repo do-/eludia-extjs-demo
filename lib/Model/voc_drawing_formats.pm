@@ -7,3 +7,5 @@ columns => {
 	id_log             => {TYPE_NAME => 'int', ref => $conf->{systables}->{log}},     #  то и когда изменил
 },
 
+
+static => 1,

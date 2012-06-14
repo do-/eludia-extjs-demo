@@ -13,7 +13,7 @@ Ext.require ('Ext.ux.ludi.form.fields.show.DisplayDateTimeField');
 Ext.define ('voc', {
     extend: 'Ext.data.Model',
     fields: [
-        {name: 'id',    type: 'int'   },
+        {name: 'id',    type: 'string'},
         {name: 'label', type: 'string'},
     ]
 });

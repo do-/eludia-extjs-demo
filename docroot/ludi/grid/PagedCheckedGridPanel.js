@@ -9,11 +9,10 @@ Ext.define ('Ext.ux.ludi.grid.PagedCheckedGridPanel', {
 
         var type = this.parameters.type;
         var editFormClassName = 'UI.view.' + type + '.edit';
-        Ext.require (editFormClassName);
 
         if (!Ext.ModelManager.isRegistered (type)) {
             var fields  = ['id', 'fake'];
-            for (var i = 0; i < columns.length; i ++) fields.push (columns [i].dataIndex);
+            getFieldsFromColumns (fields, columns);
             Ext.define (type, {fields: fields, extend: 'Ext.data.Model'});
         }
 
@@ -30,7 +29,7 @@ Ext.define ('Ext.ux.ludi.grid.PagedCheckedGridPanel', {
             checkOnly: true,
             mode: 'MULTI'
         });
-        
+
         var search = [
             {
                 icon: '/ext/examples/desktop/images/gears.gif',
@@ -41,7 +40,7 @@ Ext.define ('Ext.ux.ludi.grid.PagedCheckedGridPanel', {
                 xtype: 'searchtextfield'
             },
         ];
-        
+
         if (this.search) search = search.concat (this.search);
 
         search.push ([
@@ -96,15 +95,21 @@ Ext.define ('Ext.ux.ludi.grid.PagedCheckedGridPanel', {
 
         me.openEditForm = function (params) {
             var url  = '?type=' + type + '&' + params;
-            var win  = Ext.create (editFormClassName);
-            win.grid = me;
-            ajax (url, me.setFormData, win.down ('form').getForm ());
+
+//	        Ext.require (editFormClassName, function () {
+				var win  = Ext.create (editFormClassName);
+				win.grid = me;
+				ajax (url, me.setFormData, win.down ('form').getForm ());
+//	        });
+
         };
+
 
         if (!me.setFormData) me.setFormData = setFormData;
 
         def (this.listeners, {
-            afterlayout:          {fn: me.doLoad},
+//            afterlayout:          {fn: me.doLoad},
+            afterrender:          {fn: me.doLoad},
             containercontextmenu: {fn: function (grid, event)                               {me.showMenu (event)}},
             itemcontextmenu:      {fn: function (grid, record, item, index, event, options) {me.showMenu (event)}},
             itemdblclick:         {fn: function (grid, record)                              {me.openEditForm ('id=' + record.get ('id'))}}

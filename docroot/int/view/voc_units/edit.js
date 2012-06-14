@@ -6,6 +6,7 @@ Ext.define ('UI.view.voc_units.edit', {
 
     title : 'Единица измерения',
     layout: 'border',
+    constrainHeader: true,
     autoShow: true,
     width: 350,
     height: 500,

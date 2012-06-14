@@ -6,3 +6,4 @@ columns => {
 	id_log  => {TYPE_NAME => 'int', ref => $conf->{systables}->{log}},
 },
 
+static => 1,
