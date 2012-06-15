@@ -9,12 +9,12 @@ sub get_item_of_docs {
 		'doc_folders(label)',
 
 		'doc_field_data(NONE) ON doc_field_data.id_type = docs.id AND doc_field_data.id_doc_type = docs.id_doc_type AND doc_field_data.fake = 0 and doc_field_data.id_doc_field = 100201',
-		'products(full_name) ON doc_field_data.id_doc_voc_data',
+		'products(id, full_name) ON doc_field_data.id_doc_voc_data',
 		'voc_groups(label)',
 		'doc_field_data(notes) AS dfd_prod ON dfd_prod.id_type = docs.id AND dfd_prod.id_doc_type = docs.id_doc_type AND dfd_prod.fake = 0 and dfd_prod.id_doc_field = 100203',
 		'doc_field_data(label) AS dfd_mark ON dfd_mark.id_type = docs.id AND dfd_mark.id_doc_type = docs.id_doc_type AND dfd_mark.fake = 0 and dfd_mark.id_doc_field = 100204',
 		'doc_field_data(NONE) AS dfd_users ON dfd_users.id_type = docs.id AND dfd_users.id_doc_type = docs.id_doc_type AND dfd_users.fake = 0 and dfd_users.id_doc_field = 100205',
-		'users(label) AS man_users ON dfd_users.id_doc_voc_data',
+		'users(id, label) AS man_users ON dfd_users.id_doc_voc_data',
 		'doc_field_data(notes) AS dfd_func ON dfd_func.id_type = docs.id AND dfd_func.id_doc_type = docs.id_doc_type AND dfd_func.fake = 0 and dfd_func.id_doc_field = 100206',
 		'doc_field_data(notes) AS dfd_lic ON dfd_lic.id_type = docs.id AND dfd_lic.id_doc_type = docs.id_doc_type AND dfd_lic.fake = 0 and dfd_lic.id_doc_field = 100207',
 		'doc_field_data(NONE) AS dfd_dir_users ON dfd_dir_users.id_type = docs.id AND dfd_dir_users.id_doc_type = docs.id_doc_type AND dfd_dir_users.fake = 0 and dfd_dir_users.id_doc_field = 100218',
@@ -131,8 +131,6 @@ sub select_docs {
 	darn sql ({},
 
 		docs => [
-
-			'in_list',
 
 			['id_doc_folder IN' => $_REQUEST {tree} ? [sql_select_subtree (doc_folders => $_REQUEST {id_doc_folder})] : $_REQUEST {id_doc_folder}],
 			['label LIKE %?%'  => $_REQUEST {q}],
