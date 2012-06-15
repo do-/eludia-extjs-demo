@@ -12,6 +12,51 @@ Ext.define ('UI.view.products.structure', {
 
 		var me = this;
 
+		me.checkStructureDown = function (content) {
+
+			if (me.structureItemsCnt == content.cnt) {
+
+				Ext.MessageBox.hide();
+				me.runningStructureDown = 0;
+
+				Ext.create ('UI.view.products.structure_down');
+
+			} else {
+
+				me.structureItemsCnt = content.cnt;
+				setTimeout (
+						function(){ajax (me.checkStructureDownHref, me.checkStructureDown)}
+						, 1000
+				);
+			}
+		};
+
+		me.openStructureDown = function () {
+			var id_product = me.down('form').getForm().findField ('id').getValue();
+			var href = '?type=product_structures_down&action=update&id_product=' + id_product;
+			me.checkStructureDownHref = '?type=product_structures_down&action=check_state&id_product=' + id_product;
+
+			Ext.MessageBox.show({
+				msg: 'Формирование спецификации, пожалуйста подождите...',
+				progressText: 'Saving...',
+				width:300,
+				wait:true,
+				waitConfig: {interval:200}
+			});
+
+			ajax (
+				href, 
+				function () {
+					setTimeout (
+						function(){ajax (me.checkStructureDownHref, me.checkStructureDown)}
+						, 1000
+					)
+				}
+			);
+			me.runningStructureDown = 1;
+			me.structureItemsCnt = 0;
+		}
+
         me.grid = Ext.widget ('pagedcheckedgridpanel', {
 
 			itemId: 'product_structures',
@@ -45,6 +90,20 @@ Ext.define ('UI.view.products.structure', {
 				containercontextmenu: {fn: function () {}},
 				itemcontextmenu:      {fn: function () {}},
 				itemdblclick:         {fn: function () {}}
+			},
+
+			getPopupMenuItems: function (cnt) {
+				return [
+
+					{
+						text     : 'Структура изделия',
+						handler  : function () {me.openStructureDown ()},
+						disabled : me.runningStructureDown
+					}
+
+
+				];
+
 			}
 
 		});
@@ -69,6 +128,11 @@ Ext.define ('UI.view.products.structure', {
 						},
 
 						items: [
+							{
+								xtype : 'hiddenfield',
+								name  : 'id',
+								hidden: true
+							},
 							{
 								fieldLabel: 'Номенклатурный номер',
 								name:       'label',

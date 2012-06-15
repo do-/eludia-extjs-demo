@@ -108,7 +108,6 @@ Ext.define ('Ext.ux.ludi.grid.PagedCheckedGridPanel', {
         if (!me.setFormData) me.setFormData = setFormData;
 
         def (this.listeners, {
-//            afterlayout:          {fn: me.doLoad},
             afterrender:          {fn: me.doLoad},
             containercontextmenu: {fn: function (grid, event)                               {me.showMenu (event)}},
             itemcontextmenu:      {fn: function (grid, record, item, index, event, options) {me.showMenu (event)}},
