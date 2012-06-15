@@ -61,9 +61,15 @@ Ext.define ('UI.view.sessions.edit', {
 
 								Ext.getCmp ('left_menu').show ();
 
+								Ext.getCmp ('doc_folders').store.load ({
+									callback: function () {
+//										Ext.create ('UI.view.docs.list', {doc_folder: {get: function (){return 4}}});
+									}
+								});
+
 								Ext.getCmp ('voc_groups').store.load ({
 									callback: function () {
-										Ext.create ('UI.view.products.list', {voc_group: {get: function (){return 3}}});
+//										Ext.create ('UI.view.products.list', {voc_group: {get: function (){return 3}}});
 									}
 								});
 

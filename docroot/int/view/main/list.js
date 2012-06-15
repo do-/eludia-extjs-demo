@@ -21,8 +21,9 @@ Ext.define ('UI.view.main.list', {
 				hidden:      true,
 				id:          'left_menu',
 				items: [
-					Ext.create ('UI.view.voc_groups.list', {}),
-					Ext.create ('UI.view.vocs.list',       {})
+					Ext.create ('UI.view.doc_folders.list', {}),
+					Ext.create ('UI.view.voc_groups.list',  {}),
+					Ext.create ('UI.view.vocs.list',        {})
 				]
 			},
 			{
