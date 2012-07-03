@@ -1,9 +1,10 @@
-
 ################################################################################
 
 sub get_item_of_products {
 
 	my $data = sql (products => $_REQUEST {id}, 'log(dt)', 'users(label)');
+
+	_add_user_fields_products ($data);
 
 	return $data;
 
@@ -44,5 +45,37 @@ sub select_products {
 
 }
 
+################################################################################
+
+sub _add_user_fields_products {
+
+        my ($data) = @_;
+
+        my $id_voc_group = $data -> {id_voc_group};
+        $data -> {groups} = [$id_voc_group];
+
+        while (TRUE) {
+                $id_voc_group = sql_select_scalar (
+                        'SELECT parent FROM voc_groups WHERE id = ?'
+                        , $id_voc_group
+                );
+
+                last unless $id_voc_group;
+
+                push @{$data -> {groups}}, $id_voc_group;
+        }
+
+        my $ids_product_field_groups = sql('voc_groups_product_field_groups(id_product_field_group)' => [
+                [id_voc_group => $data -> {groups}],
+        ]);
+
+	# TODO: прив€зать только доп пол€ групп номенклатуры
+
+        add_vocabularies ($data
+                , voc_brands     => {}
+                , voc_good_kinds => {}
+                , voc_good_types => {}
+        );
+}
 
 1;
