@@ -105,21 +105,21 @@ Ext.define ('UI.view.products.edit_main', {
 
 
 					fieldLabel: 'Статус',
-					name: 'id_voc_product_status',
-					table: 'voc_product_status',
-					readOnly: true
+					name:       'id_voc_product_status',
+					table:      'voc_product_status',
+					readOnly:   true
 				}
 				, {
-					xtype:'combovocfield',
+					xtype:      'combovocfield',
 					fieldLabel: 'Тип номенклатуры',
-					name: 'id_voc_product_type',
-					table: 'voc_product_types'
+					name:       'id_voc_product_type',
+					table:      'voc_product_types'
 				}
 				, {
-					xtype:'combovocfield',
+					xtype:      'combovocfield',
 					fieldLabel: 'Основная ЕИ',
-					name: 'id_voc_unit',
-					table: 'voc_units'
+					name:       'id_voc_unit',
+					table:      'voc_units'
 				}
 				, {
 					fieldLabel: 'Количество знаков после запятой',
@@ -127,7 +127,7 @@ Ext.define ('UI.view.products.edit_main', {
 				}
 				, {
 					fieldLabel: 'Масса',
-					name: 'weight',
+					name:       'weight',
 					afterSubTpl: 'кг'
 				}
 				, {
@@ -164,6 +164,27 @@ Ext.define ('UI.view.products.edit_main', {
 						['А',  'А']
 					]
 				}
+				, {
+					xtype:      'combovocfield',
+					fieldLabel: 'Бренд',
+					name:       'id_voc_brand',
+					table:      'voc_brands'
+				}
+
+				, {
+					xtype:      'combovocfield',
+					fieldLabel: 'Тип',
+					name:       'id_voc_good_type',
+					table:      'voc_good_types'
+				}
+
+				, {
+					xtype:      'combovocfield',
+					fieldLabel: 'Вид',
+					name:       'id_voc_good_kind',
+					table:      'voc_good_kinds'
+				}
+
 				, {
 					xtype: 'lastmodifiedfieldset'
 				}

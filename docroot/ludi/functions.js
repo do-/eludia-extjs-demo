@@ -99,9 +99,9 @@ function ajax (url, handler, form) {
 function closeContainingWindow (button) {
 
 	var win = button.up ('window');
-	
+
 	var fp = win.down ('form');
-	
+
 	if (fp && fp.getForm ().isDirty ()) {
 
 		Ext.Msg.show ({
@@ -195,31 +195,31 @@ function standardGetRowClass (record, rowIndex, rp, ds) {
 
 function setFormData (data, form, prefix) {
 
-	if (!prefix) { 
+	if (!prefix) {
 		prefix = '';
 		data = data.content;
 	}
-	
+
 	for (var k in data) {
-	
+
 		var v = data [k];
-		
+
 		var name = prefix ? prefix + '.' + k : k;
 
 		if (Ext.isObject (v)) {
-		
+
 			setFormData (v, form, name);
-					
+
 		}
 		else {
-			
-			var field = form.findField ('_' + name) || form.findField (name);        
-			if (!field) continue;            
+
+			var field = form.findField ('_' + name) || form.findField (name);
+			if (!field) continue;
 			field.setValue (v);
 			field.resetOriginalValue ();
-		
+
 		}
-	
+
 	}
 
 }
@@ -235,7 +235,7 @@ function changeSearchFieldValue (field, value) {
 	if (field.name == 'inputItem') return;
 
 	var tb = field.up ('window').down ('pagingtoolbar');
-	
+
 	if (Ext.isBoolean (value)) value = value ? 1 : 0;
 
 	tb.store.proxy.extraParams [field.name] = value;
@@ -291,29 +291,29 @@ function bringThisWindowToFront () {
 function showWindowListMenu (event) {
 
 		event.stopEvent ();
-		
+
 		var items = [];
 		var yet   = {};
-		
+
 		Ext.WindowManager.each (function (i) {
-			
+
 			if (i.isHidden ()) return;
 			if (!i.isVisible ()) return;
 			if (i.title == null) return;
 			title = new String (i.title);
 			if (!title.match (/\S/)) return;
 			if (yet [title]) return;
-						
+
 			items.push ({
 				text: title,
 				handler: bringThisWindowToFront,
 				scope: i
 			});
-			
+
 			yet [title] = true;
-			
+
 		});
-		
+
 		new Ext.menu.Menu ({items: items}).showAt (event.getXY ());
 
 }

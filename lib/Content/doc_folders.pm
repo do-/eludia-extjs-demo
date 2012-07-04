@@ -41,18 +41,18 @@ sub select_doc_folders {
 
 	my @nodes = ();
 
-	sql (doc_folders => [	
+	sql (doc_folders => [
 
-		[parent => $_REQUEST {node} || 0],	
+		[parent => $_REQUEST {node} || 0],
 
-		[ORDER  => 'label'],		
+		[ORDER  => 'label'],
 
 	], sub {
 
-		push @nodes, {		
+		push @nodes, {
 			id   => $i -> {id},
-			text => "$i->{label}",			
-			cls  => 'file',	
+			text => "$i->{label}",
+			cls  => 'file',
 			leaf => \1,
 		}
 

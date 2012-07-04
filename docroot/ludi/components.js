@@ -1,6 +1,12 @@
+Ext.require ('Ext.PluginManager');
+
+Ext.require ('Ext.ux.ludi.FileDownload');
+
+
 Ext.require ('Ext.ux.ludi.grid.PagedCheckedGridPanel');
 
 Ext.require ('Ext.ux.ludi.form.FormWindow');
+Ext.require ('Ext.ux.ludi.form.FormPanel');
 Ext.require ('Ext.ux.ludi.form.buttons.CancelButton');
 Ext.require ('Ext.ux.ludi.form.buttons.SaveButton');
 Ext.require ('Ext.ux.ludi.form.fields.edit.BooleanBoxField');

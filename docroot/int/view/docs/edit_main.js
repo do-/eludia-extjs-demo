@@ -1,14 +1,11 @@
 Ext.define ('UI.view.docs.edit_main', {
 
 	extend: 'Ext.form.Panel',
-	layout:'column',
+	layout:'fit',
 
 	autoScroll: true,
 
-	tabConfig: {
-			title: 'Общие',
-			tooltip: 'A button tooltip'
-	},
+	title: 'Общие',
 
 	bodyStyle:'padding:5px 5px 0',
 
@@ -32,7 +29,7 @@ Ext.define ('UI.view.docs.edit_main', {
 					xtype:      'fieldcontainer',
 					layout:     'hbox',
 					items: [{
-						fieldLabel: '<b>Номер</b>',
+						fieldLabel: 'Номер',
 						name:       'no',
 						flex:       1,
 						width:      350,
@@ -40,7 +37,7 @@ Ext.define ('UI.view.docs.edit_main', {
 					}, {
 						xtype: 'splitter'
 					}, {
-						fieldLabel: '<b>Каталог</b>',
+						fieldLabel: 'Каталог',
 						name:       'doc_folder.label',
 						flex:       1,
 						width:      250,
@@ -49,14 +46,13 @@ Ext.define ('UI.view.docs.edit_main', {
 						params:     {
 								type: 'doc_folders'
 						},
-			            queryParam: 'q'
+						queryParam: 'q'
 					}]
-				}
-				, {
+				} , {
 					xtype:      'fieldcontainer',
 					layout:     'hbox',
 					items: [{
-						fieldLabel: '<b>Изделие</b>',
+						fieldLabel: 'Изделие',
 						name:       'product.label',
 						flex:       1,
 						width:      350,
@@ -65,461 +61,451 @@ Ext.define ('UI.view.docs.edit_main', {
 						params:     {
 								type: 'products'
 						},
-			            queryParam: 'q'
+						queryParam: 'q'
 					}, {
 						xtype: 'splitter'
 					}, {
-						fieldLabel: '<b>Категория товара</b>',
+						fieldLabel: 'Категория товара',
 						name:       'voc_group.label',
 						flex:       1,
 						width:      250,
 						xtype:      'displayfield'
 					}]
-				}
-				, {
-					fieldLabel: '<b>Производитель, адрес<br>и контактное лицо</b>',
+				} , {
+					fieldLabel: 'Производитель, адрес<br>и контактное лицо',
 					name:       'dfd_prod.notes'
-				}
-				, {
+				} , {
 					xtype:      'fieldcontainer',
 					layout:     'hbox',
 					items: [{
-						fieldLabel: '<b>Маркировка образца</b>',
+						fieldLabel: 'Маркировка образца',
 						name:       'dfd_mark.label',
 						flex:       1,
 						xtype:      'textfield'
 					}, {
 						xtype: 'splitter'
 					}, {
-						fieldLabel: '<b>Отв. менеджер</b>',
+						fieldLabel: 'Отв. менеджер',
 						name:       'man_user.label',
 						flex:       1,
 						width:      250,
 						xtype:      'combovocfield',
-						type:       'users',
+						type:       'users'
 					}]
-				}
-				, {
-					fieldLabel: '<b>Основные функции</b>',
-					name:       'dfd_func.notes'
-				}
-				, {
-					fieldLabel: '<b>Лицензии</b>',
+				} , {
+					fieldLabel: 'Основные функции',
+					name:       'dfd_func.notes',
+					xtype:      'textarea'
+				} , {
+					fieldLabel: 'Лицензии',
 					name:       'licenses',
 					xtype:      'displayfield'
-				}
-				, {
-					fieldLabel: '<b>Продакт-директор товарной категории</b>',
-					name:       'dir_user.label',
-					xtype:      'combovocfield',
-					type:       'users',
-				}
-				, {
-					fieldLabel: '<b>РЕЗУЛЬТАТЫ ПЕРВИЧНЫХ ИСПЫТАНИЙ ОБРАЗЦА</b>',
-					xtype:      'displayfield'
-				}
-				, {
-					xtype:      'fieldcontainer',
-					layout:     'hbox',
-					items: [{
-						fieldLabel: '<b>Дата передачи образцов в работу</b>',
-						labelWidth: 250,
-						name:       'dfd_dt_set.dt',
-						flex:       1,
-						width:      350,
-						xtype:      'datefield'
-					}, {
-						xtype: 'splitter'
-					}, {
-						fieldLabel: '<b>Желаемая дата получения результатов</b>',
-						labelWidth: 250,
-						name:       'dfd_dt_get.dt',
-						flex:       1,
-						width:      250,
-						xtype:      'datefield'
-					}]
-				}
-				, {
-					fieldLabel: '<b>Заключение отдела качества (первичные испытания)</b>',
-					flex:       1,
-					xtype:      'displayfield'
-				}
-				, {
-					xtype:      'fieldcontainer',
-					layout:     'hbox',
-					items: [{
-						fieldLabel: '<b>Кол-во замечаний на (1)</b>',
-//						labelWidth: 200,
-						name:       'com1.label_href',
-						flex:       1,
-						width:      350,
-						xtype:      'textfield'
-					}, {
-						xtype: 'splitter'
-					}, {
-						fieldLabel: '<b>Серьезных</b>',
-						name:       'dfd_serious1.sum',
-						flex:       1,
-						width:      250,
-						xtype:      'textfield'
-					}, {
-						xtype: 'splitter'
-					}, {
-						fieldLabel: '<b>Незначительных</b>',
-						labelWidth: 150,
-						name:       'dfd_minor1.sum',
-						flex:       1,
-						width:      250,
-						xtype:      'textfield'
-					}]
-				}
-				, {
-					fieldLabel: '<b>Рекомендации</b>',
-					name:       'dfd_recom1.label'
-				}
-				, {
-					xtype:      'fieldcontainer',
-					layout:     'hbox',
-					items: [{
-						fieldLabel: '<b>Кол-во замечаний на (2)</b>',
-						name:       'com2.label_href',
-						flex:       1,
-						xtype:      'textfield'
-					}, {
-						xtype: 'splitter'
-					}, {
-						fieldLabel: '<b>Серьезных</b>',
-						name:       'dfd_serious2.sum',
-						flex:       1,
-						xtype:      'textfield'
-					}, {
-						xtype: 'splitter'
-					}, {
-						fieldLabel: '<b>Незначительных</b>',
-						labelWidth: 150,
-						name:       'dfd_minor2.sum',
-						flex:       1,
-						xtype:      'textfield'
-					}]
-				}
-				, {
-					fieldLabel: '<b>Рекомендации</b>',
-					name:       'dfd_recom2.label'
-				}
-				, {
-					xtype:      'fieldcontainer',
-					layout:     'hbox',
-					items: [{
-						fieldLabel: '<b>Кол-во замечаний на (3)</b>',
-						name:       'com3.label_href',
-						flex:       1,
-						xtype:      'textfield'
-					}, {
-						xtype: 'splitter'
-					}, {
-						fieldLabel: '<b>Серьезных</b>',
-						name:       'dfd_serious3.sum',
-						flex:       1,
-						xtype:      'textfield'
-					}, {
-						xtype: 'splitter'
-					}, {
-						fieldLabel: '<b>Незначительных</b>',
-						labelWidth: 150,
-						name:       'dfd_minor3.sum',
-						flex:       1,
-						xtype:      'textfield'
-					}]
-				}
-				, {
-					fieldLabel: '<b>Рекомендации</b>',
-					name:       'dfd_recom3.label'
-				}
-				, {
-					fieldLabel: '<b>Руководитель отдела качества</b>',
-					name:       'boss_user.label',
-					xtype:      'combovocfield',
-					type:       'users',
-				}
-				, {
-					fieldLabel: '<b>РЕЗУЛЬТАТЫ ИСПЫТАНИЙ ДОРАБОТАННОГО ОБРАЗЦА</b>',
-					xtype:      'displayfield'
-				}
-				, {
-					xtype:      'fieldcontainer',
-					layout:     'hbox',
-					items: [{
-						fieldLabel: '<b>Дата передачи образцов в работу</b>',
-						labelWidth: 250,
-						name:       'dfd_dt_set2.dt',
-						flex:       1,
-						width:      350,
-						xtype:      'datefield'
-					}, {
-						xtype: 'splitter'
-					}, {
-						fieldLabel: '<b>Желаемая дата получения результатов</b>',
-						labelWidth: 250,
-						name:       'dfd_dt_get2.dt',
-						flex:       1,
-						width:      250,
-						xtype:      'datefield'
-					}]
-				}
-				, {
-					fieldLabel: '<b>Заключение отдела качества (испытания доработанного образца)</b>',
-					xtype:      'displayfield'
-				}
-				, {
-					xtype:      'fieldcontainer',
-					layout:     'hbox',
-					items: [{
-						fieldLabel: '<b>Кол-во замечаний на (1)</b>',
-						name:       'com12.label_href',
-						flex:       1,
-						width:      '300',
-						xtype:      'textfield'
-					}, {
-						xtype: 'splitter'
-					}, {
-						fieldLabel: '<b>Серьезных</b>',
-						name:       'dfd_serious12.sum',
-						flex:       1,
-						width:      '300',
-						xtype:      'textfield'
-					}, {
-						xtype: 'splitter'
-					}, {
-						fieldLabel: '<b>Незначительных</b>',
-						labelWidth: 150,
-						name:       'dfd_minor12.sum',
-						flex:       1,
-						width:      '300',
-						xtype:      'textfield'
-					}]
-				}
-				, {
-					fieldLabel: '<b>Рекомендации</b>',
-					name:       'dfd_recom12.label'
-				}
-				, {
-					xtype:      'fieldcontainer',
-					layout:     'hbox',
-					items: [{
-						fieldLabel: '<b>Кол-во замечаний на (2)</b>',
-						name:       'com22.label_href',
-						flex:       1,
-						xtype:      'textfield'
-					}, {
-						xtype: 'splitter'
-					}, {
-						fieldLabel: '<b>Серьезных</b>',
-						name:       'dfd_serious22.sum',
-						flex:       1,
-						xtype:      'textfield'
-					}, {
-						xtype: 'splitter'
-					}, {
-						fieldLabel: '<b>Незначительных</b>',
-						labelWidth: 150,
-						name:       'dfd_minor22.sum',
-						flex:       1,
-						xtype:      'textfield'
-					}]
-				}
-				, {
-					fieldLabel: '<b>Рекомендации</b>',
-					name:       'dfd_recom22.label'
-				}
-				, {
-					xtype:      'fieldcontainer',
-					layout:     'hbox',
-					items: [{
-						fieldLabel: '<b>Кол-во замечаний на (3)</b>',
-						name:       'com32.label_href',
-						flex:       1,
-						xtype:      'textfield'
-					}, {
-						xtype: 'splitter'
-					}, {
-						fieldLabel: '<b>Серьезных</b>',
-						name:       'dfd_serious32.sum',
-						flex:       1,
-						xtype:      'textfield'
-					}, {
-						xtype: 'splitter'
-					}, {
-						fieldLabel: '<b>Незначительных</b>',
-						labelWidth: 150,
-						name:       'dfd_minor32.sum',
-						flex:       1,
-						xtype:      'textfield'
-					}]
-				}
-				, {
-					fieldLabel: '<b>Рекомендации</b>',
-					name:       'dfd_recom32.label'
-				}
-				, {
-					fieldLabel: '<b>Вывод</b>',
-					name:       'dfd_output.notes'
-				}
-				, {
-					fieldLabel: '<b>Руководитель отдела качества</b>',
-					name:       'boss_users2.label',
-					xtype:      'combovocfield',
-					type:       'users',
-				}
-				, {
-					fieldLabel: '<b>ПРИНЯТЬ МОДЕЛЬ В АССОРТИМЕНТ</b>',
-					xtype:      'displayfield'
-				}
-				, {
-					xtype:      'fieldcontainer',
-					layout:     'hbox',
-					items: [{
-						fieldLabel: '<b>Присвоить номер модели</b>',
-						labelWidth: 250,
-						name:       'dfd_no.label',
-						flex:       1,
-						width:      350,
-						xtype:      'textfield'
-					}, {
-						xtype: 'splitter'
-					}, {
-						fieldLabel: '<b>Планируемая дата первой отгрузки</b>',
-						labelWidth: 250,
-						name:       'dfd_dt_first_ship.dt',
-						flex:       1,
-						width:      250,
-						xtype:      'datefield'
-					}]
-				}
-				, {
-					fieldLabel: '<b>Коммерческий директор</b>',
-					name:       'com_dir_users.label',
-					xtype:      'combovocfield',
-					type:       'users',
-				}
-				, {
-					fieldLabel: '<b>Цвета модели в заказах</b>',
-					xtype:      'displayfield'
-				}
-				, {
-					xtype:      'fieldcontainer',
-					layout:     'hbox',
-					items: [{
-						fieldLabel: '<b>Код цвета (1)</b>',
-						name:       'dfd_color1.label',
-						flex:       1,
-						width:      300,
-						xtype:      'textfield'
-					}, {
-						xtype: 'splitter'
-					}, {
-						fieldLabel: '<b>% в контейнере (1)</b>',
-						labelWidth: 150,
-						name:       'dfd_percent1.sum',
-						flex:       1,
-						width:      300,
-						xtype:      'textfield'
-					}]
-				}
-				, {
-					xtype:      'fieldcontainer',
-					layout:     'hbox',
-					items: [{
-						fieldLabel: '<b>Код цвета (2)</b>',
-						name:       'dfd_color2.label',
-						flex:       1,
-						width:      '300',
-						xtype:      'textfield'
-					}, {
-						xtype: 'splitter'
-					}, {
-						fieldLabel: '<b>% в контейнере (2)</b>',
-						labelWidth: 150,
-						name:       'dfd_percent2.sum',
-						flex:       1,
-						width:      '300',
-						xtype:      'textfield'
-					}]
-				}
-				, {
-					xtype:      'fieldcontainer',
-					layout:     'hbox',
-					items: [{
-						fieldLabel: '<b>Код цвета (3)</b>',
-						name:       'dfd_color3.label',
-						flex:       1,
-						width:      '300',
-						xtype:      'textfield'
-					}, {
-						xtype: 'splitter'
-					}, {
-						fieldLabel: '<b>% в контейнере (3)</b>',
-						labelWidth: 150,
-						name:       'dfd_percent3.sum',
-						flex:       1,
-						width:      '300',
-						xtype:      'textfield'
-					}]
-				}
+				} ,
+				{
+					xtype:      'fieldset',
+					title:      'ПРИНЯТЬ ДИЗАЙН, ЦВЕТ, ФУНКЦИИ МОДЕЛИ',
+					items: [
+						{
+							fieldLabel: 'Продакт-директор товарной категории',
+							name:       'dir_user.label',
+							xtype:      'combovocfield',
+							type:       'users'
+						} ,
+						{
+							xtype:      'fieldset',
+							title:      'РЕЗУЛЬТАТЫ ПЕРВИЧНЫХ ИСПЫТАНИЙ ОБРАЗЦА',
+							items: [
+								{
+									fieldLabel: 'Дата передачи образцов в работу',
+									name:       'dfd_dt_set.dt',
+									flex:       1,
+									width:      250,
+									xtype:      'datefield'
+								}, {
+									fieldLabel: 'Желаемая дата получения результатов',
+									name:       'dfd_dt_get.dt',
+									flex:       1,
+									width:      250,
+									labelWidth: 500,
+									xtype:      'datefield'
+								},
 
-				, {
+								{
+									xtype:      'fieldset',
+									title:      'Заключение отдела качества',
+									layout:     {
+										type: 'table',
+										columns: 4
+									},
+									defaults: {
+										bodyStyle: 'padding:5px;',
+		//								height: '40',
+										border: 0
+									},
+									items: [
+										{
+											html: '',
+											rowspan: 2
+										},
+										{
+											html: 'Кол-во замечаний',
+											colspan: 2
+										},
+										{
+											html: 'Рекомендации',
+											rowspan: 2
+										},
+										{
+											html: 'серьезн.'
+										},
+										{
+											html: 'незнач.'
+										},
+										{
+											html: 'Изделие'
+										},
+										{
+											name:       'dfd_serious1.sum',
+											width:      50,
+											xtype:      'textfield'
+										},
+										{
+											name:       'dfd_minor1.sum',
+											width:      50,
+											xtype:      'textfield'
+										},
+										{
+											name:       'dfd_recom1.label',
+											width:      500,
+											xtype:      'textfield'
+										},
+										{
+											html: 'Документация'
+										},
+										{
+											name:       'dfd_serious2.sum',
+											width:      50,
+											xtype:      'textfield'
+										},
+										{
+											name:       'dfd_minor2.sum',
+											width:      50,
+											xtype:      'textfield'
+										},
+										{
+											name:       'dfd_recom2.label',
+											width:      500,
+											xtype:      'textfield'
+										},
+										{
+											html: 'Предприятие'
+										},
+										{
+											name:       'dfd_serious3.sum',
+											width:      50,
+											xtype:      'textfield'
+										},
+										{
+											name:       'dfd_minor3.sum',
+											width:      50,
+											xtype:      'textfield'
+										},
+										{
+											name:       'dfd_recom3.label',
+											width:      500,
+											xtype:      'textfield'
+										}
+
+									]
+								}
+
+
+
+
+							]
+						},
+
+
+
+						{
+							xtype:      'fieldset',
+							title:      'РЕЗУЛЬТАТЫ ИСПЫТАНИЙ ДОРАБОТАННОГО ОБРАЗЦА',
+							items: [
+								{
+									fieldLabel: 'Дата передачи образцов в работу',
+									name:       'dfd_dt_set2.dt',
+									flex:       1,
+									width:      250,
+									xtype:      'datefield'
+								}, {
+									fieldLabel: 'Желаемая дата получения результатов',
+									name:       'dfd_dt_get2.dt',
+									flex:       1,
+									width:      250,
+									labelWidth: 500,
+									xtype:      'datefield'
+								},
+
+								{
+									xtype:      'fieldset',
+									title:      'Заключение отдела качества',
+									layout:     {
+										type: 'table',
+										columns: 4
+									},
+									defaults: {
+										bodyStyle: 'padding:5px;',
+		//								height: '40',
+										border: 0
+									},
+									items: [
+										{
+											html: '',
+											rowspan: 2
+										},
+										{
+											html: 'Кол-во замечаний',
+											colspan: 2
+										},
+										{
+											html: 'Рекомендации',
+											rowspan: 2
+										},
+										{
+											html: 'серьезн.'
+										},
+										{
+											html: 'незнач.'
+										},
+										{
+											html: 'Изделие'
+										},
+										{
+											name:       'dfd_serious12.sum',
+											width:      50,
+											xtype:      'textfield'
+										},
+										{
+											name:       'dfd_minor12.sum',
+											width:      50,
+											xtype:      'textfield'
+										},
+										{
+											name:       'dfd_recom12.label',
+											width:      500,
+											xtype:      'textfield'
+										},
+										{
+											html: 'Документация'
+										},
+										{
+											name:       'dfd_serious22.sum',
+											width:      50,
+											xtype:      'textfield'
+										},
+										{
+											name:       'dfd_minor22.sum',
+											width:      50,
+											xtype:      'textfield'
+										},
+										{
+											name:       'dfd_recom22.label',
+											width:      500,
+											xtype:      'textfield'
+										},
+										{
+											html: 'Предприятие'
+										},
+										{
+											name:       'dfd_serious32.sum',
+											width:      50,
+											xtype:      'textfield'
+										},
+										{
+											name:       'dfd_minor32.sum',
+											width:      50,
+											xtype:      'textfield'
+										},
+										{
+											name:       'dfd_recom32.label',
+											width:      500,
+											xtype:      'textfield'
+										}
+
+									]
+								}
+
+
+
+
+							]
+						},
+						// {
+						// 	fieldLabel: 'Вывод',
+						// 	name:       'dfd_output.notes',
+						// 	xtype:      'textarea'
+						// },
+						// {
+						// 	fieldLabel: 'Руководитель отдела качества',
+						// 	name:       'boss_users2.label',
+						// 	xtype:      'combovocfield',
+						// 	type:       'users'
+						// }
+
+
+
+
+					]
+				},
+
+
+
+
+
+
+
+
+
+
+
+
+
+				{
+					xtype:      'fieldset',
+					layout:     'column',
+					title:      'ПРИНЯТЬ МОДЕЛЬ В АССОРТИМЕНТ',
+					items: [
+						{
+							xtype: 'container',
+							layout: 'anchor',
+							columnWidth: .5,
+							defaults: {
+									anchor:     '96%',
+									xtype:      'textfield'
+							},
+
+							items: [
+								{
+									fieldLabel: 'Присвоить номер модели',
+									labelWidth: 250,
+									name:       'dfd_no.label',
+									flex:       1,
+									width:      350,
+									xtype:      'textfield'
+								} , {
+									fieldLabel: 'Коммерческий директор',
+									name:       'com_dir_users.label',
+									xtype:      'combovocfield',
+									type:       'users'
+								}
+							]
+						},
+
+
+						{
+							fieldLabel: 'Планируемая дата первой отгрузки',
+							labelWidth: 250,
+							name:       'dfd_dt_first_ship.dt',
+							flex:       1,
+							width:      250,
+							xtype:      'datefield'
+						}
+					]
+				},
+
+
+
+
+
+
+
+
+
+
+
+				{
+					xtype:      'fieldset',
+					layout:     'column',
+					title:      'ЦВЕТА МОДЕЛИ В ЗАКАЗАХ',
+					items: [
+						{
+							xtype: 'container',
+							layout: 'anchor',
+							columnWidth: .5,
+							defaults: {
+									anchor:     '96%',
+									xtype:      'textfield'
+							},
+
+							items: [
+
+								{
+									fieldLabel: 'Код цвета (1)',
+									name:       'dfd_color1.label',
+									flex:       1,
+									width:      300,
+									xtype:      'textfield'
+								},
+								{
+									fieldLabel: 'Код цвета (2)',
+									name:       'dfd_color2.label',
+									flex:       1,
+									width:      '300',
+									xtype:      'textfield'
+								},
+								{
+									fieldLabel: 'Код цвета (3)',
+									name:       'dfd_color3.label',
+									flex:       1,
+									width:      '300',
+									xtype:      'textfield'
+								}
+							]
+						},
+						{
+							xtype: 'container',
+							layout: 'anchor',
+							columnWidth: .5,
+							defaults: {
+									anchor:     '96%',
+									xtype:      'textfield'
+							},
+
+							items: [
+
+								{
+									fieldLabel: '% в контейнере (1)',
+									labelWidth: 150,
+									name:       'dfd_percent1.sum',
+									flex:       1,
+									width:      300,
+									xtype:      'textfield'
+								} , {
+										fieldLabel: '% в контейнере (2)',
+										labelWidth: 150,
+										name:       'dfd_percent2.sum',
+										flex:       1,
+										width:      '300',
+										xtype:      'textfield'
+								} , {
+										fieldLabel: '% в контейнере (3)',
+										labelWidth: 150,
+										name:       'dfd_percent3.sum',
+										flex:       1,
+										width:      '300',
+										xtype:      'textfield'
+								}
+							]
+						}
+
+					]
+				} , {
 					xtype: 'lastmodifiedfieldset'
 				}
 
 			]
 
 		}
-//		, {
-//			xtype: 'container',
-//			columnWidth: .5,
-//			layout: 'anchor',
-//			defaults: {
-//					anchor:     '100%',
-//					xtype:      'textfield'
-//			},
-//
-//			items: [
-//
-//				{
-//					xtype:'combovocfield',
-//					forceSelection: true,
-//					allowBlank: false,
-//					editable: false,
-//					typeAhead: false,
-//					multiSelect: false,
-//					fieldLabel: 'Статус',
-//					name: 'id_voc_product_status',
-//					table: 'voc_product_status',
-//					readOnly: true
-//				}
-//				, {
-//					xtype:'combovocfield',
-//					fieldLabel: 'Тип номенклатуры',
-//					name: 'id_voc_product_type',
-//					table: 'voc_product_types'
-//				}
-//				, {
-//					fieldLabel: 'Масса',
-//					name: 'weight',
-//					afterSubTpl: 'кг'
-//				}
-//				, {
-//					xtype:'combovocfield',
-//					fieldLabel: 'Входит в ограничительный перечень',
-//					name: 'in_list',
-//					data: [
-//						['',  'Не важно'],
-//						['1', 'Входит'],
-//						['0', 'Не входит']
-//					]
-//				}
-//			]
-//
-//		},
 	],
 	buttons: [
 		{

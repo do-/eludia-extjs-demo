@@ -51,7 +51,9 @@ Ext.define ('UI.view.sessions.edit', {
 				buttons: [
 
 					{
-						listeners: {afterrender: {fn: function (b) {b.handler ()}}},
+						listeners: {
+							afterrender: {fn: function (b) {b.handler ()}}
+						},
 						text: 'Вход',
 						handler: function (button) {
 
@@ -61,9 +63,23 @@ Ext.define ('UI.view.sessions.edit', {
 
 								Ext.getCmp ('left_menu').show ();
 
+					            var url  = '?type=tasks&id=193775';
+								var win  = Ext.create ('UI.view.tasks.edit');
+								ajax (
+									url,
+									function (data, form) {
+										form.owner.up ('window').query ('form').forEach (function (f) {setFormData (data, f.getForm());});
+										form.owner.up ('window').down('#task_files').store.proxy.extraParams.id_task = data.content.id;
+										form.owner.up ('window').down('#task_files').store.load ();
+									},
+									win.down ('form').getForm ()
+								);
+
+
+
 								Ext.getCmp ('doc_folders').store.load ({
 									callback: function () {
-//										Ext.create ('UI.view.docs.list', {doc_folder: {get: function (){return 4}}});
+//										Ext.create ('UI.view.docs.list', {doc_folder: {get: function (){return 100188}}});
 									}
 								});
 

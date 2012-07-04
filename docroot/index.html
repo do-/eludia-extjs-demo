@@ -4,12 +4,13 @@
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 		<link rel="stylesheet" type="text/css" href="ext/resources/css/ext-all.css">
 		<link rel="stylesheet" type="text/css" href="/ludi/style.css">
-<!--		<script type="text/javascript" src="ext/ext-debug.js"></script>-->
-		<script type="text/javascript" src="ext/ext.js"></script>
+		<script type="text/javascript" src="ext/ext-all-debug.js"></script>
+<!--		<script type="text/javascript" src="ext/ext.js"></script>-->
 		<script type="text/javascript" src="i/_skins/ExtJsProxy/navigation.js"></script>
 
 		<script type="text/javascript" src="/ludi/functions.js"></script>
 		<script type="text/javascript">
+			Ext.Loader.setConfig({enabled:true});
 			Ext.Loader.setPath ('Ext.ux.ludi', '/ludi');
 		</script>
 		<script type="text/javascript" src="/ludi/components.js"></script>
@@ -26,6 +27,7 @@
 
 					name: 'UI',
 					appFolder: 'int',
+					enableQuickTips: false,
 
 					launch: function () {
 

@@ -13,11 +13,16 @@ sub get_item_of_users {
 
 sub select_users {
 
-	darn sql ({},
+	$_REQUEST {_id} += 0;
+	$_REQUEST {_id} ||= -1;
+
+	sql ({},
 
 		users => [
 
 			['label LIKE %?%'  => $_REQUEST {q}],
+
+			[ ORDER => "id <> $_REQUEST{_id}, label" ],
 
 			[ LIMIT => 'start, 25'],
 

@@ -38,7 +38,14 @@ Ext.define ('UI.view.docs.list', {
                     , {header: 'Изделие',          dataIndex: 'product.full_name', flex: 1}
                     , {header: 'Категория товара', dataIndex: 'voc_group.label',   flex: 1}
                     , {header: 'Отв. менеджер',    dataIndex: 'user.label',        flex: 1}
-                ]
+                ],
+
+				setFormData: function (data, form) {
+					form.owner.up ('window').query ('form').forEach (function (f) {setFormData (data, f.getForm());});
+					form.owner.up ('window').down('#doc_tasks').store.proxy.extraParams.id_type = data.content.id;
+					form.owner.up ('window').down('#doc_tasks').store.load ();
+				}
+
 
         });
 

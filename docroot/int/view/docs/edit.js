@@ -1,16 +1,15 @@
 Ext.define ('UI.view.docs.edit', {
 
-    extend: 'Ext.window.Window',
-    alias : 'widget.docs_edit',
-    closeAction: 'hide',
+	extend: 'Ext.window.Window',
+	alias : 'widget.docs_edit',
+	closeAction: 'hide',
 
-    title : 'Документ',
-    layout: 'fit',
-    constrainHeader: true,
-    autoShow: true,
-    width: '95%',
-    height: '95%',
-    defaultFocus : 'label',
+	title : 'Документ',
+	layout: 'fit',
+	constrainHeader: true,
+	autoShow: true,
+	width: '90%',
+	height: '90%',
 
 	initComponent: function () {
 
@@ -18,7 +17,13 @@ Ext.define ('UI.view.docs.edit', {
 
 		me.items = [
 
-			Ext.create ('UI.view.docs.edit_main')
+			{
+				xtype: 'tabpanel',
+				items: [
+					Ext.create ('UI.view.docs.edit_main')
+					, Ext.create ('UI.view.docs.tasks')
+				]
+			}
 
 		];
 
