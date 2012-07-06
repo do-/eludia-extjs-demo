@@ -14,21 +14,24 @@ sub get_item_of_products {
 
 sub select_products {
 
+	my $data = {};
+	$_REQUEST {_id} += 0;
+	$_REQUEST {_id} ||= -1;
 
-	sql ({},
-	
+	sql ($data,
+
 		products => [
-		
+
 			'in_list',
-	
+
 			['id_voc_group IN' => $_REQUEST {tree} ? [sql_select_subtree (voc_groups => $_REQUEST {id_voc_group})] : $_REQUEST {id_voc_group}],
-			['label LIKE %?%'  => $_REQUEST {q}],			
+			['label LIKE %?%'  => $_REQUEST {q}],
 			['name  LIKE %?%'  => $_REQUEST {name}],
-			
+
 			['id_voc_product_status' => $_REQUEST {'id_voc_product_status[]'}],
 			['id_voc_product_type'   => $_REQUEST {'id_voc_product_type[]'}],
 			['id_voc_unit'           => $_REQUEST {'id_voc_unit[]'}],
-					
+
 			['short_label          LIKE %?%' => $_REQUEST {short_label}],
 			['gost_ost_tu          LIKE %?%' => $_REQUEST {gost_ost_tu}],
 			['part_size            LIKE %?%' => $_REQUEST {part_size}],
@@ -36,12 +39,22 @@ sub select_products {
 			['product              LIKE %?%' => $_REQUEST {product}],
 
 			['weight BETWEEN ? AND ?' => [$_REQUEST {weight_from}, $_REQUEST {weight_to}]],
-						
-			[ LIMIT => 'start, 25'],
-		
+
+			[ ORDER => "id <> $_REQUEST{_id}, label"],
+
+			[ LIMIT => "start, 25"],
+
 		], [-voc_groups => ['ord_src']], 'voc_product_types', 'voc_units', 'voc_product_status'
-		
+
 	);
+
+	if ($_REQUEST {as_voc}) {
+
+		map {$_ -> {label} = $_ -> {full_name}} @{$data -> {products}};
+
+	}
+
+	return $data;
 
 }
 

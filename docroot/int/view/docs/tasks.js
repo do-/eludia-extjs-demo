@@ -35,12 +35,28 @@ Ext.define ('UI.view.docs.tasks', {
 			columns : [
 				  {header: '',                      dataIndex: 'id_task_status',        width: 20, renderer: me.renderTaskStatus}
 				, {header: '№',                     dataIndex: 'no',                    flex: 1, renderer: me.renderTaskNo}
+				, {header: 'Статус',                dataIndex: 'task_status.label',     flex: 1}
 				, {header: 'Дата создания',         dataIndex: 'dt',                    flex: 1, renderer: Ext.util.Format.dateRenderer('d.m.Y')}
 				, {header: 'Дата оконч. (план)',    dataIndex: 'dt_to_plan',            flex: 1, renderer: Ext.util.Format.dateRenderer('d.m.Y')}
-				, {header: 'Важность',              dataIndex: 'task_importance.label', flex: 1}
-				, {header: 'Задача',                dataIndex: 'label',                 flex: 1, width: 400}
-				, {header: 'Исполнитель',           dataIndex: 'user_executor.label',   flex: 1}
-				, {header: 'Контролер',             dataIndex: 'user_inspector.label',  flex: 1}
+				, {header: 'Дата оконч. (факт)',    dataIndex: 'dt_to_fact',            flex: 1, renderer: Ext.util.Format.dateRenderer('d.m.Y')}
+				, {header: 'Задача',                dataIndex: 'label',                 flex: 3, width: 400}
+				, {header: 'Исполнитель',           dataIndex: 'user_executor.label',   flex: 2}
+				, {header: 'Контролер',             dataIndex: 'user_inspector.label',  flex: 2}
+			],
+
+			search : [
+	            {
+	                text:   'Гант',
+	                xtype:  'button',
+	                icon:   '/ext/examples/desktop/images/gears.gif',
+	                handler: function () {
+	                	var params = me.down('#doc_tasks').store.proxy.extraParams;
+	                	window.open (
+	                		'/handler?__tree=1&type=task_route_item_gantt_js2&id_doc_type=' + params.id_doc_type + '&id_type=' + params.id_type + '&sid=' + Ext.Ajax.extraParams.sid,
+	                		'fake_' + Math.round(Math.random() * 1000) + '_iframe'
+	                	);
+	                }
+	            }
 			],
 
 			setFormData: function (data, form) {

@@ -14,6 +14,7 @@ Ext.define ('Ext.ux.ludi.form.fields.VocField', {
 		if (me.readOnly) {
 
 			me.fieldStyle = 'border: 0;background-image: none;';
+			me.emptyText = '';
 
 		}
 
@@ -69,7 +70,7 @@ Ext.define ('Ext.ux.ludi.form.fields.VocField', {
 			});
 
 //			me.store.load ();
-	        me.doLoad = function () {me.store.proxy.extraParams._id = me.getValue(); me.store.load ()};
+	        if (!me.doLoad) me.doLoad = function () {me.store.proxy.extraParams._id = me.getValue(); me.store.load ()};
 
 	        if (!this.listeners) this.listeners = {};
 

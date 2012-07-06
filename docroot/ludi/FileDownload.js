@@ -4,6 +4,7 @@ Ext.define('Ext.ux.ludi.FileDownload', {
     autoEl: {
         tag: 'iframe',
         cls: 'x-hidden',
+        name: 'downloadIframe',
         src: Ext.SSL_SECURE_URL
     },
     load: function(config){

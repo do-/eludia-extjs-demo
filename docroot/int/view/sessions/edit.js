@@ -52,7 +52,7 @@ Ext.define ('UI.view.sessions.edit', {
 
 					{
 						listeners: {
-							afterrender: {fn: function (b) {b.handler ()}}
+//							afterrender: {fn: function (b) {b.handler ()}}
 						},
 						text: 'Вход',
 						handler: function (button) {

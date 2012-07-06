@@ -43,6 +43,7 @@ Ext.define ('UI.view.docs.list', {
 				setFormData: function (data, form) {
 					form.owner.up ('window').query ('form').forEach (function (f) {setFormData (data, f.getForm());});
 					form.owner.up ('window').down('#doc_tasks').store.proxy.extraParams.id_type = data.content.id;
+					form.owner.up ('window').down('#doc_tasks').store.proxy.extraParams.id_doc_type = data.content.id_doc_type;
 					form.owner.up ('window').down('#doc_tasks').store.load ();
 				}
 

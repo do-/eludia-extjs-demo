@@ -23,7 +23,9 @@ Ext.define ('UI.view.main.list', {
 				items: [
 					Ext.create ('UI.view.doc_folders.list', {}),
 					Ext.create ('UI.view.voc_groups.list',  {}),
-					Ext.create ('UI.view.vocs.list',        {})
+					Ext.create ('UI.view.vocs.list',        {}),
+					Ext.create ('UI.view.reports.list',     {}),
+					Ext.create ('UI.view.calendar.list',    {})
 				]
 			},
 			{

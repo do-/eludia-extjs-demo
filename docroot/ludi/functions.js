@@ -222,6 +222,11 @@ function setFormData (data, form, prefix) {
 
 	}
 
+	if (prefix == '') {
+		form.owner.data = data;
+		form.owner.fireEvent ('formDataLoaded');
+	}
+
 }
 
 function loadFirstGrid (win) {

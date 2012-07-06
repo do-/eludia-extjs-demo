@@ -381,3 +381,27 @@ EOS
 
 
 }
+
+
+################################################################################
+
+sub get_task_types_union_doc_fields { # определяем множество доп. полей выбранных типов задач
+
+	my ($task_type_ids) = @_;
+
+	my $result = [];
+
+	if ($task_type_ids) {
+
+		my $extra_fields = get_user_fields ({
+				doc_type_ids      => $ID_DOC_TYPE_TASKS,
+				type_ids          => $task_type_ids,
+				unique_doc_fields => 1,
+			}, {});
+
+		# пропускаем поля типа 'Групповое' и 'Справочное значение'
+		@$result = grep {$_ -> {field_type} != 8 && $_ -> {select_type} !~ /^1|3$/ && !$_ -> {id_doc_field_group}} @{$extra_fields -> {properties}};
+	}
+
+	return $result;
+}
