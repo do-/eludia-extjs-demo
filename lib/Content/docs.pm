@@ -128,10 +128,14 @@ darn $data;
 
 sub select_docs {
 
-	darn sql ({},
+	my $data = {};
+	# $_REQUEST {_id} += 0;
+	# $_REQUEST {_id} ||= -1;
+
+	sql ($data,
 
 		docs => [
-
+			'id_doc_type',
 			['id_doc_folder IN' => $_REQUEST {tree} ? [sql_select_subtree (doc_folders => $_REQUEST {id_doc_folder})] : $_REQUEST {id_doc_folder}],
 			['label LIKE %?%'  => $_REQUEST {q}],
 
@@ -146,6 +150,10 @@ sub select_docs {
 
 	);
 
+	if ($_REQUEST {as_voc}) {
+		$data -> {docs} = [map {{id => $_ -> {id}, label => $_ -> {label_href}}} @{$data -> {docs}}];
+	}
+#darn $data;
 }
 
 1;

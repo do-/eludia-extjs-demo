@@ -709,3 +709,50 @@ sub get_base_doc_label {
 	return $base_doc_label;
 
 }
+
+
+################################################################################
+
+sub get_doc_field_data {
+
+	my ($options) = @_;
+
+	my $doc_field = sql ('doc_fields', [[id => $options -> {id_doc_field}]]);
+
+	my $field = get_doc_field_data_field ($doc_field);
+
+	my ($filter, @params);
+	if ($options -> {id_type_field}) {
+		$filter .= ' AND id_type_field = ?';
+		push @params, $options -> {id_type_field};
+	}
+
+	unless ($options -> {any_fake}) {
+		$filter .= " AND fake = 0";
+	}
+
+	my @data = sql_select_col (<<EOS, $options -> {id_doc_field}, $options -> {id_doc_type}, $options -> {id_type_field} + 0, $options -> {id_type}, $options -> {id_doc_field_group} + 0, $_REQUEST {dt_doc_field} || dt_iso (Today()), @params);
+		SELECT
+			$field
+		FROM
+			doc_field_data
+		WHERE
+			id_doc_field = ?
+		AND
+			id_doc_type = ?
+		AND
+			IFNULL(id_type_field, 0) = ?
+		AND
+			id_type = ?
+		AND
+			id_doc_field_group = ?
+		AND
+			? BETWEEN dt_from AND IFNULL(dt_to, '9999-12-31')
+
+		$filter
+
+EOS
+
+	return wantarray ? @data : $data [0];
+
+}
